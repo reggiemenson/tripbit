@@ -7,6 +7,7 @@ from django.shortcuts import render
 # GET all towns: list all towns
 # PUT all towns: posts a user to the towns they selected
 
+
 # BadgesView
 # /badges
 # GET all badges: list all badges
@@ -15,6 +16,7 @@ from django.shortcuts import render
 # /badges/pk
 # PUT badge: posts a user to that badge
 
+
 # TripsView
 # /trips
 # POST all cities: user posts a trip
@@ -22,6 +24,7 @@ from django.shortcuts import render
 # IndividualTripView
 # /trips/pk
 # PUT, DEL: allow user to alter trip detail if they are the owner
+
 
 # GroupsView
 # /groups
