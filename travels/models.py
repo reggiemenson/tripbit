@@ -1,8 +1,8 @@
 from django.db import models
 
 # THIS IS THE CODE FOR IMPORTING THE USER MODEL WHEN READY
-# from django.contrib.auth import get_user_model
-# User = get_user_model()
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # MODELS BELOW
@@ -60,33 +60,40 @@ class Group(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
+    owner = models.ForeignKey(
+        User,
+        related_name='groups_owned',
+        on_delete=models.CASCADE,
+        default=0
+    )
+    members = models.ManyToManyField(
+        User, 
+        related_name='groups_joined',
+        blank=True)
+    podium_1_user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='groups_podium1',
+        blank=True,
+        null=True,
+    )
+    podium_2_user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='groups_podium2',
+        blank=True,
+        null=True,
+    )
+    podium_3_user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        related_name='groups_podium3',
+        blank=True,
+        null=True,
+    )
     podium_1_score = models.IntegerField(null=True, blank=True)
     podium_2_score = models.IntegerField(null=True, blank=True)
     podium_3_score = models.IntegerField(null=True, blank=True)
-
-    #    owner = models.ForeignKey(
-    #     User,
-    #     related_name='groups',
-    #     on_delete=models.CASCADE
-    # )
-    # podium_1_User = models.ForeignKey(
-    #     User,
-    #     models.SET_NULL,
-    #     blank=True,
-    #     null=True,
-    # )
-    # podium_2_User = models.ForeignKey(
-    #     User,
-    #     models.SET_NULL,
-    #     blank=True,
-    #     null=True,
-    # )
-    # podium_3_User = models.ForeignKey(
-    #     User,
-    #     models.SET_NULL,
-    #     blank=True,
-    #     null=True,
-    # )
     def __str__(self):
         return f'{self.name}'
 
