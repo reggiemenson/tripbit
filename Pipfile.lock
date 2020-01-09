@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e87e2063f2ce966d1d94238a6bc8bcf8650a173dd0fb0409815b5147d18dff18"
+            "sha256": "48397a8f371c253fef2896dbc8741354d27785c7f6134df67d1d97c66c57fcea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,13 @@
             ],
             "version": "==3.2.3"
         },
+        "chardet": {
+            "hashes": [
+                "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae",
+                "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
+            ],
+            "version": "==3.0.4"
+        },
         "django": {
             "hashes": [
                 "sha256:4f2c913303be4f874015993420bf0bd8fd2097a9c88e6b49c6a92f9bdd3fb13a",
@@ -30,6 +37,13 @@
             ],
             "index": "pypi",
             "version": "==3.0.2"
+        },
+        "django-csvimport": {
+            "hashes": [
+                "sha256:185d452328c061b48c23559253841ebe0ca4bbe9e8bf26ce07cc51e5128fc444"
+            ],
+            "index": "pypi",
+            "version": "==2.13"
         },
         "psycopg2-binary": {
             "hashes": [
