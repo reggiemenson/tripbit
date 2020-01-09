@@ -8,21 +8,15 @@ const Hero = () => {
   const [registrationModal, setRegistrationModal] = useState(false)
   const [loginModal, setLoginModal] = useState(false)
 
-  function showRegistration() {
-    setRegistrationModal(true)
+  function toggleRegistration() {
+    setRegistrationModal(!registrationModal)
   }
-  
-  function hideRegistration() {
-    setRegistrationModal(false)
+
+  function toggleLogin() {
+    setLoginModal(!loginModal)
   }
-  
-  function showLogin() {
-    setLoginModal(true)
-  }
-  
-  function hideLogin() {
-    setLoginModal(false)
-  }
+
+  // add Ken's escape function for desktop?
 
   return (
     <section className="hero is-dark is-fullheight">
@@ -35,8 +29,8 @@ const Hero = () => {
             [insert brilliant tag line]
           </h2>
 
-          <a href="#" onClick={showLogin}>Login</a>
-          <a href="#" onClick={showRegistration}>Register</a>
+          <a href="#" onClick={toggleLogin}>Login</a>
+          <a href="#" onClick={toggleRegistration}>Register</a>
         </div>
       </div>
       <div className={ registrationModal === true ? 'modal is-active' : 'modal' }>
@@ -44,14 +38,14 @@ const Hero = () => {
         <div className="modal-content">
           <Register />
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={hideRegistration}></button>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleRegistration}></button>
       </div>
       <div className={ loginModal === true ? 'modal is-active' : 'modal' }>
         <div className="modal-background"></div>
         <div className="modal-content">
           <Login />
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={hideLogin}></button>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
       </div>
     </section>
   )
