@@ -35,31 +35,59 @@ class IndividualBadgeView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
-    def get(self, _request, pk): 
-        badge = Badge.objects.get(pk=pk) 
-        serialized_badge = BadgeSerializer(badge) 
+    def get(self, _request, pk):
+        badge = Badge.objects.get(pk=pk)
+        serialized_badge = BadgeSerializer(badge)
         return Response(serialized_badge.data)
-
 
     def put(self, request, pk):
         request.data['owner'] = request.user.id
     # Not sure about this -  we want to select any user -not just the one who is requesting?
-        badge = badge.objects.get(pk=pk)
-       updated_post = PostSerializer(post, data=request.data)
-        if updated_post.is_valid():  # again we check to see if that updated version is valid (ie follows all the rules of the model, what is/isnt required)
-        updated_post.save()  # save that updated post if it was valid
-        return Response(updated_post.data)  # and send it back to client
-        # if it wasnt valid , send back the errors in response with a 422 status
-        return Response(updated_post.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+        badge = Badge.objects.get(pk=pk)
+        updated_badge = BadgeSerializer(
+            badge, data=request.user.id)  # User ID or just User??
+        if updated_badge.is_valid():
+            updated_badge.save()
+            return Response(updated_badge.data)
+        return Response(updated_badge.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 # TripsView
 # /trips
 # POST all cities: user posts a trip
 
+class TripsView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, _request):
+        trips = Trip.objects.all()
+        serialized_trips = TripSerializer(trips, many=True)
+        return Response(serialized_trips.data)
+#this just gets all trips, but have realised we probably want it to be just the user's trips?
+
+    def post(self, request):
+        request.data['owner'] = request.user.id
+        trip = TripSerializer(data=request.data)
+        if trip.is_valid():
+            trip.save()
+            return Response(trip.data, status=HTTP_201_CREATED)
+        return Response(trip.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+
 # IndividualTripView
 # /trips/pk
 # PUT, DEL: allow user to alter trip detail if they are the owner
+
+
+
+
+
+
+
+
+
 
 
 # GroupsView
