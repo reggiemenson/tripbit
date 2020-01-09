@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
+from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_202_ACCEPTED
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django.contrib.auth import get_user_model
 
@@ -86,20 +86,57 @@ class IndividualGroupView(APIView):
 
     def delete(self, request, pk):
         group = Group.objects.get(pk=pk)
+        if group.owner.id != request.user.id:
+            return Response(status=HTTP_401_UNAUTHORIZED)
         group.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
 
-# GroupRequestView
-# groups/pk/request
-# PUT: allow any user to request membership
+# GroupMembershipView
+# groups/pk/membership
+# GET: allow any user to request membership (that isn't alraedy a user)
+# PUT: allow group owner to approve membership
+# DELETE: allow group owner or member to revoke membership
 
-class GroupRequestView(APIView):
+class GroupMembershipView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
+    def get(self, request, pk):
+        requester = User.objects.get(pk=request.user.id)
+        group = Group.objects.get(pk=pk)
+
+        if requester in group.members.all():
+            return Response('User already a member', status=HTTP_422_UNPROCESSABLE_ENTITY)
+        
+        group.requests.add(requester)
+        group.save()
+        return Response(status=HTTP_202_ACCEPTED)
 
 
-# GroupApproveView
-# groups/pk/approve
-# PUT: allow admin user to approve members
+    def put(self, request, pk):
+        group = Group.objects.get(pk=pk)
+        if group.owner.id != request.user.id:
+            return Response(status=HTTP_401_UNAUTHORIZED)
+        requester = User.objects.get(pk=request.data['id'])
+        if requester not in group.requests.all():
+            return Response('User did not request to join', status=HTTP_422_UNPROCESSABLE_ENTITY)
+        
+        group.requests.remove(requester)
+        group.members.add(requester)
+
+        group.save()
+        return Response(status=HTTP_202_ACCEPTED)
+
+
+    def delete(self, request, pk):
+        requester = User.objects.get(pk=request.user.id)
+        group = Group.objects.get(pk=pk)
+
+        if (group.owner.id != request.user.id) and (requester not in group.members.all()):
+            return Response(status=HTTP_401_UNAUTHORIZED)
+
+        group.members.remove(requester)
+        group.save()
+
+        return Response(status=HTTP_202_ACCEPTED)
