@@ -18,6 +18,11 @@ class Town(models.Model):
     admin_name = models.CharField(max_length=255, null=True)
     capital = models.CharField(max_length=255, null=True)
     population = models.IntegerField(null=True)
+    user = models.ManyToManyField(
+        User,
+        related_name='towns',
+        blank=True
+    )
 
     def __str__(self):
         return f'{self.name} - {self.country}'
@@ -67,8 +72,12 @@ class Group(models.Model):
         default=0
     )
     members = models.ManyToManyField(
-        User, 
+        User,
         related_name='groups_joined',
+        blank=True)
+    requests = models.ManyToManyField(
+        User,
+        related_name='groups_requested',
         blank=True)
     podium_1_user = models.ForeignKey(
         User,
