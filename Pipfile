@@ -9,6 +9,10 @@ pylint = "*"
 [packages]
 django = "*"
 psycopg2-binary = "*"
+pyjwt = "*"
+djangorestframework = "*"
+django-csvimport = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"
