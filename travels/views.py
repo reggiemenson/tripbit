@@ -2,10 +2,10 @@ from django.shortcuts import render
 
 # Create your views here.
 
-# CitiesView 
-# /cities
-# GET all cities: list all cities
-# PUT all cities: posts a user to the cities they selected
+# TownsView 
+# /towns
+# GET all towns: list all towns
+# PUT all towns: posts a user to the towns they selected
 
 # BadgesView
 # /badges
