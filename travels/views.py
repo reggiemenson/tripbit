@@ -1,4 +1,12 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from django.contrib.auth import get_user_model
+
+from .models import Town, Badge, Trip, Group
+
+User = get_user_model()
 
 # Create your views here.
 
@@ -30,6 +38,12 @@ from django.shortcuts import render
 # /groups
 # GET all groups: overview of all groups (for search)
 # POST all groups: user posts a new group and becomes owner
+
+class GroupsView(APIView):
+
+    def get(self, request):
+        groups = Group.objects.all()
+        return
 
 # IndividualGroupView
 # /groups/pk

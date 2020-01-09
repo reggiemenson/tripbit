@@ -94,6 +94,7 @@ class Group(models.Model):
     podium_1_score = models.IntegerField(null=True, blank=True)
     podium_2_score = models.IntegerField(null=True, blank=True)
     podium_3_score = models.IntegerField(null=True, blank=True)
+    
     def __str__(self):
         return f'{self.name}'
 
