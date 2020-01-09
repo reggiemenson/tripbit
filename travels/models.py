@@ -1,8 +1,6 @@
 from django.db import models
 
-
-
-#THIS IS THE CODE FOR IMPORTING THE USER MODEL WHEN READY
+# THIS IS THE CODE FOR IMPORTING THE USER MODEL WHEN READY
 # from django.contrib.auth import get_user_model
 # User = get_user_model()
 
@@ -26,25 +24,25 @@ class Town(models.Model):
 
 
 class Trip(models.Model):
-
+    name = models.CharField(max_length=255)
     start_date = models.DateField(auto_now=False, auto_now_add=False)
     end_date = models.DateField(auto_now=False, auto_now_add=False)
-    towns = models.ManyToManyField( 
-      Town,
-      related_name='trips', 
-      blank=True
+    towns = models.ManyToManyField(
+        Town,
+        related_name='trips',
+        blank=True
     )
     notes = models.CharField(max_length=5000, null=True)
-    images = models.CharField(max_length=100)  #CLASS ON ITS OWN
-    #    owner = models.ForeignKey( 
+    #    owner = models.ForeignKey(
     #     User,
-    #     related_name='groups', 
-    #     on_delete=models.CASCADE 
+    #     related_name='trips',
+    #     on_delete=models.CASCADE
     # )
+    def __str__(self):
+        return f'{self.name}, {self.start_date}/{self.end_date}'
 
 
 class Badge(models.Model):
-
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=100)
@@ -54,6 +52,8 @@ class Badge(models.Model):
     #     blank=True,
     #     null=True,
     # )
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Group(models.Model):
@@ -64,10 +64,10 @@ class Group(models.Model):
     podium_2_score = models.IntegerField(null=True, blank=True)
     podium_3_score = models.IntegerField(null=True, blank=True)
 
-    #    owner = models.ForeignKey( 
+    #    owner = models.ForeignKey(
     #     User,
-    #     related_name='groups', 
-    #     on_delete=models.CASCADE 
+    #     related_name='groups',
+    #     on_delete=models.CASCADE
     # )
     # podium_1_User = models.ForeignKey(
     #     User,
@@ -87,3 +87,18 @@ class Group(models.Model):
     #     blank=True,
     #     null=True,
     # )
+    def __str__(self):
+        return f'{self.name}'
+
+
+class Image(models.Model):
+    image = models.CharField(max_length=100)
+    trip = models.ForeignKey(  # One to many with Posts as well, A Post can have many comments, but a comment can only belong to one Post
+        Trip,
+        models.SET_NULL,
+        related_name='trips',
+        blank=True,
+        null=True
+    )
+    def __str__(self):
+        return f'{self.image}'
