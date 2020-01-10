@@ -232,17 +232,28 @@ def get_badges(towns):
 
     #     user_badges = get_badges(user_towns)
 
-        # ... update the user somehow with new towns and badges and post to database ...
+        # ... update the user somehow with new towns and badges and 
+        # post to database: User.save()
+
+    # from database you get current users and their towns and badges: Users.objects.all()
+    # platform_winners = get_platform_winners(users)
+    # update badges with the winners
+    # platform_badges.save()
+
 
 
 get_badges(user_towns)
 
 # Badges based on everybody's cities
 
-# most countries (214)
 
-# most cities (215)
+def get_platform_badges(users):
+    pass
 
-# most capitals (216)
+    # most countries (214)
 
-# mega badge (217)
+    # most cities (215)
+
+    # most capitals (216)
+
+    # mega badge (217)
