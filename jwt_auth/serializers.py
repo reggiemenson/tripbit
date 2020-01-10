@@ -42,5 +42,5 @@ class PopulatedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_joined', 'groups_requested', 'groups_podium1', 'groups_podium2', 'groups_podium3')
 
