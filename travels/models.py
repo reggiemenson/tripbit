@@ -18,6 +18,7 @@ class Town(models.Model):
     admin_name = models.CharField(max_length=255, null=True)
     capital = models.CharField(max_length=255, null=True)
     population = models.IntegerField(null=True)
+    continent = models.CharField(max_length=255)
     visitors = models.ManyToManyField(
         User,
         related_name='towns',
