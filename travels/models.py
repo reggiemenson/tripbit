@@ -18,6 +18,11 @@ class Town(models.Model):
     admin_name = models.CharField(max_length=255, null=True)
     capital = models.CharField(max_length=255, null=True)
     population = models.IntegerField(null=True)
+    visitors = models.ManyToManyField(
+        User,
+        related_name='towns',
+        blank=True
+    )
 
     def __str__(self):
         return f'{self.name} - {self.country}'
@@ -47,11 +52,10 @@ class Badge(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=100)
-    users = models.MsnyToManyField(
+    users = models.ManyToManyField(
         User,
-        models.SET_NULL,
-        blank=True,
-        null=True,
+        related_name='badges',
+        blank=True
     )
     
     def __str__(self):
@@ -66,32 +70,33 @@ class Group(models.Model):
         User,
         related_name='groups_owned',
         on_delete=models.CASCADE,
-        default=0
+        default=1
     )
     members = models.ManyToManyField(
-        User, 
+        User,
         related_name='groups_joined',
-        blank=True)
+        blank=True
+    )
     podium_1_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         related_name='groups_podium1',
         blank=True,
-        null=True,
+        null=True
     )
     podium_2_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         related_name='groups_podium2',
         blank=True,
-        null=True,
+        null=True
     )
     podium_3_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         related_name='groups_podium3',
         blank=True,
-        null=True,
+        null=True
     )
     podium_1_score = models.IntegerField(null=True, blank=True)
     podium_2_score = models.IntegerField(null=True, blank=True)
@@ -105,7 +110,7 @@ class Image(models.Model):
     image = models.CharField(max_length=100)
     trip = models.ForeignKey(  # One to many with Posts as well, A Post can have many comments, but a comment can only belong to one Post
         Trip,
-        models.SET_NULL,
+        on_delete=models.SET_NULL,
         related_name='images',
         blank=True,
         null=True
