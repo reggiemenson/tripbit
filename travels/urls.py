@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import BadgesView, IndividualBadgeView, GroupsView, IndividualGroupView, GroupMembershipView, TripsView, IndividualTripView
+from .views import BadgesView, IndividualBadgeView, GroupsView, IndividualGroupView, GroupMembershipView, TripsView, IndividualTripView, TownsView
 
 urlpatterns = [
+    path('towns/', TownsView.as_view()),
     path('groups/', GroupsView.as_view()),
     path('groups/<int:pk>/', IndividualGroupView.as_view()),
     path('groups/<int:pk>/membership/', GroupMembershipView.as_view()),

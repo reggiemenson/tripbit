@@ -42,32 +42,34 @@ class Login extends React.Component {
                 <h1>Login</h1>
                 <form className='form' onSubmit={(e) => this.handleSubmit(e)}>
 
-                  <div className='field'>
-                    <label htmlFor='email' className='label'>
-                      Email
-                    </label>
-                    <div className='control'>
+                  <div className="field">
+                    <p className="control has-icons-left has-icons-right">
                       <input
                         onChange={(e) => this.handleChange(e)}
-                        className='input'
-                        type='email'
-                        name='email'
+                        className="input"
+                        type="email"
+                        placeholder="Email"
                       />
-                    </div>
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-envelope"></i>
+                      </span>
+                      <span className="icon is-small is-right">
+                        <i className="fas fa-check"></i>
+                      </span>
+                    </p>
                   </div>
-
-                  <div className='field'>
-                    <label htmlFor='password' className='label'>
-                      Password
-                    </label>
-                    <div className='control'>
+                  <div className="field">
+                    <p className="control has-icons-left">
                       <input
                         onChange={(e) => this.handleChange(e)}
-                        className='input'
-                        type='password'
-                        name='password'
+                        className="input"
+                        type="password"
+                        placeholder="Password"
                       />
-                    </div>
+                      <span className="icon is-small is-left">
+                        <i className="fas fa-lock"></i>
+                      </span>
+                    </p>
                   </div>
                   {this.state.errors && <small className='help is-danger'>
                     {this.state.errors}

@@ -70,7 +70,7 @@ Guadalajara;Guadalajara;20,67;-103,33;Mexico;MX;MEX;Jalisco;admin;4198000;148495
 Melbourne;Melbourne;-37,82;144,975;Australia;AU;AUS;Victoria;admin;4170000;1036533631
 Alexandria;Alexandria;31,2;29,95;Egypt;EG;EGY;Al Iskandarīyah;admin;4165000;1818695837
 Chengdu;Chengdu;30,67;104,07;China;CN;CHN;Sichuan;admin;4123000;1156421555
-Rangoon;Rangoon;16,7834;96,1667;Burma;MM;MMR;Yangon;primary;4088000;1104616656
+Rangoon;Rangoon;16,7834;96,1667;Myanmar;MM;MMR;Yangon;primary;4088000;1104616656
 Phoenix;Phoenix;33,5722;-112,0891;United States;US;USA;Arizona;admin;4081849;1840020568
 Xi’an;Xi'an;34,275;108,895;China;CN;CHN;Shaanxi;admin;4009000;1156244079
 Porto Alegre;Porto Alegre;-30,05;-51,2;Brazil;BR;BRA;Rio Grande do Sul;admin;3917000;1076658221
@@ -365,7 +365,7 @@ Changzhou;Changzhou;31,78;119,97;China;CN;CHN;Jiangsu;minor;1327000;1156185511
 Mosul;Mosul;36,345;43,145;Iraq;IQ;IRQ;Nīnawá;admin;1316000;1368194914
 Yekaterinburg;Yekaterinburg;56,85;60,6;Russia;RU;RUS;Sverdlovskaya Oblast’;admin;1313000;1643582706
 Peshawar;Peshawar;34,005;71,535;Pakistan;PK;PAK;Khyber Pakhtunkhwa;admin;1303000;1586851102
-Mandalay;Mandalay;21,97;96,085;Burma;MM;MMR;Mandalay;admin;1300000;1104468217
+Mandalay;Mandalay;21,97;96,085;Myanmar;MM;MMR;Mandalay;admin;1300000;1104468217
 Jamshedpur;Jamshedpur;22,7875;86,1975;India;IN;IND;Jharkhand;;1300000;1356501259
 Mbuji-Mayi;Mbuji-Mayi;-6,15;23,6;Congo (Kinshasa);CD;COD;Kasaï Oriental;admin;1295000;1180399586
 Madura;Madura;9,92;78,12;India;IN;IND;Tamil Nādu ;;1294000;1356257289
@@ -546,7 +546,7 @@ Foshan;Foshan;23,0301;113,12;China;CN;CHN;Guangdong;minor;943000;1156738403
 Sŏngnam;Songnam;37,4386;127,1378;Korea, South;KR;KOR;Gyeonggi;;942000;1410622472
 Bridgeport;Bridgeport;41,1918;-73,1953;United States;US;USA;Connecticut;;938406;1840004836
 Kingston;Kingston;17,9771;-76,7674;Jamaica;JM;JAM;Kingston;primary;937700;1388709177
-Nay Pyi Taw;Nay Pyi Taw;19,7666;96,1186;Burma;MM;MMR;Nay Pyi Taw;primary;930000;1104838105
+Nay Pyi Taw;Nay Pyi Taw;19,7666;96,1186;Myanmar;MM;MMR;Nay Pyi Taw;primary;930000;1104838105
 Nice;Nice;43,715;7,265;France;FR;FRA;Provence-Alpes-Côte d’Azur;minor;927000;1250774553
 Buffalo;Buffalo;42,9017;-78,8487;United States;US;USA;New York;;926261;1840000386
 Erbil;Erbil;36,179;44,0086;Iraq;IQ;IRQ;Arbīl;admin;926000;1368578192
@@ -1087,7 +1087,7 @@ Denton;Denton;33,2176;-97,1419;United States;US;USA;Texas;;440146;1840019390
 Wakayama;Wakayama;34,2231;135,1677;Japan;JP;JPN;Wakayama;admin;440006;1392907296
 Strasbourg;Strasbourg;48,58;7,75;France;FR;FRA;Grand Est;admin;439972;1250789140
 Madison;Madison;43,0827;-89,3923;United States;US;USA;Wisconsin;admin;439553;1840002915
-Mawlamyine;Mawlamyine;16,5004;97,67;Burma;MM;MMR;Mon State;admin;438861;1104530702
+Mawlamyine;Mawlamyine;16,5004;97,67;Myanmar;MM;MMR;Mon State;admin;438861;1104530702
 San Cristóbal;San Cristobal;7,77;-72,25;Venezuela;VE;VEN;Táchira;admin;438798;1862252264
 Nantes;Nantes;47,2104;-1,59;France;FR;FRA;Pays de la Loire;admin;438537;1250091495
 Khŭjand;Khujand;40,29;69,6199;Tajikistan;TJ;TJK;Sughd;admin;437684;1762372787
@@ -1568,7 +1568,7 @@ Lincoln;Lincoln;40,8088;-96,6796;United States;US;USA;Nebraska;admin;285118;1840
 Az Zaqāzīq;Az Zaqaziq;30,5833;31,5167;Egypt;EG;EGY;Ash Sharqīyah;admin;285097;1818017750
 Mandya;Mandya;12,5704;76,92;India;IN;IND;Karnātaka;;285034;1356039212
 Round Lake Beach;Round Lake Beach;42,379;-88,0811;United States;US;USA;Illinois;;284607;1840011171
-Bago;Bago;17,32;96,515;Burma;MM;MMR;Bago;admin;284318;1104027443
+Bago;Bago;17,32;96,515;Myanmar;MM;MMR;Bago;admin;284318;1104027443
 Barinas;Barinas;8,6;-70,25;Venezuela;VE;VEN;Barinas;admin;284289;1862647790
 Port Moresby;Port Moresby;-9,4647;147,1925;Papua New Guinea;PG;PNG;National Capital;primary;283733;1598685395
 Iksan;Iksan;35,941;126,9454;Korea, South;KR;KOR;Jeonbuk;;283501;1410134391
@@ -1640,7 +1640,7 @@ Tshikapa;Tshikapa;-6,41;20,77;Congo (Kinshasa);CD;COD;Kasaï;;267462;1180581239
 Reading;Reading;40,34;-75,9267;United States;US;USA;Pennsylvania;;267300;1840001185
 Sterlitamak;Sterlitamak;53,63;55,96;Russia;RU;RUS;Bashkortostan;;267231;1643812452
 Padangsidempuan;Padangsidempuan;1,3887;99,2734;Indonesia;ID;IDN;Sumatera Utara;;266882;1360506609
-Myeik;Myeik;12,4541;98,6115;Burma;MM;MMR;Taninthayi;;266720;1104715655
+Myeik;Myeik;12,4541;98,6115;Myanmar;MM;MMR;Taninthayi;;266720;1104715655
 Temuco;Temuco;-38,73;-72,58;Chile;CL;CHL;Araucanía;admin;265901;1152318955
 Lafayette;Lafayette;30,2084;-92,0323;United States;US;USA;Louisiana;;265746;1840015044
 Lausanne;Lausanne;46,5304;6,65;Switzerland;CH;CHE;Vaud;admin;265702;1756055099
@@ -1797,7 +1797,7 @@ Aarhus;Aarhus;56,1572;10,2107;Denmark;DK;DNK;Midtjylland;minor;237551;1208841031
 Sato;Sato;33,1631;129,7177;Japan;JP;JPN;Nagasaki;;237444;1392043131
 Al Jubayl;Al Jubayl;27,0046;49,646;Saudi Arabia;SA;SAU;Ash Sharqīyah;;237274;1682564079
 Taiping;Taiping;4,865;100,72;Malaysia;MY;MYS;Perak;;237095;1458446120
-Pathein;Pathein;16,7704;94,75;Burma;MM;MMR;Ayeyawady;admin;237089;1104832430
+Pathein;Pathein;16,7704;94,75;Myanmar;MM;MMR;Ayeyawady;admin;237089;1104832430
 Tegal;Tegal;-6,8696;109,12;Indonesia;ID;IDN;Jawa Tengah;;237084;1360035814
 Yidu;Yidu;30,3004;111,5;China;CN;CHN;Hubei;;237042;1156230664
 Sylhet;Sylhet;24,9036;91,8736;Bangladesh;BD;BGD;Sylhet;admin;237000;1050646703
@@ -1880,7 +1880,7 @@ Gusau;Gusau;12,1704;6,66;Nigeria;NG;NGA;Zamfara;admin;226857;1566383682
 Tanjungpinang;Tanjungpinang;0,9168;104,4714;Indonesia;ID;IDN;Kepulauan Riau;admin;226666;1360990589
 Chon Buri;Chon Buri;13,4004;101;Thailand;TH;THA;Chon Buri;admin;226618;1764202077
 Chuncheon;Chuncheon;37,8747;127,7342;Korea, South;KR;KOR;Gangwon;admin;226509;1410231130
-Monywa;Monywa;22,105;95,15;Burma;MM;MMR;Sagaing;;226222;1104777345
+Monywa;Monywa;22,105;95,15;Myanmar;MM;MMR;Sagaing;;226222;1104777345
 Sabzevār;Sabzevar;36,22;57,63;Iran;IR;IRN;Khorāsān-e Raẕavī;minor;226183;1364379130
 Groznyy;Groznyy;43,3187;45,6987;Russia;RU;RUS;Chechnya;admin;226100;1643049853
 Kolpino;Kolpino;59,73;30,65;Russia;RU;RUS;Sankt-Peterburg;;225801;1643448070
@@ -2200,7 +2200,7 @@ Probolinggo;Probolinggo;-7,7496;113,15;Indonesia;ID;IDN;Jawa Timur;;181656;13601
 Sirsa;Sirsa;29,4904;75,03;India;IN;IND;Haryāna;;181639;1356966764
 Anda;Anda;46,4;125,32;China;CN;CHN;Heilongjiang;minor;181533;1156142150
 Gastonia;Gastonia;35,2494;-81,1853;United States;US;USA;North Carolina;;180974;1840013468
-Hinthada;Hinthada;17,6483;95,4679;Burma;MM;MMR;Ayeyawady;;180728;1104524588
+Hinthada;Hinthada;17,6483;95,4679;Myanmar;MM;MMR;Ayeyawady;;180728;1104524588
 Gangneung;Gangneung;37,7559;128,8962;Korea, South;KR;KOR;Gangwon;minor;180611;1410450550
 Castellón de la Plana;Castellon de la Plana;39,9704;-0,05;Spain;ES;ESP;Valencia;minor;180610;1724579885
 Funtua;Funtua;11,5204;7,32;Nigeria;NG;NGA;Katsina;minor;180475;1566877863
@@ -2222,7 +2222,7 @@ Passo Fundo;Passo Fundo;-28,25;-52,42;Brazil;BR;BRA;Rio Grande do Sul;;179529;10
 Almería;Almeria;36,8303;-2,43;Spain;ES;ESP;Andalusia;minor;179405;1724745640
 Newport News;Newport News;37,1051;-76,5185;United States;US;USA;Virginia;;179388;1840003862
 Vizianagaram;Vizianagaram;18,1204;83,5;India;IN;IND;Andhra Pradesh;;179358;1356212761
-Sittwe;Sittwe;20,14;92,88;Burma;MM;MMR;Rakhine State;admin;179032;1104269305
+Sittwe;Sittwe;20,14;92,88;Myanmar;MM;MMR;Rakhine State;admin;179032;1104269305
 Klerksdorp;Klerksdorp;-26,88;26,62;South Africa;ZA;ZAF;North West;;178921;1710416691
 Si Racha;Si Racha;13,159;100,9287;Thailand;TH;THA;Chon Buri;minor;178916;1764003327
 Mary;Mary;37,6;61,8333;Turkmenistan;TM;TKM;Mary;admin;178708;1795413265
@@ -2247,7 +2247,7 @@ Hemet;Hemet;33,7341;-116,9969;United States;US;USA;California;;176892;1840020550
 Nyíregyháza;Nyiregyhaza;47,9653;21,7187;Hungary;HU;HUN;Szabolcs-Szatmár-Bereg;admin;176880;1348653343
 Alleppey;Alleppey;9,5004;76,37;India;IN;IND;Kerala;;176783;1356293762
 Malāyer;Malayer;34,32;48,85;Iran;IR;IRN;Hamadān;minor;176573;1364030346
-Letpandan;Letpandan;17,7819;95,7415;Burma;MM;MMR;Bago;;176571;1104882792
+Letpandan;Letpandan;17,7819;95,7415;Myanmar;MM;MMR;Bago;;176571;1104882792
 Yuzhno-Sakhalinsk;Yuzhno-Sakhalinsk;46,965;142,74;Russia;RU;RUS;Sakhalinskaya Oblast’;admin;176484;1643703767
 Ouargla;Ouargla;31,97;5,34;Algeria;DZ;DZA;Ouargla;admin;176271;1012425687
 Oceanside;Oceanside;33,2247;-117,3083;United States;US;USA;California;;176193;1840020623
@@ -2370,7 +2370,7 @@ Regensburg;Regensburg;49,0204;12,12;Germany;DE;DEU;Bavaria;minor;164359;12760003
 Kigoma;Kigoma;-4,8796;29,61;Tanzania;TZ;TZA;Kigoma;admin;164268;1834583327
 Plzeň;Plzen;49,7404;13,36;Czechia;CZ;CZE;Plzeňský Kraj;admin;164180;1203402469
 Phitsanulok;Phitsanulok;16,8283;100,2729;Thailand;TH;THA;Phitsanulok;admin;164017;1764140981
-Myingyan;Myingyan;21,4618;95,3914;Burma;MM;MMR;Mandalay;;163812;1104162015
+Myingyan;Myingyan;21,4618;95,3914;Myanmar;MM;MMR;Mandalay;;163812;1104162015
 Dagupan City;Dagupan City;16,0479;120,3408;Philippines;PH;PHL;Dagupan;admin;163676;1608530964
 Pátra;Patra;38,23;21,73;Greece;GR;GRC;Dytikí Elláda;admin;163360;1300201099
 Ingolstadt;Ingolstadt;48,7704;11,45;Germany;DE;DEU;Bavaria;minor;163325;1276803150
@@ -2402,7 +2402,7 @@ Hayward;Hayward;37,6328;-122,0772;United States;US;USA;California;;160500;184002
 Xiaoganzhan;Xiaoganzhan;30,9204;113,9;China;CN;CHN;Hubei;;160437;1156002290
 Chapecó;Chapeco;-27,1;-52,64;Brazil;BR;BRA;Santa Catarina;;160157;1076258255
 Muskegon;Muskegon;43,2281;-86,2562;United States;US;USA;Michigan;;160142;1840002870
-Taunggyi;Taunggyi;20,782;97,038;Burma;MM;MMR;Shan State;admin;160115;1104364374
+Taunggyi;Taunggyi;20,782;97,038;Myanmar;MM;MMR;Shan State;admin;160115;1104364374
 Ciudad Lázaro Cárdenas;Ciudad Lazaro Cardenas;17,9587;-102,2;Mexico;MX;MEX;Michoacán de Ocampo;;160087;1484804575
 Alexandria;Alexandria;38,8185;-77,0861;United States;US;USA;Virginia;;160035;1840003837
 Gonbad-e Kāvūs;Gonbad-e Kavus;37,2518;55,1715;Iran;IR;IRN;Golestān;minor;159982;1364336980
@@ -2507,7 +2507,7 @@ Zabīd;Zabid;14,1951;43,3155;Yemen;YE;YEM;Al Ḩudaydah;minor;152504;1887877995
 Silchar;Silchar;24,7904;92,79;India;IN;IND;Assam;;152393;1356102467
 Kaihua;Kaihua;23,3724;104,2497;China;CN;CHN;Yunnan;minor;152388;1156017759
 Novokuybyshevsk;Novokuybyshevsk;53,12;49,9199;Russia;RU;RUS;Samarskaya Oblast’;;152334;1643467643
-Mudon;Mudon;16,2618;97,7215;Burma;MM;MMR;Mon State;;152300;1104174785
+Mudon;Mudon;16,2618;97,7215;Myanmar;MM;MMR;Mon State;;152300;1104174785
 Limoges;Limoges;45,83;1,25;France;FR;FRA;Nouvelle-Aquitaine;minor;152199;1250736774
 Deyang;Deyang;31,1333;104,4;China;CN;CHN;Sichuan;minor;152194;1156127147
 Samālūţ;Samalut;28,3004;30,71;Egypt;EG;EGY;Al Minyā;;152097;1818180512
@@ -2586,7 +2586,7 @@ Tabora;Tabora;-5,02;32,8;Tanzania;TZ;TZA;Tabora;admin;146495;1834712235
 Dar‘ā;Dar`a;32,625;36,105;Syria;SY;SYR;Dar‘ā;admin;146481;1760427038
 Bruges;Bruges;51,2204;3,23;Belgium;BE;BEL;Flanders;minor;146469;1056953902
 Santo Agostinho;Santo Agostinho;-8,29;-35,03;Brazil;BR;BRA;Pernambuco;;146219;1076363089
-Dawei;Dawei;14,098;98,195;Burma;MM;MMR;Taninthayi;admin;146212;1104373474
+Dawei;Dawei;14,098;98,195;Myanmar;MM;MMR;Taninthayi;admin;146212;1104373474
 Hanzhong;Hanzhong;33,13;107,03;China;CN;CHN;Shaanxi;;145986;1156382678
 La Ceiba;La Ceiba;15,7631;-86,797;Honduras;HN;HND;Atlántida;admin;145926;1340870189
 Krishnanagar;Krishnanagar;23,3803;88,53;India;IN;IND;West Bengal;;145926;1356128689
@@ -2674,7 +2674,7 @@ Sherbrooke;Sherbrooke;45,4;-71,9;Canada;CA;CAN;Québec;;139652;1124559506
 Piedras Negras;Piedras Negras;28,7076;-100,5317;Mexico;MX;MEX;Coahuila de Zaragoza;minor;139619;1484000400
 Göttingen;Gottingen;51,5204;9,92;Germany;DE;DEU;Lower Saxony;minor;139419;1276211234
 Kumbakonam;Kumbakonam;10,9805;79,4;India;IN;IND;Tamil Nādu ;;139264;1356172305
-Myitkyina;Myitkyina;25,3596;97,3928;Burma;MM;MMR;Kachin State;admin;139100;1104327329
+Myitkyina;Myitkyina;25,3596;97,3928;Myanmar;MM;MMR;Kachin State;admin;139100;1104327329
 Chinandega;Chinandega;12,6304;-87,13;Nicaragua;NI;NIC;Chinandega;admin;139023;1558172276
 Townsville;Townsville;-19,25;146,77;Australia;AU;AUS;Queensland;;138954;1036500020
 Yuma;Yuma;32,5991;-114,5488;United States;US;USA;Arizona;;138802;1840021998
@@ -2704,7 +2704,7 @@ Jequié;Jequie;-13,85;-40,08;Brazil;BR;BRA;Bahia;;135574;1076558785
 Cẩm Phả;Cam Pha;21,0404;107,32;Vietnam;VN;VNM;Quảng Ninh;minor;135477;1704985016
 Lira;Lira;2,2604;32,89;Uganda;UG;UGA;Lira;admin;135445;1800877735
 Roseville;Roseville;38,7691;-121,3178;United States;US;USA;California;;135329;1840020233
-Pyay;Pyay;18,8165;95,2114;Burma;MM;MMR;Bago;;135308;1104978348
+Pyay;Pyay;18,8165;95,2114;Myanmar;MM;MMR;Bago;;135308;1104978348
 Orsha;Orsha;54,5153;30,4215;Belarus;BY;BLR;Vitsyebskaya Voblasts’;minor;135206;1112188007
 May Pen;May Pen;17,9666;-77,2333;Jamaica;JM;JAM;Clarendon;admin;135142;1388671677
 Warren;Warren;42,4934;-83,027;United States;US;USA;Michigan;;135022;1840002418
@@ -2808,7 +2808,7 @@ Alīpur Duār;Alipur Duar;26,4837;89,5667;India;IN;IND;West Bengal;;127342;13564
 Lafia;Lafia;8,4904;8,52;Nigeria;NG;NGA;Nasarawa;admin;127236;1566042542
 Santa Clara;Santa Clara;37,3646;-121,968;United States;US;USA;California;;127134;1840021571
 Sancti Spíritus;Sancti Spiritus;21,9301;-79,4425;Cuba;CU;CUB;Sancti Spíritus;admin;127069;1192600260
-Pakokku;Pakokku;21,332;95,0866;Burma;MM;MMR;Magway;;126938;1104161315
+Pakokku;Pakokku;21,332;95,0866;Myanmar;MM;MMR;Magway;;126938;1104161315
 Hāthras;Hathras;27,6;78,05;India;IN;IND;Uttar Pradesh;;126882;1356072147
 Neftekamsk;Neftekamsk;56,0835;54,2631;Russia;RU;RUS;Bashkortostan;;126805;1643718660
 Gafsa;Gafsa;34,4204;8,78;Tunisia;TN;TUN;Gafsa;admin;126803;1788454569
@@ -2826,7 +2826,7 @@ Tengyue;Tengyue;25,0333;98,4666;China;CN;CHN;Yunnan;minor;126058;1156832866
 Boulder;Boulder;40,0249;-105,2523;United States;US;USA;Colorado;;126054;1840018774
 Bellingham;Bellingham;48,7543;-122,4687;United States;US;USA;Washington;;126015;1840018346
 Montego Bay;Montego Bay;18,4667;-77,9167;Jamaica;JM;JAM;Saint James;admin;126008;1388955058
-Magway;Magway;20,1445;94,9196;Burma;MM;MMR;Magway;admin;125973;1104246517
+Magway;Magway;20,1445;94,9196;Myanmar;MM;MMR;Magway;admin;125973;1104246517
 Pangkalpinang;Pangkalpinang;-2,08;106,15;Indonesia;ID;IDN;Kepulauan Bangka Belitung;admin;125933;1360901919
 Malanje;Malanje;-9,54;16,34;Angola;AO;AGO;Malanje;admin;125856;1024774947
 Gashua;Gashua;12,8705;11,04;Nigeria;NG;NGA;Yobe;minor;125817;1566925429
@@ -3034,7 +3034,7 @@ Pemba;Pemba;-12,983;40,5323;Mozambique;MZ;MOZ;Cabo Delgado;admin;110643;15088722
 Vólos;Volos;39,37;22,95;Greece;GR;GRC;Thessalía;minor;110632;1300109851
 Inglewood;Inglewood;33,9566;-118,3444;United States;US;USA;California;;110598;1840019237
 Noyabr’sk;Noyabr'sk;63,1665;75,6165;Russia;RU;RUS;Yamalo-Nenetskiy Avtonomnyy Okrug;;110572;1643340196
-Yenangyaung;Yenangyaung;20,4615;94,881;Burma;MM;MMR;Magway;;110553;1104118838
+Yenangyaung;Yenangyaung;20,4615;94,881;Myanmar;MM;MMR;Magway;;110553;1104118838
 Manzini;Manzini;-26,495;31,388;Swaziland;SZ;SWZ;Manzini;admin;110537;1748177431
 Pompano Beach;Pompano Beach;26,2428;-80,1312;United States;US;USA;Florida;;110473;1840015143
 Centennial;Centennial;39,5926;-104,8674;United States;US;USA;Colorado;;110250;1840018792
@@ -3107,7 +3107,7 @@ Eau Claire;Eau Claire;44,82;-91,4951;United States;US;USA;Wisconsin;;107068;1840
 Pardubice;Pardubice;50,0404;15,76;Czechia;CZ;CZE;Pardubický Kraj;admin;107064;1203857442
 Ratchaburi;Ratchaburi;13,5419;99,8215;Thailand;TH;THA;Ratchaburi;admin;106996;1764773366
 Elista;Elista;46,3287;44,2087;Russia;RU;RUS;Kalmykiya;admin;106971;1643581064
-Taungoo;Taungoo;18,9483;96,4179;Burma;MM;MMR;Bago;;106945;1104269989
+Taungoo;Taungoo;18,9483;96,4179;Myanmar;MM;MMR;Bago;;106945;1104269989
 Hillsboro;Hillsboro;45,5272;-122,936;United States;US;USA;Oregon;;106894;1840019932
 Kandalaksha;Kandalaksha;67,1643;32,4144;Russia;RU;RUS;Murmanskaya Oblast’;;106798;1643555433
 Sandy Springs;Sandy Springs;33,9366;-84,3703;United States;US;USA;Georgia;;106739;1840015609
@@ -3436,7 +3436,7 @@ Pingdu;Pingdu;36,7904;119,94;China;CN;CHN;Shandong;;91077;1156157078
 Niğde;Nigde;37,976;34,694;Turkey;TR;TUR;Niğde;admin;91039;1792867993
 Livermore;Livermore;37,6861;-121,7608;United States;US;USA;California;;91030;1840020294
 Lüleburgaz;Luleburgaz;41,4067;27,3552;Turkey;TR;TUR;Kırklareli;minor;90899;1792000752
-Chauk;Chauk;20,9085;94,823;Burma;MM;MMR;Magway;;90870;1104898616
+Chauk;Chauk;20,9085;94,823;Myanmar;MM;MMR;Magway;;90870;1104898616
 Cuauhtémoc;Cuauhtemoc;28,4257;-106,8696;Mexico;MX;MEX;Chihuahua;minor;90835;1484365643
 Drammen;Drammen;59,7572;10,1907;Norway;NO;NOR;Buskerud;admin;90722;1578937195
 San Tan Valley;San Tan Valley;33,1879;-111,5473;United States;US;USA;Arizona;;90665;1840027990
@@ -3478,7 +3478,7 @@ Norwalk;Norwalk;41,1144;-73,4215;United States;US;USA;Connecticut;;89005;1840004
 Decatur;Decatur;39,8556;-88,9337;United States;US;USA;Illinois;;88997;1840007269
 Newton;Newton;42,3316;-71,2085;United States;US;USA;Massachusetts;;88994;1840000433
 Rapid City;Rapid City;44,0716;-103,2205;United States;US;USA;South Dakota;;88979;1840002180
-Shwebo;Shwebo;22,5783;95,6929;Burma;MM;MMR;Sagaing;;88914;1104118052
+Shwebo;Shwebo;22,5783;95,6929;Myanmar;MM;MMR;Sagaing;;88914;1104118052
 Zárate;Zarate;-34,0896;-59,04;Argentina;AR;ARG;Buenos Aires;minor;88781;1032392383
 Wangqing;Wangqing;43,3248;129,7343;China;CN;CHN;Jilin;minor;88732;1156184335
 Rafaela;Rafaela;-31,25;-61,5;Argentina;AR;ARG;Santa Fe;minor;88713;1032181625
