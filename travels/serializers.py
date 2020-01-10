@@ -41,4 +41,17 @@ class GroupSerializer(serializers.ModelSerializer):
             'podium_2_score': {'required': False},
             'podium_3_score': {'required': False}
         }
-    
+
+class TownSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Town
+        fields = ('id', 'name', 'name_ascii', 'lat', 'lng', 'country', 'iso2', 'iso3', 'admin_name', 'capital', 'population', 'visitors')
+        extra_kwargs = {
+            'iso2': {'required': False}, 
+            'iso3': {'required': False}, 
+            'admin_name': {'required': False},
+            'capital': {'required': False},
+            'population': {'required': False},
+            'visitors': {'required': False}
+        }
