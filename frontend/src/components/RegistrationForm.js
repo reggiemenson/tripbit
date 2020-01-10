@@ -37,7 +37,7 @@ class Register extends React.Component {
           <div className='container'>
             <h1>Register</h1>
             <div className='columns'>
-              <div className='column is-half'>
+              <div className='column'>
                 <form className='form' onSubmit={(e) => this.handleSubmit(e)}>
 
                   <div className='field'>

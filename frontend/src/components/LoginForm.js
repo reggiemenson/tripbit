@@ -38,7 +38,7 @@ class Login extends React.Component {
         <div className=''>
           <div className='container'>
             <div className='columns'>
-              <div className='column is-half'>
+              <div className='column'>
                 <h1>Login</h1>
                 <form className='form' onSubmit={(e) => this.handleSubmit(e)}>
 
