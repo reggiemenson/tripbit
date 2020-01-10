@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <div className="navbar is-fixed-bottom">
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/"
+        <Link className="navbar-item" to="/profile"
           onClick={() => setState({ isOpen: false })}
         >
           <em className='logo-text'>Scratch Map</em>
@@ -69,6 +69,13 @@ const Navbar = () => {
               onClick={() => toggleNavbar()}
             >
               Add trip
+            </Link>
+          </div>
+          <div className="navbar-item">
+            <Link className="navbar-item" to="/play"
+              onClick={() => toggleNavbar()}
+            >
+              Play game
             </Link>
           </div>
           <div className="navbar-item">
