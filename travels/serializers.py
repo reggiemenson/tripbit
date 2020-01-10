@@ -16,10 +16,10 @@ class PopulatedTripSerializer(TripSerializer):
 class BadgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Badge
-        fields = ('id', 'name', 'description', 'image', 'owner')
+        fields = ('id', 'name', 'description', 'image', 'users')
 
 class PopulatedBadgeSerializer(BadgeSerializer):
-    user = UserSerializer()
+    users = UserSerializer(many=True)
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -38,6 +38,16 @@ class GroupSerializer(serializers.ModelSerializer):
             'podium_3_score': {'required': False}
         }
 
+class PopulatedGroupSerializer(GroupSerializer):
+
+    owner = UserSerializer() 
+    members = UserSerializer(many=True)
+    requests = UserSerializer(many=True)
+    podium_1_user = UserSerializer() 
+    podium_2_user = UserSerializer() 
+    podium_3_user = UserSerializer() 
+
+
 class TownSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -52,16 +62,6 @@ class TownSerializer(serializers.ModelSerializer):
             'visitors': {'required': False}
         }
 
-class PopulatedGroupSerializer(GroupSerializer):
-
-    owner = UserSerializer() 
-    members = UserSerializer(many=True)
-    requests = UserSerializer(many=True)
-    podium_1_user = UserSerializer() 
-    podium_2_user = UserSerializer() 
-    podium_3_user = UserSerializer() 
-
 class PopulatedTownSerializer(TownSerializer):
 
     visitors = UserSerializer(many=True)
-
