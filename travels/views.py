@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.contrib.auth import get_user_model
 
 from .models import Town, Badge, Trip, Group
-from .serializers import TripSerializer, BadgeSerializer, GroupSerializer
+from .serializers import TripSerializer, BadgeSerializer, GroupSerializer, PopulatedBadgeSerializer, PopulatedTripSerializer
 
 User = get_user_model()
 
@@ -27,7 +27,7 @@ class BadgesView(APIView):
 
     def get(self, _request):
         badges = Badge.objects.all()
-        serialized_badges = BadgeSerializer(badges, many=True)
+        serialized_badges = PopulatedBadgeSerializer(badges, many=True)
         return Response(serialized_badges.data)
 
 
@@ -41,7 +41,7 @@ class IndividualBadgeView(APIView):
 
     def get(self, _request, pk):
         badge = Badge.objects.get(pk=pk)
-        serialized_badge = BadgeSerializer(badge)
+        serialized_badge = PopulatedBadgeSerializer(badge)
         return Response(serialized_badge.data)
 
     def put(self, request, pk):
@@ -49,12 +49,14 @@ class IndividualBadgeView(APIView):
     # Not sure about this -  we want to select any user -not just the one who is requesting?
 
         badge = Badge.objects.get(pk=pk)
-        updated_badge = BadgeSerializer(
+        updated_badge = PopulatedBadgeSerializer(
             badge, data=request.user.id)  # User ID or just User??
         if updated_badge.is_valid():
             updated_badge.save()
             return Response(updated_badge.data)
         return Response(updated_badge.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+
 
 
 # TripsView
@@ -67,13 +69,13 @@ class TripsView(APIView):
 
     def get(self, _request):
         trips = Trip.objects.all()
-        serialized_trips = TripSerializer(trips, many=True)
+        serialized_trips = PopulatedTripSerializer(trips, many=True)
         return Response(serialized_trips.data)
 #this just gets all trips, but have realised we probably want it to be just the user's trips?
 
     def post(self, request):
         request.data['owner'] = request.user.id
-        trip = TripSerializer(data=request.data)
+        trip = PopulatedTripSerializer(data=request.data)
         if trip.is_valid():
             trip.save()
             return Response(trip.data, status=HTTP_201_CREATED)
@@ -91,7 +93,7 @@ class IndividualTripView(APIView):
     # Not sure about this -  we want to select any user -not just the one who is requesting?
 
         trip = Trip.objects.get(pk=pk)
-        updated_trip = TripSerializer(
+        updated_trip = PopulatedTripSerializer(
             trip, data=request.user.id)  # User ID or just User??
         if updated_trip.is_valid():
             updated_trip.save()
