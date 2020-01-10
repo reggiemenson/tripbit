@@ -13,6 +13,7 @@ pyjwt = "*"
 djangorestframework = "*"
 django-csvimport = "*"
 pillow = "*"
+travels = "*"
 
 [requires]
 python_version = "3.7"

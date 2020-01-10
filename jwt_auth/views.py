@@ -60,3 +60,4 @@ class UserListView(APIView):
         users = User.objects.all()
         serialized_userList = UserListSerializer(users, many=True)
         return Response(serialized_userList.data)
+
