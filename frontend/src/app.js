@@ -8,6 +8,11 @@ import './styles/main.scss'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Profile from './components/Profile'
+import AddCity from './components/AddCity'
+import AddGroup from './components/AddGroup'
+import Group from './components/Group'
+import AddTrip from './components/AddTrip'
+import Game from './components/Game'
 
 const App = () => (
   <HashRouter>
@@ -15,11 +20,11 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Hero} />
       <Route exact path="/profile" component={Profile} />
-      {/* <Route exact path="/add_cities" component={} />
-      <Route exact path="/add_group" component={} />
-      <Route exact path="/group" component={} />
-      <Route exact path="/add_trip" component={} />
-      <Route exact path="/play" component={} /> */}
+      <Route exact path="/add_city" component={AddCity} />
+      <Route exact path="/add_group" component={AddGroup} />
+      <Route exact path="/group" component={Group} />
+      <Route exact path="/add_trip" component={AddTrip} />
+      <Route exact path="/play" component={Game} />
     </Switch>
   </HashRouter>
 )
