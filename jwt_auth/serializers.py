@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 class UserSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(write_only=True)
-    password_confirmation = serializers.CharField(write_only=True)
+    password_confirmation = serializers.CharField(write_only=True) 
 
     def validate(self, data):
 
@@ -32,10 +32,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_confirmation')
 
-class UserListSerializer(serializers.ModelSerializer):
+# class UserListSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = User
+#         fields = ('id', 'username', 'first name', 'last name', 'score', 'image')
+
+class PopulatedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'score', 'image')
-
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image')
 
