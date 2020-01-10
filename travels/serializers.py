@@ -23,10 +23,22 @@ class BadgeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'image', 'owner')
 
 
-class PopulatedTripSerializer(UserSerializer):
-    user = UserSerializer()
+# class PopulatedTripSerializer(UserSerializer):
+#     user = UserSerializer()
 
-class PopulatedBadgeSerializer(BadgeSerializer):
-    owner = UserSerializer()
+class GroupSerializer(serializers.ModelSerializer):
 
-
+    class Meta:
+        model = Group
+        fields = ('id', 'name', 'description', 'owner', 'members', 'requests', 'podium_1_user', 'podium_2_user', 'podium_3_user', 'podium_1_score', 'podium_2_score', 'podium_3_score')
+        extra_kwargs = {
+            'members': {'required': False},
+            'requests': {'required': False},
+            'podium_1_user': {'required': False},
+            'podium_2_user': {'required': False},
+            'podium_3_user': {'required': False},
+            'podium_1_score': {'required': False},
+            'podium_2_score': {'required': False},
+            'podium_3_score': {'required': False}
+        }
+    

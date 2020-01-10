@@ -5,11 +5,13 @@ import { HashRouter, Switch, Route } from 'react-router-dom'
 import 'bulma'
 import './styles/main.scss'
 
+import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Profile from './components/Profile'
 
 const App = () => (
   <HashRouter>
+    <Navbar />
     <Switch>
       <Route exact path="/" component={Hero} />
       <Route exact path="/profile" component={Profile} />
