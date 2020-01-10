@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.contrib.auth import get_user_model
 
 from .models import Town, Badge, Trip, Group
-from .serializers import TripSerializer, BadgeSerializer, GroupSerializer, TownSerializer
+from .serializers import TripSerializer, BadgeSerializer, PopulatedGroupSerializer, PopulatedTownSerializer, GroupSerializer
 
 User = get_user_model()
 
@@ -21,7 +21,7 @@ class TownsView(APIView):
 
     def get(self, request):
         towns = Town.objects.all()
-        serializer = TownSerializer(towns, many=True)
+        serializer = PopulatedTownSerializer(towns, many=True)
 
         return Response(serializer.data)
 
@@ -126,7 +126,7 @@ class GroupsView(APIView):
 
     def get(self, request):
         groups = Group.objects.all()
-        serializer = GroupSerializer(groups, many=True)
+        serializer = PopulatedGroupSerializer(groups, many=True)
 
         return Response(serializer.data)
 
@@ -150,7 +150,7 @@ class IndividualGroupView(APIView):
 
     def get(self, request, pk):
         group = Group.objects.get(pk=pk)
-        serializer = GroupSerializer(group)
+        serializer = PopulatedGroupSerializer(group)
 
         return Response(serializer.data)
 
