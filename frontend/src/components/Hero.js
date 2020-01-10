@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import Register from './RegistrationForm'
+import Login from './LoginForm'
 
 const Hero = () => {
+
+  const [registrationModal, setRegistrationModal] = useState(false)
+  const [loginModal, setLoginModal] = useState(false)
+
+  function toggleRegistration() {
+    setRegistrationModal(!registrationModal)
+  }
+
+  function toggleLogin() {
+    setLoginModal(!loginModal)
+  }
+
+  // add Ken's escape function for desktop?
+
   return (
     <section className="hero is-dark is-fullheight">
       <div className="hero-body">
@@ -12,27 +29,23 @@ const Hero = () => {
             [insert brilliant tag line]
           </h2>
 
-          <a href="#">Login</a>
-          <a href="#">Register</a>
+          <a href="#" onClick={toggleLogin}>Login</a>
+          <a href="#" onClick={toggleRegistration}>Register</a>
         </div>
       </div>
-      <div className="modal is-active">
+      <div className={ registrationModal === true ? 'modal is-active' : 'modal' }>
         <div className="modal-background"></div>
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">Login</p>
-            <button className="delete" aria-label="close"></button>
-          </header>
-          <section className="modal-card-body">
-            <div className="model-content">
-              <p>testing!</p>
-            </div>
-          </section>
-          <footer className="modal-card-foot">
-            <button className="button is-success">Save changes</button>
-            <button className="button">Cancel</button>
-          </footer>
+        <div className="modal-content">
+          <Register />
         </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleRegistration}></button>
+      </div>
+      <div className={ loginModal === true ? 'modal is-active' : 'modal' }>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <Login />
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
       </div>
     </section>
   )
