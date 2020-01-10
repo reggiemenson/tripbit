@@ -84,7 +84,7 @@ class TripsView(APIView):
 
     def post(self, request):
         request.data['owner'] = request.user.id
-        trip = PopulatedTripSerializer(data=request.data)
+        trip = TripSerializer(data=request.data)
         if trip.is_valid():
             trip.save()
             return Response(trip.data, status=HTTP_201_CREATED)

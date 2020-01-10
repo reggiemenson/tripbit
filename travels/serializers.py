@@ -64,4 +64,3 @@ class PopulatedGroupSerializer(GroupSerializer):
 class PopulatedTownSerializer(TownSerializer):
 
     visitors = UserSerializer(many=True)
-
