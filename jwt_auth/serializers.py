@@ -26,9 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
         data['password'] = make_password(password)
         return data
 
+        # input the required fields in the serializer. The serializer is used for the fields requested on the route.
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password_confirmation')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_confirmation')
 
 class UserListSerializer(serializers.ModelSerializer):
 

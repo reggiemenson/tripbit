@@ -18,7 +18,7 @@ class Town(models.Model):
     admin_name = models.CharField(max_length=255, null=True)
     capital = models.CharField(max_length=255, null=True)
     population = models.IntegerField(null=True)
-    user = models.ManyToManyField(
+    visitors = models.ManyToManyField(
         User,
         related_name='towns',
         blank=True
@@ -38,11 +38,12 @@ class Trip(models.Model):
         blank=True
     )
     notes = models.CharField(max_length=5000, null=True)
-    #    owner = models.ForeignKey(
-    #     User,
-    #     related_name='trips',
-    #     on_delete=models.CASCADE
-    # )
+    owner = models.ForeignKey( 
+        User,
+        related_name='trips', 
+        on_delete=models.CASCADE 
+    )
+    
     def __str__(self):
         return f'{self.name}, {self.start_date}/{self.end_date}'
 
@@ -51,12 +52,12 @@ class Badge(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     image = models.CharField(max_length=100)
-    #     users = models.MsnyToManyField(
-    #     User,
-    #     models.SET_NULL,
-    #     blank=True,
-    #     null=True,
-    # )
+    users = models.ManyToManyField(
+        User,
+        related_name='badges',
+        blank=True
+    )
+    
     def __str__(self):
         return f'{self.name}'
 
@@ -69,7 +70,7 @@ class Group(models.Model):
         User,
         related_name='groups_owned',
         on_delete=models.CASCADE,
-        default=0
+        default=1
     )
     members = models.ManyToManyField(
         User,
@@ -84,21 +85,21 @@ class Group(models.Model):
         on_delete=models.SET_NULL,
         related_name='groups_podium1',
         blank=True,
-        null=True,
+        null=True
     )
     podium_2_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         related_name='groups_podium2',
         blank=True,
-        null=True,
+        null=True
     )
     podium_3_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         related_name='groups_podium3',
         blank=True,
-        null=True,
+        null=True
     )
     podium_1_score = models.IntegerField(null=True, blank=True)
     podium_2_score = models.IntegerField(null=True, blank=True)
@@ -112,8 +113,8 @@ class Image(models.Model):
     image = models.CharField(max_length=100)
     trip = models.ForeignKey(  # One to many with Posts as well, A Post can have many comments, but a comment can only belong to one Post
         Trip,
-        models.SET_NULL,
-        related_name='trips',
+        on_delete=models.SET_NULL,
+        related_name='images',
         blank=True,
         null=True
     )
