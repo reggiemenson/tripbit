@@ -53,19 +53,17 @@ class IndividualBadgeView(APIView):
         serialized_badge = PopulatedBadgeSerializer(badge)
         return Response(serialized_badge.data)
 
-    def put(self, request, pk):
-        request.data['owner'] = request.user.id
-    # Not sure about this -  we want to select any user -not just the one who is requesting?
+    # def put(self, request, pk):
+    #     request.data['owner'] = request.user.id
+    # # Not sure about this -  we want to select any user -not just the one who is requesting?
 
-        badge = Badge.objects.get(pk=pk)
-        updated_badge = PopulatedBadgeSerializer(
-            badge, data=request.user.id)  # User ID or just User??
-        if updated_badge.is_valid():
-            updated_badge.save()
-            return Response(updated_badge.data)
-        return Response(updated_badge.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
-
-
+    #     badge = Badge.objects.get(pk=pk)
+    #     updated_badge = PopulatedBadgeSerializer(
+    #         badge, data=request.user.id)  # User ID or just User??
+    #     if updated_badge.is_valid():
+    #         updated_badge.save()
+    #         return Response(updated_badge.data)
+    #     return Response(updated_badge.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 # TripsView
