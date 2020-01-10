@@ -65031,8 +65031,8 @@
   "model": "travels.badge",
   "pk": 207,
   "fields": {
-    "name": "Australia",
-    "description": "Visit at least one country on the continent of Australia",
+    "name": "Oceania",
+    "description": "Visit at least one country on the continent of Oceania",
     "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
     "users": []
   }
