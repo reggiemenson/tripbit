@@ -14,3 +14,5 @@ class User(AbstractUser):
     image = models.CharField(max_length=500, null=True, blank=True)
     score = models.IntegerField(null=True, blank=True)
     dexterity = models.CharField(max_length=2, choices=ORIENTATION, default='RH')
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
