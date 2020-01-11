@@ -2,7 +2,7 @@ from django.db import models
 
 # THIS IS THE CODE FOR IMPORTING THE USER MODEL WHEN READY
 from django.contrib.auth import get_user_model
-User = get_user_model()  
+User = get_user_model()
 
 
 # MODELS BELOW
@@ -39,12 +39,12 @@ class Trip(models.Model):
         blank=True
     )
     notes = models.CharField(max_length=5000, null=True)
-    owner = models.ForeignKey( 
+    owner = models.ForeignKey(
         User,
-        related_name='trips', 
-        on_delete=models.CASCADE 
+        related_name='trips',
+        on_delete=models.CASCADE
     )
-    
+
     def __str__(self):
         return f'{self.name}, {self.start_date}/{self.end_date}'
 
@@ -58,7 +58,7 @@ class Badge(models.Model):
         related_name='badges',
         blank=True
     )
-    
+
     def __str__(self):
         return f'{self.name}'
 
@@ -76,11 +76,13 @@ class Group(models.Model):
     members = models.ManyToManyField(
         User,
         related_name='groups_joined',
-        blank=True)
+        blank=True
+    )
     requests = models.ManyToManyField(
         User,
         related_name='groups_requested',
-        blank=True)
+        blank=True
+    )
     podium_1_user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -105,7 +107,7 @@ class Group(models.Model):
     podium_1_score = models.IntegerField(null=True, blank=True)
     podium_2_score = models.IntegerField(null=True, blank=True)
     podium_3_score = models.IntegerField(null=True, blank=True)
-    
+
     def __str__(self):
         return f'{self.name}'
 
@@ -119,5 +121,6 @@ class Image(models.Model):
         blank=True,
         null=True
     )
+
     def __str__(self):
         return f'{self.image}'

@@ -60,13 +60,14 @@ class ProfileView(APIView):
             serialized_user = updated_user
             serialized_user.save()
             return Response(serialized_user.data)
-        return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+        return Response(serialized_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request):
         user = User.objects.get(pk=request.user.id)
         user.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
+        
 class RankingView(APIView):
 
     permission_classes = (IsAuthenticated, )
@@ -80,6 +81,19 @@ class RankingView(APIView):
     #         serialized_user.save()
     #         return Response(serialized_user.data)
     #     return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+class UserView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        if user.is_valid():
+            serialized_user = PopulatedUserSerializer(user)
+            return Response(serialized_user.data)
+        return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
 
 class UserListView(APIView):
 
