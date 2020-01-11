@@ -1,0 +1,11 @@
+.worldmapsvg {
+  svg {
+    width: 100%;
+    height: auto;
+
+    path.amcharts-map-area.visited {
+      fill: url(#pattern);
+      fill-opacity: 1;
+    }
+  }
+}
