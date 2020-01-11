@@ -3,9 +3,21 @@
     width: 100%;
     height: auto;
 
+    g:not(:hover) text {
+      opacity: 0;
+    }
+
+    path:not(:hover) {
+      fill-opacity: 0;
+    }
+
     path.amcharts-map-area.visited {
-      fill: url(#pattern);
-      fill-opacity: 1;
+        fill: url(#pattern-blue);
+        fill-opacity: 1;
+      }
+
+    path.amcharts-map-area.visited:hover {
+      fill: url(#pattern-red);
     }
   }
 }
