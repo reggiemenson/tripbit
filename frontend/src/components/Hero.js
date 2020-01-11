@@ -21,7 +21,7 @@ const Hero = () => {
   return (
     <section className="hero is-dark is-fullheight">
       <div className="hero-body">
-        <div className="container">
+        <div className="container has-text-centered">
           <h1 className="title is-1">
             Scratch Map
           </h1>
@@ -33,14 +33,14 @@ const Hero = () => {
           <a href="#" onClick={toggleRegistration}>Register</a>
         </div>
       </div>
-      <div className={ registrationModal === true ? 'modal is-active' : 'modal' }>
+      <div className={registrationModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <Register />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleRegistration}></button>
       </div>
-      <div className={ loginModal === true ? 'modal is-active' : 'modal' }>
+      <div className={loginModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <Login />

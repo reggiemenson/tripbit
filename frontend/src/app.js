@@ -13,6 +13,7 @@ import AddGroup from './components/AddGroup'
 import Group from './components/Group'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
+import WorldMap from './components/Worldmap'
 
 const App = () => (
   <HashRouter>
@@ -25,6 +26,7 @@ const App = () => (
       <Route exact path="/group" component={Group} />
       <Route exact path="/add_trip" component={AddTrip} />
       <Route exact path="/play" component={Game} />
+      <Route exact path="/world_map" component={WorldMap} />
     </Switch>
   </HashRouter>
 )

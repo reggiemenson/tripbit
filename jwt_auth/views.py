@@ -55,7 +55,7 @@ class ProfileView(APIView):
 
     def put(self, request):
         serialized_user = User.objects.get(pk=request.user.id)
-        updated_user = PopulatedUserSerializer(serialized_user, data=request.data)
+        updated_user = UserSerializer(serialized_user, data=request.data)
         if (updated_user.is_valid()):
             serialized_user = updated_user
             serialized_user.save()
