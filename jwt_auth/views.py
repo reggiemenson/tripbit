@@ -89,11 +89,8 @@ class UserView(APIView):
 
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
-        if user.is_valid():
-            serialized_user = PopulatedUserSerializer(user)
-            return Response(serialized_user.data)
-        return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
-
+        serialized_user = PopulatedUserSerializer(user)
+        return Response(serialized_user.data)
 
 class UserListView(APIView):
 
