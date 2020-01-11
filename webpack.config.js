@@ -23,7 +23,7 @@ module.exports = {
     contentBase: 'src',
     hot: true,
     open: true,
-    port: 8001,
+    port: 8000,
     watchContentBase: true,
     proxy: {
       '/api': 'http://localhost:4000'
