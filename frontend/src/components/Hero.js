@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import Register from './RegistrationForm'
 import Login from './LoginForm'
+import WorldMap from './Worldmap'
 
 const Hero = () => {
 
@@ -19,20 +20,34 @@ const Hero = () => {
   // add Ken's escape function for desktop?
 
   return (
-    <section className="hero is-dark is-fullheight">
+    <section id="homepage" className="hero is-fullheight">
       <div className="hero-body">
-        <div className="container has-text-centered">
-          <h1 className="title is-1">
-            Scratch Map
-          </h1>
-          <h2 className="subtitle">
-            [insert brilliant tag line]
-          </h2>
 
-          <a href="#" onClick={toggleLogin}>Login</a>
-          <a href="#" onClick={toggleRegistration}>Register</a>
+        <div className="columns is-desktop">
+          <div className="column is-8-desktop">
+            <div id="home-worldmap" className="has-text-centered is-centered">
+              < WorldMap />
+            </div>
+          </div>
+
+          <div className="column is-4-desktop" id="title-column">
+            <div className="container has-text-centered">
+              <h1 className="title">
+                Scratch Map
+              </h1>
+              <h2 className="subtitle is-size-3">
+                [insert brilliant tag line]
+              </h2>
+
+              <button className="is-size-3" onClick={toggleLogin}>Login</button>
+              <button className="is-size-3" onClick={toggleRegistration}>Register</button>
+            </div>
+          </div>
         </div>
+
       </div>
+
+
       <div className={registrationModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">

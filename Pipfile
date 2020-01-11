@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+flake8 = "*"
 
 [packages]
 django = "*"
@@ -13,6 +14,7 @@ pyjwt = "*"
 djangorestframework = "*"
 django-csvimport = "*"
 pillow = "*"
+pylint = "*"
 travels = "*"
 numpy = "*"
 
