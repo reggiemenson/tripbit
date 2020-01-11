@@ -1,5 +1,5 @@
 import React from 'react'
-// import axios from 'axios'
+import axios from 'axios'
 // import Auth from '../lib/auth'
 
 class Login extends React.Component {
@@ -22,13 +22,16 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // axios.post('/api/login', this.state.data)
-    //   .then(resp => {
-    //     Auth.setToken(resp.data.token)
-    //     console.log(resp)
-    //     this.props.history.push(`/lists/${resp.data.id}`)
-    //   })
-    //   .catch(() => this.setState({ errors: 'Incorrect username/password combination' }))
+    axios.post('/api/login', this.state.data)
+      .then(resp => {
+        // Auth.setToken(resp.data.token)
+        console.log(resp)
+        this.props.history.push(`/profile/${resp.data.id}`)
+      })
+      .catch((err) => {
+        this.setState({ errors: err.response.data  })
+        console.log(err.response.data)
+      })
   }
 
   render() {
