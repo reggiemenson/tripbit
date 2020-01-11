@@ -1,0 +1,154 @@
+/********* BULMA PRESETS ********/
+
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Open+Sans+Condensed:300,300i,700');
+
+// Set your brand colors
+$blue: #4778de;
+$red: #de5247;
+$light-light-blue: #eaf1ff;
+
+
+// Update Bulma's global variables
+$family-sans-serif: 'Open Sans Condensed', sans-serif;
+
+
+// Update some of Bulma's component variables
+$body-background-color: $light-light-blue;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// Import only what you need from Bulma
+@import "../../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../../node_modules/bulma/sass/base/_all.sass";
+@import "../../../node_modules/bulma/sass/elements/button.sass";
+@import "../../../node_modules/bulma/sass/elements/container.sass";
+@import "../../../node_modules/bulma/sass/elements/title.sass";
+@import "../../../node_modules/bulma/sass/form/_all.sass";
+@import "../../../node_modules/bulma/sass/components/navbar.sass";
+@import "../../../node_modules/bulma/sass/layout/hero.sass";
+@import "../../../node_modules/bulma/sass/layout/section.sass";
+
+/********* CUSTOM STYLES ********/
+
+* {
+  box-sizing: border-box;
+}
+
+#homepage {
+  background-color: white;
+  max-height: 100vh;
+
+  .columns {
+    width: 100%;
+  }
+
+  .title {
+    font-family: 'Amatic SC', sans-serif;
+    font-size: 4.5rem;
+  }
+
+  #title-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      color: white;
+      background-color: white;
+      text-shadow: 1px 1px $blue;
+      font-weight: 700;
+      margin: 10px 5px;
+      width: 200px;
+      height: 120px;
+      border: none; 
+      background-image: url(../images/crayon-shading.png);
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    button:hover {
+      background-image: url(../images/crayon-shading-red.png);
+      text-shadow: 1px 1px $red;
+    }
+  }
+}
+
+
+.worldmapsvg {
+  svg {
+    width: 100%;
+    height: auto;
+
+    g:not(:hover) text {
+      opacity: 0;
+    }
+
+    g:not(:hover) {
+      path {
+        fill-opacity: 0;
+      }
+    }
+
+    path.amcharts-map-area.visited {
+        fill: url(#pattern-blue);
+        fill-opacity: 1;
+      }
+
+    g.country:hover {
+      path.amcharts-map-area.visited {
+        fill: url(#pattern-red);
+      }
+    }
+
+    text {
+      font-weight: 300;
+      font-size: 2rem;
+    }
+  }
+}
+
+#user-profile {
+
+  div.badge-display {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  img {
+    height: auto;
+    width: 150px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  div.overlay {
+    position: absolute;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    opacity: 0;
+
+    div {
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+  }
+
+  div.overlay:hover {
+    opacity: 1;
+  }
+
+
+}

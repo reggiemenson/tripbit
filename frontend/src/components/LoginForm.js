@@ -50,6 +50,7 @@ class Login extends React.Component {
                       <input
                         onChange={(e) => this.handleChange(e)}
                         className="input"
+                        name="email"
                         type="email"
                         placeholder="Email"
                       />
@@ -65,6 +66,7 @@ class Login extends React.Component {
                     <p className="control has-icons-left">
                       <input
                         onChange={(e) => this.handleChange(e)}
+                        name="password"
                         className="input"
                         type="password"
                         placeholder="Password"

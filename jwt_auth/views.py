@@ -53,21 +53,25 @@ class ProfileView(APIView):
         serialized_user = PopulatedUserSerializer(user)
         return Response(serialized_user.data)
 
+        # the following path is just a template for editing basic details about the user.
+
     def put(self, request):
         serialized_user = User.objects.get(pk=request.user.id)
-        updated_user = PopulatedUserSerializer(serialized_user, data=request.data)
+        updated_user = UserSerializer(serialized_user, data=request.data)
         if (updated_user.is_valid()):
             serialized_user = updated_user
             serialized_user.save()
             return Response(serialized_user.data)
-        return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+        return Response(serialized_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request):
         user = User.objects.get(pk=request.user.id)
         user.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
-class RankingView(APIView):
+        # The following view is for editing the user preference points that will affect ranking.
+        
+class EditDetailView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
@@ -80,6 +84,16 @@ class RankingView(APIView):
     #         serialized_user.save()
     #         return Response(serialized_user.data)
     #     return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+class UserView(APIView):
+
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        serialized_user = PopulatedUserSerializer(user)
+        return Response(serialized_user.data)
 
 class UserListView(APIView):
 
