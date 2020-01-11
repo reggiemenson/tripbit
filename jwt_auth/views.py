@@ -53,6 +53,8 @@ class ProfileView(APIView):
         serialized_user = PopulatedUserSerializer(user)
         return Response(serialized_user.data)
 
+        # the following path is just a template for editing basic details about the user.
+
     def put(self, request):
         serialized_user = User.objects.get(pk=request.user.id)
         updated_user = UserSerializer(serialized_user, data=request.data)
@@ -67,8 +69,9 @@ class ProfileView(APIView):
         user.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
+        # The following view is for editing the user preference points that will affect ranking.
         
-class RankingView(APIView):
+class EditDetailView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
