@@ -8,6 +8,7 @@
 // Set your brand colors
 $blue: #4778de;
 $red: #de5247;
+$light-light-blue: #eaf1ff;
 
 
 // Update Bulma's global variables
@@ -15,6 +16,7 @@ $family-sans-serif: 'Open Sans Condensed', sans-serif;
 
 
 // Update some of Bulma's component variables
+$body-background-color: $light-light-blue;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
@@ -37,7 +39,7 @@ $input-shadow: none;
 }
 
 #homepage {
-  background-color: none;
+  background-color: white;
   max-height: 100vh;
 
   .columns {
@@ -108,4 +110,23 @@ $input-shadow: none;
       font-size: 2rem;
     }
   }
+}
+
+#user-profile {
+
+  div.badge-display {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+  }
+  img {
+    height: 100px;
+    width: auto;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+
 }

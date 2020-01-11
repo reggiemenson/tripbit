@@ -16,6 +16,7 @@ django-csvimport = "*"
 pillow = "*"
 pylint = "*"
 travels = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.7"
