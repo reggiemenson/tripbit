@@ -349,6 +349,10 @@ const Profile = () => {
                 <div className="image is-150x150">
                   <div className="badge" >
                     <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt=""/>
+                    <div className="overlay">
+                      <div className="is-size-6">{badge.name}</div>
+                      <div className="is-size-7">{badge.description}</div>
+                    </div>
                   </div>
                 </div>
               </div>
