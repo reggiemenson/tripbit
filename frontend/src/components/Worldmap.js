@@ -1,5 +1,6 @@
 import React from 'react'
-import Crayon from '../images/crayon-shading.png'
+import CrayonBlue from '../images/crayon-shading.png'
+import CrayonRed from '../images/crayon-shading-red.png'
 
 // import axios from 'axios'
 
@@ -18,8 +19,11 @@ class WorldMap extends React.Component {
           <desc>JavaScript chart by amCharts 3.21.15</desc>
           <desc>This map was created using Pixel Map Generator by amCharts and is licensed under the Creative Commons Attribution 4.0 International License. You may use this map the way you see fit as long as proper attribution to the name of amCharts is given in the form of link to http://pixelmap.amcharts.com/ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ If you would like to use this map without any attribution, you can acquire a commercial license for the JavaScript Maps - a tool that was used to produce this map. To do so, visit amCharts Online Store: http://www.amcharts.com/online-store/</desc>
           <defs>
-            <pattern id='pattern' width="1" height="1" viewBox="10 10 90 90" preserveAspectRatio="none">
-              <image href={Crayon} width="100" height="100" preserveAspectRatio="none"></image>
+            <pattern id='pattern-blue' width="1" height="1" viewBox="10 10 90 90" preserveAspectRatio="none">
+              <image href={CrayonBlue} width="100" height="100" preserveAspectRatio="none"></image>
+            </pattern>
+            <pattern id='pattern-red' width="1" height="1" viewBox="10 10 90 90" preserveAspectRatio="none">
+              <image href={CrayonRed} width="100" height="100" preserveAspectRatio="none"></image>
             </pattern>
           </defs> 
           <g>

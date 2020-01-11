@@ -12,12 +12,12 @@
     }
 
     path.amcharts-map-area.visited {
-        fill: url(#pattern);
+        fill: url(#pattern-blue);
         fill-opacity: 1;
       }
 
     path.amcharts-map-area.visited:hover {
-      fill: blue;
+      fill: url(#pattern-red);
     }
   }
 }
