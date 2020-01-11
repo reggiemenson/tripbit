@@ -289,6 +289,8 @@ def get_badges(towns):
     # update badges with the winners
     # platform_badges.save()
 
+    # somehwere score needs to be calculated and added to users ???
+
 
 get_badges(user_towns)
 
