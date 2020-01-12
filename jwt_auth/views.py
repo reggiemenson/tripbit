@@ -1,3 +1,4 @@
+from jwt_auth.serializers import UserSerializer, PopulatedUserSerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,7 +24,7 @@ class RegisterView(APIView):
             return Response({'message': 'Registration successful'})
 
         return Response(serializer.errors, status=422)
-        
+
 
 class LoginView(APIView):
 
@@ -42,8 +43,10 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise PermissionDenied({'message': 'Invalid credentials'})
 
-        token = jwt.encode({'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(
+            {'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
         return Response({'token': token, 'message': f'Welcome back {user.username}!'})
+
 
 class ProfileView(APIView):
 
@@ -111,6 +114,17 @@ class UserView(APIView):
         user = User.objects.get(pk=pk)
         serialized_user = PopulatedUserSerializer(user)
         return Response(serialized_user.data)
+
+
+    # def post(self, request, pk): 
+    #         request.data['owner'] = request.user.id 
+    #         request.data['post'] = pk # attach the post id from the url to comment
+    #         town = TownSerializer(data=request.data) # serialize the comment
+    #         if town.is_valid(): # if the comment is valid
+    #             town.save() # save the comment
+    #         return Response(town.errors, status=HTTP_422_UNPROCESSABLE_ENTITY) # send back any errors from the comment if it wasnt valid
+
+    
 
 class UserListView(APIView):
 
