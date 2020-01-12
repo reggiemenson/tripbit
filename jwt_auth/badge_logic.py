@@ -501,7 +501,6 @@ def get_platform_badges(users):
     badge.users.append(leader)
     badge.save()
 
-    pass
     # most cities (215)
 
     # most capitals (216)
