@@ -2,7 +2,8 @@
 # import numpy
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
-from .travels.models import Badge
+from travels.models import Badge
+from travels.serializers import BadgeSerializer
 
 
 all_countries = ['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Angola', 'Austria', 'Azerbaijan', 'Bahamas, The', 'Bahrain', 'Bangladesh',
@@ -478,11 +479,16 @@ def get_platform_badges(users):
         unique_user_countries = set(all_user_town_countries)
         return unique_user_countries
 
-    badge = Badge.object.get(pk=214)
+    badge = Badge.objects.get(pk=214)
 
-    leader = badge.users[0] or False
+    serialized_badge = BadgeSerializer(badge)
+    print(serialized_badge['users'], 'see me run!!!!')
 
-    badge.users.clear()
+    leader = serialized_badge['users'][0]
+
+    # leader = badge_owners[0]
+
+    serialized_badge['users'].clear()
 
     for user in users:
         current_user = count_user_countries(user)
