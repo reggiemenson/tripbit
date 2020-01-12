@@ -88,8 +88,9 @@ class EditDetailView(APIView):
         #  This is the point where badge logic might be entered.
 
     #         all_users = User.objects.all()
+    #         serialized_userList = PopulatedSerializer(all_users)
     #         
-    #         get_platform_badges(all_users)
+    #         get_platform_badges(serialized_userList)
 
         #  Possible catch to check all is fine
     #         

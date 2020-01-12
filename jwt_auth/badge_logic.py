@@ -490,7 +490,7 @@ def get_platform_badges(users):
         if leader is not False:
             current_leader = count_user_countries(leader)
 
-            if len(current_user) >= len(current_leader):
+            if len(current_user) > len(current_leader):
                 leader = user
 
             else:
