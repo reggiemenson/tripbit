@@ -63,10 +63,10 @@ const CitySelection = () => {
   return (
     <section className="section" id="city-selection">
       <div className="container">
-        {console.log(townsVisited)}
+        {console.log(towns)}
         <h1 className="title">Select cities</h1>
         <h2 className="subtitle">Where have you travelled to?</h2>
-
+    
         <form className="form" onSubmit={handleSubmit}>
           <div className="columns is-mobile">
             <div className="column is-10-desktop is-8-tablet is-8-mobile">
@@ -84,7 +84,7 @@ const CitySelection = () => {
             </div>
 
           </div>
-          </form>
+        </form>
         
         
         {towns.length === 0 ? <div className="loading">Loading cities...</div> : <></> }
@@ -108,10 +108,22 @@ const CitySelection = () => {
                   <AccordionItemPanel>
                     {filterBySearch(towns)
                       .filter(town => town.country === country)
+                      .sort(function(a, b){
+                        if (a.name < b.name) { return -1 }
+                        if (a.name > b.name) { return 1 }
+                        return 0
+                      })
                       .map((town, i) => {
                         return <div key={i} className="field">
-                          <input className="is-checkradio is-info" id={town.id} type="checkbox" name={town.id} onChange={handleCheck} checked={townsVisited.includes(town.id.toString()) ? true : false}/>
-                          <label className="city-checkbox-label" htmlFor={town.id}>{town.name}</label>
+                          <input 
+                            className="is-checkradio is-info" 
+                            id={town.id} 
+                            type="checkbox" 
+                            name={town.id} 
+                            onChange={handleCheck} 
+                            checked={townsVisited.includes(town.id.toString()) ? true : false}
+                          />
+                          <label className="city-checkbox-label" htmlFor={town.id}>{town.name} ({town.admin_name})</label>
                         </div>
                      
                       })

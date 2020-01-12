@@ -43,7 +43,7 @@ const Navbar = () => {
           </a>
         </div>
         {/* ternary below no longer necessary */}
-        <div className={`navbar-menu ${state.isOpen ? 'is-active' : ''} ${history.location.pathname === '/' ? 'navbar-is-transparent' : 'navbar-is-off-white'}`}>
+        <div className={`navbar-menu ${state.isOpen ? 'is-active' : ''} ${history.location.pathname === '/' ? 'navbar-is-transparent' : 'navbar-is-transparent'}`}>
           <div className="navbar-end">
             <div className="navbar-item">
               <Link className="navbar-item" to="/profile"

@@ -204,17 +204,26 @@ $input-placeholder-color: $gold;
 
 #city-selection {
 
+  .form {
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    background-color: rgba(16, 16, 16, 0.7);
+
+    .input {
+      width: 100%;       
+    }  
+
+    .button {
+      width: 100%
+    }
+  }
+
   .loading {
     padding: 10px;
   }
 
-  .input {
-    width: 100%;
-  }
 
-  .button {
-    width: 100%
-  }
 
   .accordion {
 
@@ -243,6 +252,7 @@ $input-placeholder-color: $gold;
       border-bottom: 2px solid currentColor;
       border-right: 2px solid currentColor;
       transform: rotate(-45deg);
+      z-index: -1;
     }
 
     .accordion__button[aria-expanded='true']::before,
