@@ -1,12 +1,9 @@
 # Functions to check which badges are awarded
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
-<<<<<<< HEAD
 from travels.models import Badge
-from travels.serializers import BadgeSerializer
-=======
+from travels.serializers import PopulatedBadgeSerializer
 # from .travels.models import Badge
->>>>>>> 325489594902ba006674a9555732f1d1e56d6c00
 
 
 all_countries = ['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Angola', 'Austria', 'Azerbaijan', 'Bahamas, The', 'Bahrain', 'Bangladesh',
@@ -610,27 +607,30 @@ get_badges(single_user['towns'])
 
 def get_platform_badges(users):
 
-    print(type(users), 'lets see the users!!!!')
+    # print(users, 'lets see the users!!!!')
 
     # most countries (214)
 
     def count_user_countries(person):
+        print(person['towns'])
         all_user_town_countries = list(map(lambda town: town['country'], person['towns']))
         unique_user_countries = set(all_user_town_countries)
         return unique_user_countries
 
     badge = Badge.objects.get(pk=214)
 
-    serialized_badge = BadgeSerializer(badge)
-    print(type(serialized_badge['users']), 'see me run!!!!')
+    serialized_badge = PopulatedBadgeSerializer(badge)
+    # print(serialized_badge.data, 'see me run!!!!')
 
-    leader = serialized_badge['users'][0]
+    leader = serialized_badge.data
+    print(leader, 'its the leader!!!!')
+    print(leader['users'])
 
     # leader = badge_owners[0]
 
-    serialized_badge['users'].clear()
+    serialized_badge.data['users'].clear()
 
-    for user in users:
+    for user in users.data:
         current_user = count_user_countries(user)
 
         if leader is not False:
@@ -644,7 +644,7 @@ def get_platform_badges(users):
 
         return leader
 
-    badge.users.append(leader)
+    badge.users.data.append(leader)
     badge.save()
 
     # most cities (215)
