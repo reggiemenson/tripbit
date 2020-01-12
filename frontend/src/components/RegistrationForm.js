@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import ReactFilestack from 'filestack-react'
+import { fileloaderKey } from '../config/environment'
+
+const options = {
+  accept: 'image/*',
+  transformations: {
+    crop: true,
+    circle: true,
+    rotate: true
+  }
+}
 
 const Register = ({ toggleRegistration, toggleLogin }) => {
 
@@ -8,6 +19,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
       username: '',
       first_name: '',
       last_name: '',
+      image: '',
       email: '',
       password: '',
       password_confirmation: ''
@@ -35,6 +47,11 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
         // console.log(err.response.data)
         setRegister({ errors: err.response.data })
       })
+  }
+
+  const handleImageUpload = (response) => {
+    const data = { ...register.data, image: response.filesUploaded[0].url }
+    setRegister({ data })
   }
 
   return <>
@@ -98,6 +115,32 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               </div>
 
               <div className='field'>
+                <label htmlFor='image' className='label'>
+                  Image
+                </label>
+                <ReactFilestack
+                  apikey={fileloaderKey}
+                  componentDisplayMode={{
+                    type: 'button',
+                    customText: 'Add an Image'
+                  }}
+                  className='button'
+                  options={options}
+                  onSuccess={(response) => handleImageUpload(response)}
+                  preload={true}
+                />
+                {register.data.image &&
+                  <figure className="image is-128x128">
+                    <img className="is-rounded" src={register.data.image} />
+                    <br />
+                  </figure>
+                }
+                {/* {register.errors.image && <small className='help is-danger'>
+                      {register.errors.image[0]}
+                    </small>} */}
+              </div>
+
+              <div className='field'>
                 <label htmlFor='email' className='label'>
                   Email
                 </label>
@@ -154,7 +197,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
         </div>
       </div>
     </div>
-  
+
   </>
 }
 
