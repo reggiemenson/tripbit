@@ -643,7 +643,39 @@ def get_platform_badges(users):
         badge.save()
 
     # most cities (215)
+    # untested function
 
+def get_platform_city_badges(users):
+
+    def count_user_cities(person):
+        all_user_towns = list(map(lambda town: town['id'], person['towns']))
+
+        return all_user_towns
+
+    badge = Badge.objects.get(pk=215)
+
+    serialized_badge = BadgeSerializer(badge)
+
+    leader = False
+
+    serialized_badge.data['users'].clear()
+
+    for user in users.data:
+        current_user = count_user_cities(user)
+
+        if leader is not False:
+            current_leader = count_user_cities(leader)
+
+            if len(current_user) > len(current_leader):
+                leader = user
+
+        else:
+            leader = user
+    
+    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
    
 
     # most capitals (216)
