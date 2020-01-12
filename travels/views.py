@@ -17,7 +17,7 @@ User = get_user_model()
 
 class TownsView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
         towns = Town.objects.all()

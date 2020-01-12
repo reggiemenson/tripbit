@@ -60,10 +60,10 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="navbar-item">
-              <Link className="navbar-item" to="/add_city"
+              <Link className="navbar-item" to="/city_selection"
                 onClick={() => toggleNavbar()}
               >
-                Add city
+                Select cities
               </Link>
             </div>
             <div className="navbar-item">
@@ -89,7 +89,7 @@ const Navbar = () => {
             <div className="navbar-item">
               <div className="field has-addons">
                 <div className="control">
-                  <input className="input" type="text" placeholder="Find a friend" />
+                  <input className="input has-text-info" type="text" placeholder="Find a friend" />
                 </div>
                 <div className="control">
                   <a className="button is-info">
