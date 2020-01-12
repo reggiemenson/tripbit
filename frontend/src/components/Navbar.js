@@ -87,7 +87,7 @@ const Navbar = () => {
           <div className="navbar-item">
             <div className="field has-addons">
               <div className="control">
-                <input className="input" type="text" placeholder="Find a repository" />
+                <input className="input" type="text" placeholder="Find a friend" />
               </div>
               <div className="control">
                 <a className="button is-info">
