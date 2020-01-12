@@ -90,11 +90,6 @@ $input-placeholder-color: $gold;
     width: 100%;
   }
 
-  .title {
-    font-size: 4.5rem;
-
-  }
-
   #title-column {
     display: flex;
     justify-content: center;
@@ -106,8 +101,8 @@ $input-placeholder-color: $gold;
       text-shadow: 1px 1px 2px $gold;
       font-weight: 700;
       margin: 10px 5px;
-      width: 200px;
-      height: 120px;
+      width: 150px;
+      height: 100px;
       border: none; 
       background-image: url(../images/crayon-shading-gold-gradient.png);
       background-position: center;

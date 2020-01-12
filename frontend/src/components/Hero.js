@@ -32,15 +32,15 @@ const Hero = (props) => {
 
           <div className="column is-4-desktop" id="title-column">
             <div className="container has-text-centered">
-              <h1 className="title">
+              <h1 className="title is-size-1">
                 Scratch Map
               </h1>
-              <h2 className="subtitle is-size-3">
+              <h2 className="subtitle is-size-4">
                 [insert brilliant tag line]
               </h2>
 
-              <button className="is-size-3" onClick={toggleLogin}>Login</button>
-              <button className="is-size-3" onClick={toggleRegistration}>Register</button>
+              <button className="is-size-4" onClick={toggleLogin}>Login</button>
+              <button className="is-size-4" onClick={toggleRegistration}>Register</button>
             </div>
           </div>
         </div>
