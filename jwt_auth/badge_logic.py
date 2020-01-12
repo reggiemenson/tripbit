@@ -472,6 +472,8 @@ get_badges(user_towns)
 
 def get_platform_badges(users):
 
+    print(type(users), 'lets see the users!!!!')
+
     # most countries (214)
 
     def count_user_countries(person):
@@ -482,7 +484,7 @@ def get_platform_badges(users):
     badge = Badge.objects.get(pk=214)
 
     serialized_badge = BadgeSerializer(badge)
-    print(serialized_badge['users'], 'see me run!!!!')
+    print(type(serialized_badge['users']), 'see me run!!!!')
 
     leader = serialized_badge['users'][0]
 
