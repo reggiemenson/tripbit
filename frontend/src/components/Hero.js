@@ -4,7 +4,7 @@ import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
 
-const Hero = () => {
+const Hero = (props) => {
 
   const [registrationModal, setRegistrationModal] = useState(false)
   const [loginModal, setLoginModal] = useState(false)
@@ -52,7 +52,10 @@ const Hero = () => {
         <div className="modal-background"></div>
         <div className="modal-content">
           {/* need to pass state down to Register function? or will redirecting be enough? */}
-          <Register />
+          <Register
+            toggleRegistration={toggleRegistration}
+            toggleLogin={toggleLogin}
+          />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleRegistration}></button>
       </div>
@@ -60,7 +63,7 @@ const Hero = () => {
         <div className="modal-background"></div>
         <div className="modal-content">
           {/* need to pass state down to Login function? or will redirecting be enough? */}
-          <Login />
+          <Login props={props}/>
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
       </div>
