@@ -1,9 +1,12 @@
 # Functions to check which badges are awarded
-# import numpy
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
+<<<<<<< HEAD
 from travels.models import Badge
 from travels.serializers import BadgeSerializer
+=======
+# from .travels.models import Badge
+>>>>>>> 325489594902ba006674a9555732f1d1e56d6c00
 
 
 all_countries = ['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Angola', 'Austria', 'Azerbaijan', 'Bahamas, The', 'Bahrain', 'Bangladesh',
@@ -320,6 +323,141 @@ user_towns = [
 ]
 
 
+single_user = {
+        "id": 1,
+        "username": "Michael",
+        "first_name": "Michael",
+        "last_name": "Adair",
+        "score": 0,
+        "image": "https://bit.ly/37UONby",
+        "towns":  [   {
+                      "model": "travels.town",
+                      "pk": 4769,
+                        "name": "Belfast",
+                        "name_ascii": "Belfast",
+                        "lat": "54,6",
+                        "lng": "-5,96",
+                        "country": "United Kingdom",
+                        "iso2": "GB",
+                        "iso3": "GBR",
+                        "admin_name": "Belfast",
+                        "capital": "",
+                        "population": 450406,
+                        "continent": "Europe",
+                        "visitors": []
+                      },
+
+                    {
+                      "model": "travels.town",
+                      "pk": 3706,
+                        "name": "New York",
+                        "name_ascii": "New York",
+                        "lat": "40,6943",
+                        "lng": "-73,9249",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "New York",
+                        "capital": "",
+                        "population": 19354922,
+                        "continent": "North America",
+                        "visitors": []
+                      },
+
+                    {
+                      "model": "travels.town",
+                      "pk": 3755,
+                        "name": "Washington",
+                        "name_ascii": "Washington",
+                        "lat": "38,9047",
+                        "lng": "-77,0163",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "District of Columbia",
+                        "capital": "primary",
+                        "population": 5289420,
+                        "continent": "North America",
+                        "visitors": []
+                      },
+
+                    {
+                      "model": "travels.town",
+                      "pk": 4160,
+                        "name": "Nashville",
+                        "name_ascii": "Nashville",
+                        "lat": "36,1715",
+                        "lng": "-86,7843",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "Tennessee",
+                        "capital": "admin",
+                        "population": 1076645,
+                        "continent": "North America",
+                        "visitors": []
+                      },
+
+                    {
+                      "model": "travels.town",
+                      "pk": 4182,
+                        "name": "New Orleans",
+                        "name_ascii": "New Orleans",
+                        "lat": "30,0687",
+                        "lng": "-89,9288",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "Louisiana",
+                        "capital": "",
+                        "population": 1029123,
+                        "continent": "North America",
+                        "visitors": []
+                      },
+
+                    {
+                      "model": "travels.town",
+                      "pk": 3794,
+                        "name": "San Francisco",
+                        "name_ascii": "San Francisco",
+                        "lat": "37,7562",
+                        "lng": "-122,443",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "California",
+                        "capital": "",
+                        "population": 3603761,
+                        "continent": "North America",
+                        "visitors": []
+                      },
+                    {
+                        "model": "travels.town",
+                        "pk": 4405,
+                        "name": "Albuquerque",
+                        "name_ascii": "Albuquerque",
+                        "lat": "35,1053",
+                        "lng": "-106,6464",
+                        "country": "United States",
+                        "iso2": "US",
+                        "iso3": "USA",
+                        "admin_name": "New Mexico",
+                        "capital": "",
+                        "population": 758523,
+                        "continent": "North America",
+                        "visitors": []
+                      }
+                    ],
+        "trips": [],
+        "badges": [],
+        "groups_owned": [],
+        "groups_joined": [],
+        "groups_podium1": [],
+        "groups_podium2": [],
+        "groups_podium3": []
+      }
+
+
 def get_badges(towns):
 
     badge_ids = []
@@ -339,21 +477,6 @@ def get_badges(towns):
     country_badge = [x+1 for x in country_index]
     
     badge_ids.extend(country_badge)
-
-
-    # INDIVIDUAL CONTINENT BADGES
-    if 'Europe' in unique_continents:
-        badge_ids.append(202)
-    if 'North America' in unique_continents:
-        badge_ids.append(203)
-    if 'South America' in unique_continents:
-        badge_ids.append(204)
-    if 'Asia' in unique_continents:
-        badge_ids.append(205)
-    if 'Africa' in unique_continents:
-        badge_ids.append(206)
-    if 'Oceania' in unique_continents:
-        badge_ids.append(207)
 
 
     # MULTIPLE COUNTRIES BADGES
@@ -393,6 +516,21 @@ def get_badges(towns):
     badge_ids.extend(badges_xcities)
 
 
+
+
+    # INDIVIDUAL CONTINENT BADGES
+    if 'Europe' in unique_continents:
+        badge_ids.append(202)
+    if 'North America' in unique_continents:
+        badge_ids.append(203)
+    if 'South America' in unique_continents:
+        badge_ids.append(204)
+    if 'Asia' in unique_continents:
+        badge_ids.append(205)
+    if 'Africa' in unique_continents:
+        badge_ids.append(206)
+    if 'Oceania' in unique_continents:
+        badge_ids.append(207)
 
 
     # Viking (208)
@@ -445,7 +583,7 @@ def get_badges(towns):
             pass
 
 
-    print(badge_ids)
+    print('Michael Badges',badge_ids)
 
     # def put(self, request, pk):
     #     request.data['owner'] = request.user.id
@@ -463,7 +601,7 @@ def get_badges(towns):
     # platform_badges.save()
 
 
-get_badges(user_towns)
+get_badges(single_user['towns'])
 
 
 
@@ -509,6 +647,296 @@ def get_platform_badges(users):
 
     # most cities (215)
 
+   
+
     # most capitals (216)
 
     # mega badge (217)
+
+
+
+
+
+
+
+
+
+
+
+
+#     all_users = [ {
+#   "id": 1,
+#   "username": "Michael",
+#   "first_name": "Michael",
+#   "last_name": "Adair",
+#   "score": 0,
+#   "image": "https://bit.ly/37UONby",
+#   "towns": [
+#     {
+#   "model": "travels.town",
+#   "pk": 4769,
+#     "name": "Belfast",
+#     "name_ascii": "Belfast",
+#     "lat": "54,6",
+#     "lng": "-5,96",
+#     "country": "United Kingdom",
+#     "iso2": "GB",
+#     "iso3": "GBR",
+#     "admin_name": "Belfast",
+#     "capital": "",
+#     "population": 450406,
+#     "continent": "Europe",
+#     "visitors": []
+#   },
+
+#     {
+#   "model": "travels.town",
+#   "pk": 3706,
+#     "name": "New York",
+#     "name_ascii": "New York",
+#     "lat": "40,6943",
+#     "lng": "-73,9249",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "New York",
+#     "capital": "",
+#     "population": 19354922,
+#     "continent": "North America",
+#     "visitors": []
+#   },
+
+#   {
+#   "model": "travels.town",
+#   "pk": 3755,
+#     "name": "Washington",
+#     "name_ascii": "Washington",
+#     "lat": "38,9047",
+#     "lng": "-77,0163",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "District of Columbia",
+#     "capital": "primary",
+#     "population": 5289420,
+#     "continent": "North America",
+#     "visitors": []
+#   },
+
+#   {
+#   "model": "travels.town",
+#   "pk": 4160,
+#     "name": "Nashville",
+#     "name_ascii": "Nashville",
+#     "lat": "36,1715",
+#     "lng": "-86,7843",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "Tennessee",
+#     "capital": "admin",
+#     "population": 1076645,
+#     "continent": "North America",
+#     "visitors": []
+#   },
+
+#   {
+#   "model": "travels.town",
+#   "pk": 4182,
+#     "name": "New Orleans",
+#     "name_ascii": "New Orleans",
+#     "lat": "30,0687",
+#     "lng": "-89,9288",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "Louisiana",
+#     "capital": "",
+#     "population": 1029123,
+#     "continent": "North America",
+#     "visitors": []
+#   },
+
+#   {
+#   "model": "travels.town",
+#   "pk": 3794,
+#     "name": "San Francisco",
+#     "name_ascii": "San Francisco",
+#     "lat": "37,7562",
+#     "lng": "-122,443",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "California",
+#     "capital": "",
+#     "population": 3603761,
+#     "continent": "North America",
+#     "visitors": []
+#   },
+#   {
+#   "model": "travels.town",
+#   "pk": 4405,
+#     "name": "Albuquerque",
+#     "name_ascii": "Albuquerque",
+#     "lat": "35,1053",
+#     "lng": "-106,6464",
+#     "country": "United States",
+#     "iso2": "US",
+#     "iso3": "USA",
+#     "admin_name": "New Mexico",
+#     "capital": "",
+#     "population": 758523,
+#     "continent": "North America",
+#     "visitors": []
+#   }
+#   ],
+#   "trips": [],
+#   "badges": [],
+#   "groups_owned": [],
+#   "groups_joined": [],
+#   "groups_podium1": [],
+#   "groups_podium2": [],
+#   "groups_podium3": []
+# },
+
+# {
+#   "id": 2,
+#   "username": "Reggie",
+#   "first_name": "Reggie",
+#   "last_name": "Tachie-Menson",
+#   "score": 0,
+#   "image": "https://bit.ly/37UONby",
+#   "towns": [
+#         {
+#         "model": "travels.town",
+#         "pk": 4086,
+
+#         "name": "Stockholm",
+#         "name_ascii": "Stockholm",
+#         "lat": "59,3508",
+#         "lng": "18,0973",
+#         "country": "Sweden",
+#         "iso2": "SE",
+#         "iso3": "SWE",
+#         "admin_name": "Stockholm",
+#         "capital": "primary",
+#         "population": 1264000,
+#         "continent": "Europe",
+#         "visitors": []
+#     },
+#         {
+#         "model": "travels.town",
+#         "pk": 3705,
+
+#         "name": "\ufeffTokyo",
+#         "name_ascii": "Tokyo",
+#         "lat": "35,685",
+#         "lng": "139,7514",
+#         "country": "Japan",
+#         "iso2": "JP",
+#         "iso3": "JPN",
+#         "admin_name": "T\u014dky\u014d",
+#         "capital": "primary",
+#         "population": 35676000,
+#         "continent": "Asia",
+#         "visitors": []
+
+#     }
+#   ],
+#   "trips": [],
+#   "badges": [],
+#   "groups_owned": [],
+#   "groups_joined": [],
+#   "groups_podium1": [],
+#   "groups_podium2": [],
+#   "groups_podium3": []
+# },
+
+# {
+#   "id": 3,
+#   "username": "Georg",
+#   "first_name": "Georg",
+#   "last_name": "Preuss",
+#   "score": 0,
+#   "image": "https://bit.ly/37UONby",
+#   "towns": [
+#       {
+#     "model": "travels.town",
+#     "pk": 3761,
+       
+#       "name": "Barcelona",
+#       "name_ascii": "Barcelona",
+#       "lat": "41,3833",
+#       "lng": "2,1834",
+#       "country": "Spain",
+#       "iso2": "ES",
+#       "iso3": "ESP",
+#       "admin_name": "Catalonia",
+#       "capital": "admin",
+#       "population": 4920000,
+#       "continent": "Europe",
+#       "visitors": []
+#   }
+#   ],
+#   "trips": [],
+#   "badges": [],
+#   "groups_owned": [],
+#   "groups_joined": [],
+#   "groups_podium1": [],
+#   "groups_podium2": [],
+#   "groups_podium3": []
+# },
+
+# {
+#   "id": 4,
+#   "username": "Kathrin",
+#   "first_name": "Kathrin",
+#   "last_name": "Eichinger",
+#   "score": 0,
+#   "image": "https://bit.ly/37UONby",
+#   "towns": [
+#       {
+#     "model": "travels.town",
+#     "pk": 3962,
+    
+#       "name": "Quito",
+#       "name_ascii": "Quito",
+#       "lat": "-0,215",
+#       "lng": "-78,5001",
+#       "country": "Ecuador",
+#       "iso2": "EC",
+#       "iso3": "ECU",
+#       "admin_name": "Pichincha",
+#       "capital": "primary",
+#       "population": 1701000,
+#       "continent": "South America",
+#       "visitors": []
+#   }
+#   ],
+#   "trips": [],
+#   "badges": [],
+#   "groups_owned": [],
+#   "groups_joined": [],
+#   "groups_podium1": [],
+#   "groups_podium2": [],
+#   "groups_podium3": []
+# }
+# ]
+
+# for user in all_users: 
+#     # print ((len(user['towns'])))
+#   if len(user['towns']) > 1:
+#         print (user['username'], 'has visited', len(user['towns']), 'cities')
+#   else:
+#         print (user['username'], 'has visited', len(user['towns']), 'city')
+
+
+
+
+# for user in all_users: 
+#     all_user_countries =  len(set(list(map(lambda town: town['country'], user['towns']))))
+# if all_user_countries > 1:
+#       print (user['username'], 'has visited', all_user_countries, 'countries')
+# else:
+#       print (user['username'], 'has visited', all_user_countries, 'country')
+
