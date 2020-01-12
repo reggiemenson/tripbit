@@ -9,12 +9,14 @@ import './styles/main.scss'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Profile from './components/Profile'
-import AddCity from './components/AddCity'
+import CitySelection from './components/CitySelection'
 import AddGroup from './components/AddGroup'
 import Group from './components/Group'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
 import WorldMap from './components/Worldmap'
+
+// we'll need a path for other people's profiles as well
 
 const App = () => (
   <HashRouter>
@@ -22,7 +24,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Hero} />
       <SecureRoute exact path="/profile" component={Profile} />
-      <SecureRoute exact path="/add_city" component={AddCity} />
+      <SecureRoute exact path="/city_selection" component={CitySelection} />
       <SecureRoute exact path="/add_group" component={AddGroup} />
       <SecureRoute exact path="/group" component={Group} />
       <SecureRoute exact path="/add_trip" component={AddTrip} />
