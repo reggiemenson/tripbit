@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Switch, Route } from 'react-router-dom'
+import SecureRoute from './lib/SecureRoute'
 
 import 'bulma'
 import './styles/main.scss'
@@ -20,13 +21,13 @@ const App = () => (
     <Navbar />
     <Switch>
       <Route exact path="/" component={Hero} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/add_city" component={AddCity} />
-      <Route exact path="/add_group" component={AddGroup} />
-      <Route exact path="/group" component={Group} />
-      <Route exact path="/add_trip" component={AddTrip} />
-      <Route exact path="/play" component={Game} />
-      <Route exact path="/world_map" component={WorldMap} />
+      <SecureRoute exact path="/profile" component={Profile} />
+      <SecureRoute exact path="/add_city" component={AddCity} />
+      <SecureRoute exact path="/add_group" component={AddGroup} />
+      <SecureRoute exact path="/group" component={Group} />
+      <SecureRoute exact path="/add_trip" component={AddTrip} />
+      <SecureRoute exact path="/play" component={Game} />
+      <SecureRoute exact path="/world_map" component={WorldMap} />
     </Switch>
   </HashRouter>
 )
