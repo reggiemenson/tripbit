@@ -1,11 +1,12 @@
 from rest_framework import serializers
+from travels.serializers import TownSerializer, TripSerializer, BadgeSerializer, GroupSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
 import django.contrib.auth.password_validation as validations
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
-class UserSerializer(serializers.ModelSerializer):
+class ValidateSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(write_only=True)
     password_confirmation = serializers.CharField(write_only=True) 
@@ -30,19 +31,38 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_confirmation')
+        fields = ('username', 'first_name', 'last_name', 'image', 'email', 'password', 'password_confirmation')
 
-# class UserListSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = User
-#         fields = ('id', 'username', 'first name', 'last name', 'score', 'image')
-
-class PopulatedUserSerializer(serializers.ModelSerializer):
-
-  # groups requested needs to be sorted
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        extra_kwargs = {
+            'score': {'required': False},
+            'towns': {'required': False},
+            'trips': {'required': False},
+            'badges': {'required': False},
+            'groups_owned': {'required': False},
+            'groups_joined': {'required': False},
+            'groups_requested': {'required': False},
+            'groups_podium1': {'required': False},
+            'groups_podium2': {'required': False},
+            'groups_podium3': {'required': False}
+        }
 
+class PopulatedUserSerializer(serializers.ModelSerializer):
+
+    towns = TownSerializer(many=True)
+    trips = TripSerializer(many=True)
+    badges = BadgeSerializer(many=True)
+    groups_owned = GroupSerializer(many=True)
+    groups_requested = GroupSerializer(many=True)
+    groups_joined = GroupSerializer(many=True)
+    groups_podium1 = GroupSerializer(many=True)
+    groups_podium2 = GroupSerializer(many=True)
+    groups_podium3 = GroupSerializer(many=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
