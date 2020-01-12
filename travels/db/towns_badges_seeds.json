@@ -68687,7 +68687,7 @@
   "fields": {
     "name": "Europe",
     "description": "Visit at least one country on the continent of Europe",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/2385/2385015.svg",
     "users": []
   }
 },
@@ -68697,7 +68697,7 @@
   "fields": {
     "name": "North America",
     "description": "Visit at least one country on the continent of North America",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/664/664553.svg",
     "users": []
   }
 },
@@ -68707,7 +68707,7 @@
   "fields": {
     "name": "South America",
     "description": "Visit at least one country on the continent of South America",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/2384/2384953.svg",
     "users": []
   }
 },
@@ -68717,7 +68717,7 @@
   "fields": {
     "name": "Asia",
     "description": "Visit at least one country on the continent of Asia",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/2384/2384959.svg",
     "users": []
   }
 },
@@ -68727,7 +68727,7 @@
   "fields": {
     "name": "Africa",
     "description": "Visit at least one country on the continent of Africa",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/664/664547.svg",
     "users": []
   }
 },
@@ -68737,7 +68737,7 @@
   "fields": {
     "name": "Oceania",
     "description": "Visit at least one country on the continent of Oceania",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/664/664554.svg",
     "users": []
   }
 },
@@ -68776,7 +68776,7 @@
   "pk": 211,
   "fields": {
     "name": "Stan",
-    "description": "Visit any of Afghanistan, Kazakhstan, Kyrgyzstan, Kyrgyzstan, Tajikistan, Turkmenistan, Uzbekistan",
+    "description": "Visit any of the -stans",
     "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
     "users": []
   }
@@ -68787,7 +68787,7 @@
   "fields": {
     "name": "Arctic Circle",
     "description": "Vist any city above 66\u00b0N",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/2445/2445217.svg",
     "users": []
   }
 },
@@ -68797,7 +68797,7 @@
   "fields": {
     "name": "Equator",
     "description": "Vist any city within 1\u00b0S and 1\u00b0N",
-    "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+    "image": "https://image.flaticon.com/icons/svg/1899/1899084.svg",
     "users": []
   }
 },
