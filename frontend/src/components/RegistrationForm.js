@@ -37,6 +37,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // console.log(register.data)
+    if (register.data.image === '') {
+      delete register.data.image
+    }
     axios.post('/api/register', register.data)
       // change code so that upon successful registration login modal appears
       .then(() => {
@@ -50,12 +53,13 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
   }
 
   const handleImageUpload = (response) => {
+    console.log(response)
     const data = { ...register.data, image: response.filesUploaded[0].url }
     setRegister({ data })
   }
 
   return <>
-
+    {console.log(register)}
     <div className=''>
       <div className='container'>
         <h1>Register</h1>
@@ -70,7 +74,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
+                    className="input has-text-info"
                     type='text'
                     name='username'
                   />
@@ -87,7 +91,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
+                    className="input has-text-info"
                     type='text'
                     name='first_name'
                   />
@@ -104,7 +108,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
+                    className="input has-text-info"
                     type='text'
                     name='last_name'
                   />
@@ -147,7 +151,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
+                    className="input has-text-info"
                     type='email'
                     name='email'
                   />
@@ -164,8 +168,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
-                    type='password'
+                    className="input has-text-info"
+                    type='text'
                     name='password'
                   />
                 </div>
@@ -180,8 +184,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <div className='control'>
                   <input
                     onChange={handleChange}
-                    className='input'
-                    type='password'
+                    className="input has-text-info"
+                    type='text'
                     name='password_confirmation'
                   />
                 </div>

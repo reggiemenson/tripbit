@@ -43,7 +43,7 @@ const Login = ({ props }) => {
                 <p className="control has-icons-left has-icons-right">
                   <input
                     onChange={handleChange}
-                    className="input"
+                    className="input has-text-info"
                     name="email"
                     type="email"
                     placeholder="Email"
@@ -61,7 +61,7 @@ const Login = ({ props }) => {
                   <input
                     onChange={handleChange}
                     name="password"
-                    className="input"
+                    className="input has-text-info"
                     type="password"
                     placeholder="Password"
                   />
