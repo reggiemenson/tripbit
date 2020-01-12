@@ -4,22 +4,35 @@
 
 // Import a Google Font
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Open+Sans+Condensed:300,300i,700');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
+@import url('https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700');
 
 // Set your brand colors
 $blue: #4778de;
 $red: #de5247;
-$light-light-blue: #eaf1ff;
+$gold: #dfa62b;
+$light-gold: rgb(255, 216, 132);
+$dark-gold: rgb(97, 67, 0);
+$dark: #101010;
+$gray: #585858;
+$light-gray: #7d7c7c;
 
 
 // Update Bulma's global variables
 $family-sans-serif: 'Open Sans Condensed', sans-serif;
+$info: $gold;
+$success: $light-gold;
+$warning: $gold;
+$link: $gold;
 
 
 // Update some of Bulma's component variables
-$body-background-color: $light-light-blue;
+$text: $light-gray;
+$body-background-color: $dark;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$input-placeholder-color: $gold;
 
 // Import only what you need from Bulma
 @import "../../../node_modules/bulma/sass/utilities/_all.sass";
@@ -38,8 +51,39 @@ $input-shadow: none;
   box-sizing: border-box;
 }
 
+.navbar {
+  background-color: $dark;
+
+  .logo-text {
+    font-family: 'Cabin Sketch', sans-serif;
+    background-image: linear-gradient(to top right, $dark-gold, $gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-style: normal;
+    font-size: 2em;
+    font-weight: 400;
+  }
+}
+
+.title {
+  font-family: 'Cabin Sketch', sans-serif;
+  background-image: linear-gradient(to top right, $dark-gold, $gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.input {
+  background-color: $dark;
+  border: 1px solid $gray;
+
+
+}
+
+
 #homepage {
-  background-color: white;
+
   max-height: 100vh;
 
   .columns {
@@ -47,8 +91,8 @@ $input-shadow: none;
   }
 
   .title {
-    font-family: 'Amatic SC', sans-serif;
     font-size: 4.5rem;
+
   }
 
   #title-column {
@@ -57,23 +101,23 @@ $input-shadow: none;
     align-items: center;
 
     button {
-      color: white;
-      background-color: white;
-      text-shadow: 1px 1px $blue;
+      color: $dark;
+      background-color: $dark;
+      text-shadow: 1px 1px 2px $gold;
       font-weight: 700;
       margin: 10px 5px;
       width: 200px;
       height: 120px;
       border: none; 
-      background-image: url(../images/crayon-shading.png);
+      background-image: url(../images/crayon-shading-gold-gradient.png);
       background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
     }
 
     button:hover {
-      background-image: url(../images/crayon-shading-red.png);
-      text-shadow: 1px 1px $red;
+      background-image: url(../images/crayon-shading-gold-gradient-light.png);
+      text-shadow: 1px 1px 2px $light-gold;
     }
   }
 }
@@ -83,6 +127,10 @@ $input-shadow: none;
   svg {
     width: 100%;
     height: auto;
+
+    path.amcharts-map-area {
+      stroke: $light-gray;
+    }
 
     g:not(:hover) text {
       opacity: 0;
@@ -95,19 +143,20 @@ $input-shadow: none;
     }
 
     path.amcharts-map-area.visited {
-        fill: url(#pattern-blue);
+        fill: url(#pattern-gold);
         fill-opacity: 1;
       }
 
     g.country:hover {
       path.amcharts-map-area.visited {
-        fill: url(#pattern-red);
+        fill: url(#pattern-light);
       }
     }
 
-    text {
+    text.label {
       font-weight: 300;
       font-size: 2rem;
+      color: red;
     }
   }
 }
@@ -136,13 +185,14 @@ $input-shadow: none;
     justify-content: center;
     flex-wrap: wrap;
     width: 150px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 216, 132, 0.9);
     padding: 10px;
     opacity: 0;
-
+  
     div {
       max-width: 100%;
       overflow-wrap: break-word;
+      color: $dark-gold;
     }
   }
 

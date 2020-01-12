@@ -22,9 +22,9 @@ const Navbar = () => {
   // add code to hide navbar on hero page
 
   return (
-    <div className="navbar is-fixed-bottom">
+    <div className="navbar is-fixed-bottom is-transparent">
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/profile"
+        <Link className="navbar-item" to="/"
           onClick={() => setState({ isOpen: false })}
         >
           <em className='logo-text'>Scratch Map</em>
