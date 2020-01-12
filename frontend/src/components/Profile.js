@@ -178,42 +178,42 @@ const example_user = {
       "id": 202,
       "name": "Europe",
       "description": "Visit at least one country on the continent of Europe",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/533/533467.svg",
       "users": []
     },
     {
       "id": 203,
       "name": "North America",
       "description": "Visit at least one country on the continent of North America",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/1973/1973592.svg",
       "users": []
     },
     {
       "id": 204,
       "name": "South America",
       "description": "Visit at least one country on the continent of South America",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/1752/1752275.svg",
       "users": []
     },
     {
       "id": 205,
       "name": "Asia",
       "description": "Visit at least one country on the continent of Asia",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/1086/1086208.svg",
       "users": []
     },
     {
       "id": 206,
       "name": "Africa",
       "description": "Visit at least one country on the continent of Africa",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/520/520064.svg",
       "users": []
     },
     {
       "id": 207,
       "name": "Oceania",
       "description": "Visit at least one country on the continent of Oceania",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/284/284475.svg",
       "users": []
     },
     {
@@ -240,7 +240,7 @@ const example_user = {
     {
       "id": 211,
       "name": "Stan",
-      "description": "Visit any of Afghanistan, Kazakhstan, Kyrgyzstan, Kyrgyzstan, Tajikistan, Turkmenistan, Uzbekistan",
+      "description": "Visit any of the -stans",
       "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
       "users": []
     },
@@ -248,14 +248,14 @@ const example_user = {
       "id": 212,
       "name": "Arctic Circle",
       "description": "Vist any city above 66°N",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/2445/2445217.svg",
       "users": []
     },
     {
       "id": 213,
       "name": "Equator",
       "description": "Vist any city within 1°S and 1°N",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://image.flaticon.com/icons/svg/1899/1899084.svg",
       "users": []
     },
     {
