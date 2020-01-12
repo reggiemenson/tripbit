@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from jwt_auth.views import UserSerializer
+# from jwt_auth.serializers import UserSerializer
 from .models import Town, Trip, Badge, Group
 User = get_user_model()
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
 
 
 class TripSerializer(serializers.ModelSerializer):
@@ -40,12 +46,12 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class PopulatedGroupSerializer(GroupSerializer):
 
-    owner = UserSerializer() 
+    owner = UserSerializer()
     members = UserSerializer(many=True)
     requests = UserSerializer(many=True)
-    podium_1_user = UserSerializer() 
-    podium_2_user = UserSerializer() 
-    podium_3_user = UserSerializer() 
+    podium_1_user = UserSerializer()
+    podium_2_user = UserSerializer()
+    podium_3_user = UserSerializer()
 
 
 class TownSerializer(serializers.ModelSerializer):

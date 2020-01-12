@@ -12,12 +12,12 @@ import jwt
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-from .serializers import UserSerializer, PopulatedUserSerializer 
+from .serializers import ValidateSerializer, UserSerializer, PopulatedUserSerializer 
 
 class RegisterView(APIView):
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = ValidateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'message': 'Registration successful'})
@@ -54,7 +54,7 @@ class ProfileView(APIView):
         serialized_user = PopulatedUserSerializer(user)
         return Response(serialized_user.data)
 
-        # the following path is just a template for editing basic details about the user.
+        # Temporary working path to edit a user. It has no additional logic inbetween.
 
     def put(self, request):
         serialized_user = User.objects.get(pk=request.user.id)
@@ -63,14 +63,15 @@ class ProfileView(APIView):
             serialized_user = updated_user
             serialized_user.save()
             return Response(serialized_user.data)
-        return Response(serialized_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+        return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request):
         user = User.objects.get(pk=request.user.id)
         user.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
-        # The following view is for editing the user preference points that will affect ranking.
+        # The following view is for editing the user preference points (badges, towns, etc) that will affect ranking.
+        # It's the same as the one above but with space to include logic. Mine has been commented out. Note that it is on a different url path
         
 class EditDetailView(APIView):
 
@@ -88,7 +89,7 @@ class EditDetailView(APIView):
         #  This is the point where badge logic might be entered.
 
     #         all_users = User.objects.all()
-    #         serialized_userList = PopulatedSerializer(all_users)
+    #         serialized_userList = UserSerializer(all_users)
     #         
     #         get_platform_badges(serialized_userList)
 
@@ -99,7 +100,7 @@ class EditDetailView(APIView):
     #         serialized_user.save()
 
     #         return Response(serialized_user.data)
-    #     return Response(serialized_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+    #     return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 class UserView(APIView):
@@ -117,7 +118,7 @@ class UserListView(APIView):
 
     def get(self, request):
         users = User.objects.all()
-        serialized_userList = PopulatedUserSerializer(users, many=True)
+        serialized_userList = DetailUserSerializer(users, many=True)
         return Response(serialized_userList.data)
 
 
