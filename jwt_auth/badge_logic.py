@@ -1,7 +1,8 @@
 # Functions to check which badges are awarded
-import numpy
+# import numpy
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
+from .travels.models import Badge
 
 
 all_countries = ['Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Armenia', 'Australia', 'Angola', 'Austria', 'Azerbaijan', 'Bahamas, The', 'Bahrain', 'Bangladesh',
@@ -469,10 +470,38 @@ get_badges(user_towns)
 # Badges based on everybody's cities
 
 def get_platform_badges(users):
-    pass
 
     # most countries (214)
 
+    def count_user_countries(person):
+        all_user_town_countries = list(map(lambda town: town['country'], person['towns']))
+        unique_user_countries = set(all_user_town_countries)
+        return unique_user_countries
+
+    badge = Badge.object.get(pk=214)
+
+    leader = badge.users[0] or False
+
+    badge.users.clear()
+
+    for user in users:
+        current_user = count_user_countries(user)
+
+        if leader is not False:
+            current_leader = count_user_countries(leader)
+
+            if len(current_user) >= len(current_leader):
+                leader = user
+
+            else:
+                leader = user
+
+        return leader
+
+    badge.users.append(leader)
+    badge.save()
+
+    pass
     # most cities (215)
 
     # most capitals (216)

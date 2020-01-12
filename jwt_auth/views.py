@@ -8,6 +8,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from django.conf import settings
 import jwt
 
+# from .badge_logic import get_platform_badges
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -76,14 +77,28 @@ class EditDetailView(APIView):
     permission_classes = (IsAuthenticated, )
 
     # def put(self, request):
-    #     request.data['user'] = request.user.id
     #     serialized_user = User.objects.get(pk=request.user.id)
-    #     updated_user = PopulatedUserSerializer(user, data=request.data)
+    #     updated_user = UserSerializer(serialized_user, data=request.data)
     #     if (updated_user.is_valid()):
-    #         serialized_user = updated_user
+
+    #         serialized_user = updated_and_ranked_user
     #         serialized_user.save()
+
+
+        #  This is the point where badge logic might be entered.
+
+    #         all_users = User.objects.all()
+    #         
+    #         get_platform_badges(all_users)
+
+        #  Possible catch to check all is fine
+    #         
+    #         updated_and_ranked_user = User.objects.get(pk=request.user.id)
+    #         serialized_user = UserSerializer(new_request_user)
+    #         serialized_user.save()
+
     #         return Response(serialized_user.data)
-    #     return Response(user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+    #     return Response(serialized_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 class UserView(APIView):

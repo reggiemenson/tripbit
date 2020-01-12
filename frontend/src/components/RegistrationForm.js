@@ -1,5 +1,16 @@
 import React from 'react'
 import axios from 'axios'
+import ReactFilestack from 'filestack-react'
+import { fileloaderKey } from '../config/environment'
+
+const options = {
+  accept: 'image/*',
+  transformations: {
+    crop: true,
+    circle: true,
+    rotate: true
+  }
+}
 
 class Register extends React.Component {
   constructor() {
@@ -9,6 +20,7 @@ class Register extends React.Component {
         username: '',
         first_name: '',
         last_name: '',
+        image: '',
         email: '',
         password: '',
         password_confirmation: ''
@@ -22,16 +34,21 @@ class Register extends React.Component {
     const errors = { ...this.state.errors, [e.target.name]: '' }
     this.setState({ data, errors })
   }
-  
+
   handleSubmit(e) {
     e.preventDefault()
     // console.log(this.state.data)
     axios.post('/api/register', this.state.data)
-      .then(() => this.props.history.push('/login'))
+      .then(() => console.log('registered!'))
       .catch(err => {
         // console.log(err.response.data)
         this.setState({ errors: err.response.data })
       })
+  }
+
+  handleImageUpload(response) {
+    const data = { ...this.state.data, image: response.filesUploaded[0].url }
+    this.setState({ data })
   }
 
   render() {
@@ -94,6 +111,32 @@ class Register extends React.Component {
                     {this.state.errors.last_name && <small className='help is-danger'>
                       {this.state.errors.last_name[0]}
                     </small>}
+                  </div>
+
+                  <div className='field'>
+                    <label htmlFor='image' className='label'>
+                      Image
+                    </label>
+                    <ReactFilestack
+                      apikey={fileloaderKey}
+                      componentDisplayMode={{
+                        type: 'button',
+                        customText: 'Add an Image'
+                      }}
+                      className='button'
+                      options={options}
+                      onSuccess={(response) => this.handleImageUpload(response)}
+                      preload={true}
+                    />
+                    {this.state.data.image &&
+                      <figure className="image is-128x128">
+                        <img className="is-rounded" src={this.state.data.image} />
+                        <br />
+                      </figure>
+                    }
+                    {/* {this.state.errors.image && <small className='help is-danger'>
+                      {this.state.errors.image[0]}
+                    </small>} */}
                   </div>
 
                   <div className='field'>

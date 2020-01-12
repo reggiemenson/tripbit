@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_confirmation')
+        fields = ('username', 'first_name', 'last_name', 'image', 'email', 'password', 'password_confirmation')
 
 # class UserListSerializer(serializers.ModelSerializer):
 
@@ -44,5 +44,5 @@ class PopulatedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
 
