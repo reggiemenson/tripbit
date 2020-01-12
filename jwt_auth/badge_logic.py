@@ -1,8 +1,8 @@
 # Functions to check which badges are awarded
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
-from travels.models import Badge
-from travels.serializers import PopulatedBadgeSerializer
+from travels.models import Badge, Town
+from travels.serializers import BadgeSerializer
 # from .travels.models import Badge
 
 
@@ -612,21 +612,16 @@ def get_platform_badges(users):
     # most countries (214)
 
     def count_user_countries(person):
-        print(person['towns'])
         all_user_town_countries = list(map(lambda town: town['country'], person['towns']))
+
         unique_user_countries = set(all_user_town_countries)
         return unique_user_countries
 
     badge = Badge.objects.get(pk=214)
 
-    serialized_badge = PopulatedBadgeSerializer(badge)
-    # print(serialized_badge.data, 'see me run!!!!')
+    serialized_badge = BadgeSerializer(badge)
 
-    leader = serialized_badge.data
-    print(leader, 'its the leader!!!!')
-    print(leader['users'])
-
-    # leader = badge_owners[0]
+    leader = False
 
     serialized_badge.data['users'].clear()
 
@@ -639,13 +634,13 @@ def get_platform_badges(users):
             if len(current_user) > len(current_leader):
                 leader = user
 
-            else:
-                leader = user
-
-        return leader
-
-    badge.users.data.append(leader)
-    badge.save()
+        else:
+            leader = user
+    
+    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
 
     # most cities (215)
 

@@ -98,9 +98,9 @@ class EditDetailView(APIView):
 
         #  Possible catch to check all is fine
             
-            updated_and_ranked_user = User.objects.get(pk=request.user.id)
-            serialized_user = UserSerializer(updated_and_ranked_user)
-            serialized_user.save()
+            # updated_and_ranked_user = User.objects.get(pk=request.user.id)
+            # serialized_user = UserSerializer(updated_and_ranked_user)
+            # serialized_user.save()
 
             return Response(serialized_user.data)
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
