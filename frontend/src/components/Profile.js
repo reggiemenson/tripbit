@@ -5,7 +5,6 @@ import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 
 import Mask from '../images/mask-dark-gradient.png'
-import Auth from '../lib/auth'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -395,6 +394,8 @@ const Profile = (props) => {
     bearing: 0,
     pitch: 0
   })
+
+  // store profile image here
   const [data, setData] = useState({})
 
   const handleImageUpload = (res) => {
@@ -474,15 +475,15 @@ const Profile = (props) => {
         <div className="hero-body level is-mobile">
           <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
           <ReactFilestack
+            mode='transform'
+            preload={true}
             apikey={fileloaderKey}
             options={options}
-            // actionOptions={PickerOptions}
             customRender={({ onPick }) => (
-              <div>
+              <div onClick={onPick}>
                 <figure className="level-item image is-128x128">
-                  <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" />
+                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' : data.image} />
                 </figure>
-                <button onClick={onPick}>Pick</button>
               </div>
             )}
             onSuccess={handleImageUpload}
@@ -517,29 +518,6 @@ const Profile = (props) => {
           </div>
         </div>
 
-      </section>
-      <section className="section">
-        <div className="container">
-          <h1 className="title is-1">Add details</h1>
-          <ReactFilestack
-            mode='transform'
-            apikey={fileloaderKey}
-            componentDisplayMode={{
-              type: 'button',
-              customText: 'Add an Image'
-            }}
-            buttonClass='button'
-            options={options}
-            onSuccess={handleImageUpload}
-            preload={true}
-          />
-          {data.image &&
-            <figure className="image is-128x128">
-              <img className="is-rounded" src={data.image} />
-              <br />
-            </figure>
-          }
-        </div>
       </section>
 
       <section className={panel ? 'section' : 'section hide'} id="user-profile">
