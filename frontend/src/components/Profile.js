@@ -3,6 +3,7 @@ import MapGL from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
+import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
 
@@ -405,7 +406,6 @@ const Profile = (props) => {
     setData({ data })
   }
 
-
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
   // states for stats modals
@@ -451,12 +451,15 @@ const Profile = (props) => {
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
-    axios.get(`api/profile/${props.match.params.id}`)
-      .then(resp => setProfile(resp))
+    axios.get(`api/profile/${props.match.params.id}`, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(resp => {
+        console.log(resp)
+        setProfile(resp)
+      })
       .catch(err => setErrors(err))
   }, [])
-
-  console.log('profile ', profile)
 
   return (
     <div>
@@ -473,7 +476,7 @@ const Profile = (props) => {
 
       <section className="hero" id="user-profile-header">
         <div className="hero-body level is-mobile">
-          <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
+          <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
             mode='transform'
             preload={true}
@@ -488,7 +491,7 @@ const Profile = (props) => {
             )}
             onSuccess={handleImageUpload}
           />
-          <p className="level-item subtitle is-3" onClick={showRight}>Link 2</p>
+          <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
         </div>
 
         <div className="level is-mobile">
@@ -512,7 +515,7 @@ const Profile = (props) => {
           </div>
           <div className="level-item has-text-centered">
             <div>
-              <p className="heading">XP</p>
+              <p className="heading">Travel XP</p>
               <p className="title">780</p>
             </div>
           </div>
@@ -572,12 +575,14 @@ const Profile = (props) => {
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
-          <p>inContinents</p>
-          {listContinentsCountries(example_user, 'continent').map((continent, i) => {
-            return <div key={i}>
-              <p>{continent}</p>
+          <h2 className="title">inContinents</h2>
+          <div className="container">
+            <div className="columns">
+              {listContinentsCountries(example_user, 'continent').map((continent, i) => {
+                return <div key={i} className="column">{continent}</div>
+              })}
             </div>
-          })}
+          </div>
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
       </div>
