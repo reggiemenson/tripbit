@@ -53,10 +53,10 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="navbar-item">
-              <Link className="navbar-item" to="/add_group"
+              <Link className="navbar-item" to="/groups"
                 onClick={() => toggleNavbar()}
               >
-                Add group
+                Groups
               </Link>
             </div>
             <div className="navbar-item">

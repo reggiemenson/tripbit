@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Group = () => {
+const IndividualGroup = () => {
   
   // add hooks here
   // once mapbox on profile page done copy and paste code here
@@ -10,4 +10,4 @@ const Group = () => {
   )
 }
 
-export default Group
+export default IndividualGroup
