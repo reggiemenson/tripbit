@@ -54,6 +54,10 @@ $input-placeholder-color: $gold;
   box-sizing: border-box;
 }
 
+.modal-content {
+  max-width: 90%;
+}
+
 .navbar {
   background-color: $dark;
 

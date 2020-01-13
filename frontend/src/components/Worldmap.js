@@ -13,10 +13,10 @@ const WorldMap = ({ countriesData }) => {
     return
   })
 
-  return <div className="section worldmapsvg">
+  return <div className="worldmapsvg">
     <div class={`pageloader ${Object.keys(countriesData).length === 0 ? 'is-active' : ''}`}></div>
     {console.log(countriesData.length)}   
-    <div className="container">
+    
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" space="preserve" viewBox="100 0 1400 900">
         <desc>JavaScript chart by amCharts 3.21.15</desc>
         <desc>This map was created using Pixel Map Generator by amCharts and is licensed under the Creative Commons Attribution 4.0 International License. You may use this map the way you see fit as long as proper attribution to the name of amCharts is given in the form of link to http://pixelmap.amcharts.com/ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/ If you would like to use this map without any attribution, you can acquire a commercial license for the JavaScript Maps - a tool that was used to produce this map. To do so, visit amCharts Online Store: http://www.amcharts.com/online-store/</desc>
@@ -295,7 +295,6 @@ const WorldMap = ({ countriesData }) => {
           </g>
         </g>
       </svg>
-    </div>
   </div>
 
 }
