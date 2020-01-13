@@ -774,15 +774,6 @@ def get_user_badges(user):
 
 
 
-
-
-
-
-
-
-
-
-
 #     all_users = [ {
 #   "id": 1,
 #   "username": "Michael",
