@@ -413,9 +413,11 @@ const Profile = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.get('api/profile/')
-      .then(resp => setProfile(resp))
-      .catch(err => setErrors(err))
+    axios.put('api/profile/'), {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+        .then(resp => console.log('success'))
+        .catch(err => console.log(err))
+    }
   }
 
   // toggle between profile info, true for left and false for right (links next to profile image)
@@ -463,7 +465,7 @@ const Profile = (props) => {
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
-    axios.get(`api/profile/${props.match.params.id}`, {
+    axios.get('api/profile', {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
@@ -497,8 +499,8 @@ const Profile = (props) => {
             customRender={({ onPick }) => (
               <div onClick={onPick}>
                 <figure className="level-item image is-128x128">
-                  {/* Class creates an oval. Look to change this so all propics are circles */}
-                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' : data.image} />
+                  {/* Class creates an oval. Look to change this so all propics are circles. */}
+                  <img className="is-rounded" src={!data.image ? profile.image : data.image} />
                 </figure>
               </div>
             )}
@@ -506,6 +508,9 @@ const Profile = (props) => {
           />
           <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
         </div>
+          {/* <button className="button is-link">
+            Done
+          </button> */}
 
         <div className="level is-mobile">
           <div className="level-item has-text-centered" onClick={toggleContinent}>
