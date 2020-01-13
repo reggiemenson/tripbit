@@ -23,11 +23,11 @@ const Navbar = () => {
 
   return (
     <>
-      {Auth.isAuthorized() && < section className="menu menu--circle">
+      {Auth.isAuthorized() && <section className="menu menu--circle">
         <input type="checkbox" id="menu__active" />
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
-            <div className="icon">
+            <div className="icons">
               <div className="hamburger"></div>
             </div>
           </div>
@@ -40,16 +40,16 @@ const Navbar = () => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/add_group" className="button"> <i className="fa fa-users"></i></Link>
+                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i></Link>
                     {'\n'}
-                    <Link to="/add_group"> <p className="navbar-links">GROUPS</p> </Link>
+                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/profile" className="button"><i className="fa fa-user"></i></Link>
+                    <Link to="/profile" className="navbutton"><i className="fa fa-user"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">USER</p></Link>
                   </div>
@@ -58,7 +58,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="button"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">ADD CITIES</p></Link>
                   </div>
@@ -67,7 +67,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="button"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">TEST</p></Link>
                   </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a href="#" className="button"><i className="fa fa-trash"></i></a>
+                    <a href="#" className="navbutton"><i className="fa fa-trash"></i></a>
                     {'\n'}
                     <p className="navbar-links">TEST</p>
                   </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a href="#" className="button"><i className="fa fa-battery-4"></i></a>
+                    <a href="#" className="navbutton"><i className="fa fa-battery-4"></i></a>
                     {'\n'}
                     <p className="navbar-links">TEST</p>
                   </div>
@@ -94,7 +94,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/" onClick={() => handleLogout()} className="button"><i className="fa fa-sign-out"></i> </Link>
+                    <Link to="/" onClick={() => handleLogout()} className="navbutton"><i className="fa fa-sign-out"></i> </Link>
                     {'\n'}
                     <Link><p className="navbar-links"> {' '}LOG-OUT</p></Link>
                   </div>
@@ -103,7 +103,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link href="/play" className="button"><i className="fa fa-gamepad"></i></Link>
+                    <Link href="/play" className="navbutton"><i className="fa fa-gamepad"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">GAME</p></Link>
                   </div>
@@ -112,7 +112,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/add_trip" className="button"><i className="fa fa-plane"></i></Link>
+                    <Link to="/add_trip" className="navbutton"><i className="fa fa-plane"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">ADD TRIP</p></Link>
                   </div>
@@ -121,7 +121,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="button"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">ADD CITY</p></Link>
                   </div>
@@ -134,7 +134,7 @@ const Navbar = () => {
               <li>
                 <label htmlFor="degree--up-0"><div className="arrow"></div></label>
                 <label htmlFor="degree--up-1"><div className="arrow"></div></label>
-                <label htmlFor="degree--up-2"><div className="arrow"></div></label>
+                {/* <label htmlFor="degree--up-2"><div className="arrow"></div></label> */}
               </li>
             </ul>
           </div>
