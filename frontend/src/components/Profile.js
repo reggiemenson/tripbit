@@ -8,6 +8,7 @@ import MapGL from 'react-map-gl'
 
 import Mask from '../images/mask-dark-gradient.png'
 
+// this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
 const example_user = {
@@ -321,6 +322,7 @@ const Profile = () => {
         {/* <h1>Generic Startup Hype Headline</h1> */}
         <MapGL
           {...viewport}
+          position="absolute"
           width="100vw"
           height="33vh"
           mapStyle="mapbox://styles/mapbox/dark-v9"
@@ -330,7 +332,7 @@ const Profile = () => {
       </LazyHero>
       {/* placeholder text to test parallax effect with mapbox */}
 
-      <section className="section">
+      <section className="section test">
         <div className="container">
           <h1 className="title is-1">Welcome to your profile!</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus?</p>
