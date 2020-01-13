@@ -46,11 +46,16 @@ $input-placeholder-color: $gold;
 @import "../../../node_modules/bulma/sass/layout/section.sass";
 @import "../../../node_modules/bulma-extensions//bulma-checkradio/dist/css/bulma-checkradio.sass";
 @import "../../../node_modules/bulma/sass/components/card.sass";
+@import "../../../node_modules/bulma-extensions//bulma-pageloader/dist/css/bulma-pageloader.sass";
 
 /********* CUSTOM STYLES ********/
 
 * {
   box-sizing: border-box;
+}
+
+.modal-content {
+  max-width: 90%;
 }
 
 .navbar {
@@ -74,6 +79,7 @@ $input-placeholder-color: $gold;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-size: 3rem;
 }
 
 .subtitle {
@@ -128,6 +134,15 @@ font-style: italic;
 
 
 .worldmapsvg {
+
+  .pageloader {
+    background-color: rgba($dark, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
   svg {
     width: 100%;
     height: auto;
@@ -159,7 +174,7 @@ font-style: italic;
 
     text.label {
       font-weight: 300;
-      font-size: 2rem;
+      font-size: 1.5rem;
       fill: $gold;
     }
   }
@@ -303,7 +318,7 @@ font-style: italic;
 // NAVBAR STYLING
 
 
-.icon {
+.icons {
   position: absolute;
   top: 70%;
   left: 70%;
@@ -340,7 +355,7 @@ font-style: italic;
   pointer-events: none;
 }
 .menu--circle {
-  position: absolute;
+  position: fixed;
   z-index: 13;
   right: 0%;
   bottom: 0%;
@@ -458,7 +473,7 @@ font-style: italic;
 .circle li .placeholder button {
   pointer-events: auto;
 }
-.circle li .placeholder .button {
+.circle li .placeholder .navbutton {
   font-size: 2.3em;
   background-color: transparent;
   border: none;
@@ -559,7 +574,7 @@ font-style: italic;
   transition-property: bottom, transform;
   transition-duration: 0.25s, 1s;
 }
-#menu__active:checked ~ label .button:hover {
+#menu__active:checked ~ label .navbutton:hover {
   color: rgb(255, 216, 132);
 }
 #menu__active:checked ~ label .menu__arrow {
@@ -581,12 +596,12 @@ font-style: italic;
 #menu__active:checked ~ label #degree--up-0:checked ~ .menu__arrow--top label[for="degree--up-1"] {
   display: block;
 }
-#menu__active:checked ~ label #degree--up-1:checked ~ .menu__listings {
-  transform: rotate(224deg);
-}
-#menu__active:checked ~ label #degree--up-1:checked ~ .menu__listings ~ .menu__arrow--top label {
-  display: none;
-}
+// #menu__active:checked ~ label #degree--up-1:checked ~ .menu__listings {
+//   transform: rotate(224deg);
+// }
+// #menu__active:checked ~ label #degree--up-1:checked ~ .menu__listings ~ .menu__arrow--top label {
+//   display: none;
+// }
 #menu__active:checked ~ label #degree--up-1:checked ~ .menu__listings ~ .menu__arrow--top label[for="degree--up-2"] {
   display: block;
 }
@@ -608,6 +623,8 @@ transform: rotate(180deg);
 
 .navbar-links:hover {
   color: rgb(255, 216, 132);
+}
+
 #groups-page {
   .subtitle {
     color: $gold;
@@ -672,7 +689,7 @@ transform: rotate(180deg);
     .member-image {
       margin: 5px;
     }
-}
-}
+  }
+
 
 }
