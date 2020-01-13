@@ -5,6 +5,7 @@ import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 
 import Mask from '../images/mask-dark-gradient.png'
+import Register from './RegistrationForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -396,13 +397,23 @@ const Profile = (props) => {
   })
 
   // store profile image here
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    username: profile.username,
+    first_name: profile.first_name,
+    last_name: profile.last_name
+  })
 
   const handleImageUpload = (res) => {
-    console.log(res.filesUploaded[0].url)
+    // console.log(res.filesUploaded[0].url)
     // console.log(res.filesUploaded[1].url)
-    const data = { ...data, image: res.filesUploaded[0].url }
-    setData({ data })
+    setData({ ...data, image: res.filesUploaded[0].url })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.get('api/profile/')
+      .then(resp => setProfile(resp))
+      .catch(err => setErrors(err))
   }
 
 
@@ -456,7 +467,7 @@ const Profile = (props) => {
       .catch(err => setErrors(err))
   }, [])
 
-  console.log('profile ', profile)
+  // console.log('profile ', profile)
 
   return (
     <div>
@@ -472,16 +483,17 @@ const Profile = (props) => {
       />
 
       <section className="hero" id="user-profile-header">
+        {console.log(!!data.image)}
         <div className="hero-body level is-mobile">
           <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
           <ReactFilestack
-            mode='transform'
             preload={true}
             apikey={fileloaderKey}
             options={options}
             customRender={({ onPick }) => (
               <div onClick={onPick}>
                 <figure className="level-item image is-128x128">
+                  {/* Class creates an oval. Look to change this so all propics are circles */}
                   <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' : data.image} />
                 </figure>
               </div>
