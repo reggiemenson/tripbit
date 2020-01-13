@@ -158,6 +158,15 @@ $input-placeholder-color: $gold;
   }
 }
 
+#user-profile-header {
+  position: -webkit-sticky; 
+  position: sticky;
+  top: 0;
+  z-index: +1;
+  background-color: $dark;
+}
+
+
 #user-profile {
 
   div.badge-display {
@@ -198,6 +207,11 @@ $input-placeholder-color: $gold;
   }
 
 
+}
+
+// styling to toggle between left and right info on profile page
+.hide {
+  display: none;
 }
 
 // ********** ******* //

@@ -51,7 +51,6 @@ const Hero = (props) => {
       <div className={registrationModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
-          {/* need to pass state down to Register function? or will redirecting be enough? */}
           <Register
             toggleRegistration={toggleRegistration}
             toggleLogin={toggleLogin}
@@ -62,7 +61,6 @@ const Hero = (props) => {
       <div className={loginModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
-          {/* need to pass state down to Login function? or will redirecting be enough? */}
           <Login props={props}/>
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
