@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className={`navbar-menu ${state.isOpen ? 'is-active' : ''} ${history.location.pathname === '/' ? 'navbar-is-transparent' : 'navbar-is-transparent'}`}>
           <div className="navbar-end">
             <div className="navbar-item">
-              <Link className="navbar-item" to="/profile"
+              <Link className="navbar-item" to={`/profile/${Auth.getUserId()}`}
                 onClick={() => toggleNavbar()}
               >
                 Profile

@@ -23,7 +23,7 @@ const App = () => (
     <Navbar />
     <Switch>
       <Route exact path="/" component={Hero} />
-      <SecureRoute exact path="/profile" component={Profile} />
+      <SecureRoute exact path="/profile/:id" component={Profile} />
       <SecureRoute exact path="/city_selection" component={CitySelection} />
       <SecureRoute exact path="/groups" component={Groups} />
       <SecureRoute exact path="/groups/:id" component={IndividualGroup} />

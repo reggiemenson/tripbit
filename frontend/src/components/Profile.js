@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MapGL from 'react-map-gl'
+import axios from 'axios'
+
 import Mask from '../images/mask-dark-gradient.png'
+import Auth from '../lib/auth'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -291,6 +294,10 @@ const example_user = {
 
 const Profile = () => {
 
+  // info from api get request will be stored here
+  const [profile, setProfile] = useState({})
+  const [errors, setErrors] = useState({})
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -302,15 +309,40 @@ const Profile = () => {
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
-  
+  // states for stats modals
+  const [continentModal, setContinentModal] = useState(false)
+  const [countryModal, setCountryModal] = useState(false)
+  const [cityModal, setCityModal] = useState(false)
+
+  // show 'right' stats
   const showRight = () => {
     setPanel(false)
   }
-  
+
+  // show 'left' stats
   const showLeft = () => {
     setPanel(true)
   }
- 
+
+  const toggleContinent = () => {
+    setContinentModal(!continentModal)
+  }
+
+  const toggleCountry = () => {
+    setCountryModal(!countryModal)
+  }
+
+  const toggleCity = () => {
+    setCityModal(!cityModal)
+  }
+
+  useEffect(() => {
+    axios.get(`api/profile/${Auth.getUserId()}`)
+      .then(resp => setProfile(resp))
+      .catch(err => setErrors(err))
+  }, [])
+  console.log('profile ', profile)
+
   return (
     <div>
 
@@ -333,19 +365,19 @@ const Profile = () => {
           <p className="level-item subtitle is-3" onClick={showRight}>Link 2</p>
         </div>
         <div className="level is-mobile">
-          <div className="level-item has-text-centered">
+          <div className="level-item has-text-centered" onClick={toggleContinent}>
             <div>
               <p className="heading">Continents</p>
               <p className="title">3</p>
             </div>
           </div>
-          <div className="level-item has-text-centered">
+          <div className="level-item has-text-centered" onClick={toggleCountry}>
             <div>
               <p className="heading">Countries</p>
               <p className="title">12</p>
             </div>
           </div>
-          <div className="level-item has-text-centered">
+          <div className="level-item has-text-centered" onClick={toggleCity}>
             <div>
               <p className="heading">Cities</p>
               <p className="title">22</p>
@@ -382,7 +414,7 @@ const Profile = () => {
           </div>
         </div>
       </section>
-      
+
       <section className={panel ? 'section hide' : 'section'} id="user-profile">
         <div className="container">
           <div className="subtitle">
@@ -399,7 +431,31 @@ const Profile = () => {
         </div>
       </section>
 
-            {/* stats modals below */}
+      {/* stats modals below */}
+
+      <div className={continentModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>inContinents</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
+      </div>
+      
+      <div className={countryModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>Countries you've been to</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCountry}></button>
+      </div>
+      
+      <div className={cityModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>Cities you've been to</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
+      </div>
 
     </div>
   )
