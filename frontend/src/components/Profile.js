@@ -6,7 +6,7 @@ import MapGL from 'react-map-gl'
 // why is this needed?
 // import { render } from 'react-dom'
 
-import Mask from '../images/mask-dark.png'
+import Mask from '../images/mask-dark-shade.png'
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 

@@ -202,6 +202,11 @@ $input-placeholder-color: $gold;
 
 // ********** ******* //
 
+.is-checkradio[type="checkbox"] + label::before, 
+.is-checkradio[type="checkbox"] + label:before {
+  border: 0.1rem solid $light-gray;
+}
+
 #city-selection {
 
   .form {
