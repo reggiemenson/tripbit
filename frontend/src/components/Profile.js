@@ -1,22 +1,69 @@
 import React, { useState, useEffect } from 'react'
 import MapGL from 'react-map-gl'
+import ReactFilestack from 'filestack-react'
+import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 
 import Mask from '../images/mask-dark-gradient.png'
-import Auth from '../lib/auth'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
+// options for ReactFilestack
+const options = {
+  accept: 'image/*',
+  transformations: {
+    crop: true,
+    circle: true,
+    rotate: true
+  }
+}
+
 const example_user = {
-  'id': 2,
-  'username': 'kitkat',
-  'first_name': 'kit',
-  'last_name': 'kat',
-  'score': null,
-  'image': 'https://bit.ly/37UONby',
-  'towns': [],
-  'trips': [],
+  "id": 2,
+  "username": "kitkat",
+  "first_name": "kit",
+  "last_name": "kat",
+  "score": null,
+  "image": "https://bit.ly/37UONby",
+  "towns": [
+    {
+      "model": "travels.town",
+      "pk": 3705,
+
+      "name": "\ufeffTokyo",
+      "name_ascii": "Tokyo",
+      "lat": "35,685",
+      "lng": "139,7514",
+      "country": "Japan",
+      "iso2": "JP",
+      "iso3": "JPN",
+      "admin_name": "T\u014dky\u014d",
+      "capital": "primary",
+      "population": 35676000,
+      "continent": "Asia",
+      "visitors": []
+
+    },
+    {
+      "model": "travels.town",
+      "pk": 3706,
+
+      "name": "New York",
+      "name_ascii": "New York",
+      "lat": "40,6943",
+      "lng": "-73,9249",
+      "country": "United States",
+      "iso2": "US",
+      "iso3": "USA",
+      "admin_name": "New York",
+      "capital": "",
+      "population": 19354922,
+      "continent": "North America",
+      "visitors": []
+    }
+  ],
+  "trips": [],
   'badges': [
     {
       "id": 1,
@@ -178,121 +225,162 @@ const example_user = {
       "description": "Visit at least one country on the continent of Europe",
       "image": "https://image.flaticon.com/icons/svg/533/533467.svg",
       "users": []
-    },
-    {
-      "id": 203,
-      "name": "North America",
-      "description": "Visit at least one country on the continent of North America",
-      "image": "https://image.flaticon.com/icons/svg/1973/1973592.svg",
-      "users": []
-    },
-    {
-      "id": 204,
-      "name": "South America",
-      "description": "Visit at least one country on the continent of South America",
-      "image": "https://image.flaticon.com/icons/svg/1752/1752275.svg",
-      "users": []
-    },
-    {
-      "id": 205,
-      "name": "Asia",
-      "description": "Visit at least one country on the continent of Asia",
-      "image": "https://image.flaticon.com/icons/svg/1086/1086208.svg",
-      "users": []
-    },
-    {
-      "id": 206,
-      "name": "Africa",
-      "description": "Visit at least one country on the continent of Africa",
-      "image": "https://image.flaticon.com/icons/svg/520/520064.svg",
-      "users": []
-    },
-    {
-      "id": 207,
-      "name": "Oceania",
-      "description": "Visit at least one country on the continent of Oceania",
-      "image": "https://image.flaticon.com/icons/svg/284/284475.svg",
-      "users": []
-    },
-    {
-      "id": 208,
-      "name": "Viking",
-      "description": "Visit at least one of Norway, Sweden, Denmark, Finland or Iceland",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 209,
-      "name": "Columbus",
-      "description": "Spain, Portugal and one of (South America)",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 210,
-      "name": "Kerouac",
-      "description": "Visit 6 in the USA",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 211,
-      "name": "Stan",
-      "description": "Visit any of the -stans",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 212,
-      "name": "Arctic Circle",
-      "description": "Vist any city above 66°N",
-      "image": "https://image.flaticon.com/icons/svg/2445/2445217.svg",
-      "users": []
-    },
-    {
-      "id": 213,
-      "name": "Equator",
-      "description": "Vist any city within 1°S and 1°N",
-      "image": "https://image.flaticon.com/icons/svg/1899/1899084.svg",
-      "users": []
-    },
-    {
-      "id": 214,
-      "name": "Most countries",
-      "description": "Visit the most countries on the platform",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 215,
-      "name": "Most cities",
-      "description": "Visit the most cities on the platform",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 216,
-      "name": "Most capitals",
-      "description": "Visit the most capitals on the platform",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
-    },
-    {
-      "id": 217,
-      "name": "MEGA BADGE",
-      "description": "Have the most badges on the platform",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
-      "users": []
     }
   ],
-  'groups_owned': [],
-  'groups_joined': [],
-  'groups_podium1': [],
-  'groups_podium2': [],
-  'groups_podium3': []
+  "groups_owned": [
+    {
+      "id": 1,
+      "name": "Test group 1",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 2,
+      "members": [
+        2
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    },
+    {
+      "id": 2,
+      "name": "Test group 2",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 2,
+      "members": [
+        2
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    }
+  ],
+  "groups_requested": [
+    {
+      "id": 5,
+      "name": "Test group 5",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 3,
+      "members": [
+        3
+      ],
+      "requests": [
+        2
+      ],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    },
+    {
+      "id": 6,
+      "name": "Test group 6",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 3,
+      "members": [
+        3
+      ],
+      "requests": [
+        2
+      ],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    }
+  ],
+  "groups_joined": [
+    {
+      "id": 1,
+      "name": "Test group 1",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 2,
+      "members": [
+        2
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    },
+    {
+      "id": 2,
+      "name": "Test group 2",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 2,
+      "members": [
+        2
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    },
+    {
+      "id": 3,
+      "name": "Test group 3",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 3,
+      "members": [
+        2,
+        3
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    },
+    {
+      "id": 4,
+      "name": "Test group 4",
+      "description": "for science",
+      "image": "https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png",
+      "owner": 3,
+      "members": [
+        2,
+        3
+      ],
+      "requests": [],
+      "podium_1_user": null,
+      "podium_2_user": null,
+      "podium_3_user": null,
+      "podium_1_score": null,
+      "podium_2_score": null,
+      "podium_3_score": null
+    }
+  ],
+  "groups_podium1": [],
+  "groups_podium2": [],
+  "groups_podium3": []
 }
 
-const Profile = () => {
+const Profile = (props) => {
 
   // info from api get request will be stored here
   const [profile, setProfile] = useState({})
@@ -306,6 +394,17 @@ const Profile = () => {
     bearing: 0,
     pitch: 0
   })
+
+  // store profile image here
+  const [data, setData] = useState({})
+
+  const handleImageUpload = (res) => {
+    console.log(res.filesUploaded[0].url)
+    // console.log(res.filesUploaded[1].url)
+    const data = { ...data, image: res.filesUploaded[0].url }
+    setData({ data })
+  }
+
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -336,11 +435,27 @@ const Profile = () => {
     setCityModal(!cityModal)
   }
 
+  // work out which continents, countries or cities visited to show on modal
+  const listContinentsCountries = (profile, size) => {
+    const all = profile.towns.map((elem) => {
+      return elem[size]
+    })
+    return Array.from(new Set(all))
+  }
+
+  // work out how many continents, countries, or cities visited to show on modal
+  const countContinentsCountries = (profile, size) => {
+    return listContinentsCountries(profile, size).length
+  }
+
   useEffect(() => {
-    axios.get(`api/profile/${Auth.getUserId()}`)
+    // use Auth to get your profile!
+    // axios.get(`api/profile/${Auth.getUserId()}`)
+    axios.get(`api/profile/${props.match.params.id}`)
       .then(resp => setProfile(resp))
       .catch(err => setErrors(err))
   }, [])
+
   console.log('profile ', profile)
 
   return (
@@ -359,28 +474,40 @@ const Profile = () => {
       <section className="hero" id="user-profile-header">
         <div className="hero-body level is-mobile">
           <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
-          <figure className="level-item image is-128x128">
-            <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" />
-          </figure>
+          <ReactFilestack
+            mode='transform'
+            preload={true}
+            apikey={fileloaderKey}
+            options={options}
+            customRender={({ onPick }) => (
+              <div onClick={onPick}>
+                <figure className="level-item image is-128x128">
+                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' : data.image} />
+                </figure>
+              </div>
+            )}
+            onSuccess={handleImageUpload}
+          />
           <p className="level-item subtitle is-3" onClick={showRight}>Link 2</p>
         </div>
+
         <div className="level is-mobile">
           <div className="level-item has-text-centered" onClick={toggleContinent}>
             <div>
               <p className="heading">Continents</p>
-              <p className="title">3</p>
+              <p className="title">{countContinentsCountries(example_user, 'continent')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCountry}>
             <div>
               <p className="heading">Countries</p>
-              <p className="title">12</p>
+              <p className="title">{countContinentsCountries(example_user, 'country')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCity}>
             <div>
               <p className="heading">Cities</p>
-              <p className="title">22</p>
+              <p className="title">{example_user.towns.length}</p>
             </div>
           </div>
           <div className="level-item has-text-centered">
@@ -390,6 +517,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
+
       </section>
 
       <section className={panel ? 'section' : 'section hide'} id="user-profile">
@@ -398,6 +526,7 @@ const Profile = () => {
             Badges
           </div>
           <div className="badge-display">
+            {/* replace test data with actual api data when ready */}
             {example_user.badges.map((badge, i) => {
               return <div className="badge" key={i}>
                 <div className="image is-150x150">
@@ -420,6 +549,13 @@ const Profile = () => {
           <div className="subtitle">
             Groups
           </div>
+          {/* replace test data with profile.groups_joined when api call working */}
+          {example_user.groups_joined.map((group, i) => {
+            return <div key={i}>
+              <p>{group.name}</p>
+              <img src={group.image} alt="group photo" />
+            </div>
+          })}
         </div>
       </section>
 
@@ -437,22 +573,37 @@ const Profile = () => {
         <div className="modal-background"></div>
         <div className="modal-content">
           <p>inContinents</p>
+          {listContinentsCountries(example_user, 'continent').map((continent, i) => {
+            return <div key={i}>
+              <p>{continent}</p>
+            </div>
+          })}
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
       </div>
-      
+
       <div className={countryModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <p>Countries you've been to</p>
+          {listContinentsCountries(example_user, 'country').map((country, i) => {
+            return <div key={i}>
+              <p>{country}</p>
+            </div>
+          })}
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleCountry}></button>
       </div>
-      
+
       <div className={cityModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <p>Cities you've been to</p>
+          {example_user.towns.map((town, i) => {
+            return <div key={i}>
+              <p>{town.name_ascii}</p>
+            </div>
+          })}
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
       </div>

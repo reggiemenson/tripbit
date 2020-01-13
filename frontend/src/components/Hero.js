@@ -61,10 +61,10 @@ const Hero = (props) => {
           <div className="column is-4-desktop" id="title-column">
             <div className="container has-text-centered">
               <h1 className="title is-size-1">
-                Scratch Map
+                inCONTINENTAL
               </h1>
               <h2 className="subtitle is-size-4">
-                [insert brilliant tag line]
+                Wherever you&apos;ve been. Leave a trail.
               </h2>
 
               <button className="is-size-4" onClick={toggleLogin}>Login</button>
