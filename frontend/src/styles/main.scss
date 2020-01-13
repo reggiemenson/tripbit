@@ -46,6 +46,7 @@ $input-placeholder-color: $gold;
 @import "../../../node_modules/bulma/sass/layout/section.sass";
 @import "../../../node_modules/bulma-extensions//bulma-checkradio/dist/css/bulma-checkradio.sass";
 @import "../../../node_modules/bulma/sass/components/card.sass";
+@import "../../../node_modules/bulma-extensions//bulma-pageloader/dist/css/bulma-pageloader.sass";
 
 /********* CUSTOM STYLES ********/
 
@@ -74,6 +75,7 @@ $input-placeholder-color: $gold;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-size: 3rem;
 }
 
 .input, .textarea {
@@ -123,6 +125,15 @@ $input-placeholder-color: $gold;
 
 
 .worldmapsvg {
+
+  .pageloader {
+    background-color: rgba($dark, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
   svg {
     width: 100%;
     height: auto;
@@ -154,7 +165,7 @@ $input-placeholder-color: $gold;
 
     text.label {
       font-weight: 300;
-      font-size: 2rem;
+      font-size: 1.5rem;
       fill: $gold;
     }
   }
