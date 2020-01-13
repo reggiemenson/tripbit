@@ -45,7 +45,7 @@ $input-placeholder-color: $gold;
 @import "../../../node_modules/bulma/sass/layout/hero.sass";
 @import "../../../node_modules/bulma/sass/layout/section.sass";
 @import "../../../node_modules/bulma-extensions//bulma-checkradio/dist/css/bulma-checkradio.sass";
-
+@import "../../../node_modules/bulma/sass/components/card.sass";
 
 /********* CUSTOM STYLES ********/
 
@@ -76,11 +76,13 @@ $input-placeholder-color: $gold;
   color: transparent;
 }
 
-.input {
+.input, .textarea {
   background-color: $dark;
   border: 1px solid $gray;
+}
 
-
+.help.is-danger {
+  margin: 5px;
 }
 
 
@@ -158,6 +160,15 @@ $input-placeholder-color: $gold;
   }
 }
 
+#user-profile-header {
+  position: -webkit-sticky; 
+  position: sticky;
+  top: 0;
+  z-index: +1;
+  background-color: $dark;
+}
+
+
 #user-profile {
 
   div.badge-display {
@@ -200,6 +211,11 @@ $input-placeholder-color: $gold;
 
 }
 
+// styling to toggle between left and right info on profile page
+.hide {
+  display: none;
+}
+
 // ********** ******* //
 
 .is-checkradio[type="checkbox"] + label::before, 
@@ -214,6 +230,7 @@ $input-placeholder-color: $gold;
     position: sticky;
     top: 0;
     background-color: rgba(16, 16, 16, 0.7);
+    z-index: 10;
 
     .input {
       width: 100%;       
@@ -227,10 +244,9 @@ $input-placeholder-color: $gold;
   .loading {
     padding: 10px;
   }
-
-
-
+  
   .accordion {
+    z-index: -10;
 
     .accordion__button {
       cursor: pointer;
@@ -272,3 +288,70 @@ $input-placeholder-color: $gold;
   }
 }
 
+#groups-page {
+  .subtitle {
+    color: $gold;
+  }
+
+  .groups-grouping {
+    width: 100%;
+    border-top: 1px solid $gold;
+    margin: 30px 0;
+
+    .subtitle {
+      margin-top: 10px;
+    }
+  }
+}
+
+#group-card {
+
+  .card, .card-content, .card-footer {
+    background: $dark;
+    border-radius: 10px;
+  }
+  
+  .card {
+    border: 1px solid $gold;
+
+    .card-footer {
+      background-image: linear-gradient(to top right, $dark-gold, $gold);
+      border-top: 1px solid $gold;
+
+      a.card-footer-item {
+      
+        color: $dark;
+
+        :hover{
+          color: $light-gold;
+        }
+
+        .pending {
+          cursor: default;
+        }
+
+        .fas.fa-clock.pending.is-size-5 {
+          color: $dark-gold;
+          
+          :hover {
+            color: $dark-gold;
+          }
+        }
+
+      }
+    }
+  }
+
+  .media {
+    border: none;
+
+    i {
+      color: $gold;
+    }
+    
+    .member-image {
+      margin: 5px;
+    }
+  }
+
+}

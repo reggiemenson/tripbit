@@ -10,8 +10,8 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Profile from './components/Profile'
 import CitySelection from './components/CitySelection'
-import AddGroup from './components/AddGroup'
-import Group from './components/Group'
+import Groups from './components/Groups'
+import IndividualGroup from './components/IndividualGroup'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
 import WorldMap from './components/Worldmap'
@@ -23,10 +23,10 @@ const App = () => (
     <Navbar />
     <Switch>
       <Route exact path="/" component={Hero} />
-      <SecureRoute exact path="/profile" component={Profile} />
+      <SecureRoute exact path="/profile/:id" component={Profile} />
       <SecureRoute exact path="/city_selection" component={CitySelection} />
-      <SecureRoute exact path="/add_group" component={AddGroup} />
-      <SecureRoute exact path="/group" component={Group} />
+      <SecureRoute exact path="/groups" component={Groups} />
+      <SecureRoute exact path="/groups/:id" component={IndividualGroup} />
       <SecureRoute exact path="/add_trip" component={AddTrip} />
       <SecureRoute exact path="/play" component={Game} />
       <SecureRoute exact path="/world_map" component={WorldMap} />

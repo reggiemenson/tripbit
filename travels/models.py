@@ -67,6 +67,7 @@ class Group(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
+    image = models.CharField(max_length=500, default='https://cdn.pixabay.com/photo/2014/04/02/10/47/globe-304586_1280.png')
     owner = models.ForeignKey(
         User,
         related_name='groups_owned',
