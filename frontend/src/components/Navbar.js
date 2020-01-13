@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <>
-      {Auth.isAuthorized() && <section className="menu menu--circle">
+      {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar"> 
         <input type="checkbox" id="menu__active" />
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
