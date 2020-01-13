@@ -652,15 +652,6 @@ def get_platform_badges(users):
 
 
 
-
-
-
-
-
-
-
-
-
 #     all_users = [ {
 #   "id": 1,
 #   "username": "Michael",
