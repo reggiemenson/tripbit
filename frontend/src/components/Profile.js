@@ -470,7 +470,7 @@ const Profile = (props) => {
     })
       .then(resp => {
         console.log(resp)
-        setProfile(resp)
+        setProfile(resp.data)
       })
       .catch(err => setErrors(err))
   }, [])
@@ -489,7 +489,7 @@ const Profile = (props) => {
       />
 
       <section className="hero" id="user-profile-header">
-        {console.log(!!data.image)}
+        {console.log(profile.data)}
         <div className="hero-body level is-mobile">
           <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
