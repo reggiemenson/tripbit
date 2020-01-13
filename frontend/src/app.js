@@ -26,7 +26,7 @@ const App = () => (
       <SecureRoute exact path="/profile/:id" component={Profile} />
       <SecureRoute exact path="/city_selection" component={CitySelection} />
       <SecureRoute exact path="/groups" component={Groups} />
-      <SecureRoute exact path="/group" component={IndividualGroup} />
+      <SecureRoute exact path="/groups/:id" component={IndividualGroup} />
       <SecureRoute exact path="/add_trip" component={AddTrip} />
       <SecureRoute exact path="/play" component={Game} />
       <SecureRoute exact path="/world_map" component={WorldMap} />

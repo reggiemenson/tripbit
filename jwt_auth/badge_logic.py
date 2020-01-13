@@ -466,7 +466,7 @@ def get_badges(towns):
     user_latitudes = [float(x.replace(',', '.')) for x in latitudes]
     capitals = [town for town in towns if town['capital'] == 'primary']
 
-    print(user_latitudes)
+    # print(user_latitudes)
 
     
     # INDIVIDUAL COUNTRY BADGES
@@ -549,10 +549,10 @@ def get_badges(towns):
     # Kerouac (210)
     for country in all_user_countries:
         count_country = (all_user_countries).count('United States')
-    if count_country >= 6:
-        badge_ids.append(210)
-    else:
-        pass
+        if count_country >= 6:
+            badge_ids.append(210)
+        else:
+            pass
 
     # Stan (211)
     for country in unique_user_countries:
@@ -580,7 +580,14 @@ def get_badges(towns):
             pass
 
 
-    print('Michael Badges',badge_ids)
+    # print('Michael Badges', badge_ids)
+    return badge_ids
+
+    # to_update_user.data['badges'].append(badge_ids)
+    # revised_user = UserSerializer(User, data=to_update_user.data)
+    # if (revised_user.is_valid()):
+    #     to_update_user = revised_user
+    #     to_update_user.save()
 
     # def put(self, request, pk):
     #     request.data['owner'] = request.user.id
@@ -598,14 +605,12 @@ def get_badges(towns):
     # platform_badges.save()
 
 
-get_badges(single_user['towns'])
-
-
+# get_badges(single_user['towns'])
 
 
 # Badges based on everybody's cities
 
-def get_platform_badges(users):
+def get_most_countries_badge(users):
 
     # print(users, 'lets see the users!!!!')
 
@@ -637,7 +642,8 @@ def get_platform_badges(users):
         else:
             leader = user
     
-    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    serialized_badge.data['users'].append(leader['id'])
+    updated_badge = BadgeSerializer(badge, data=serialized_badge.data)
     if (updated_badge.is_valid()):
         badge = updated_badge
         badge.save()
@@ -645,7 +651,7 @@ def get_platform_badges(users):
     # most cities (215)
     # untested function
 
-def get_platform_city_badges(users):
+def get_most_cities_badge(users):
 
     def count_user_cities(person):
         all_user_towns = list(map(lambda town: town['id'], person['towns']))
@@ -672,7 +678,8 @@ def get_platform_city_badges(users):
         else:
             leader = user
     
-    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    serialized_badge.data['users'].append(leader['id'])
+    updated_badge = BadgeSerializer(badge, data=serialized_badge.data)
     if (updated_badge.is_valid()):
         badge = updated_badge
         badge.save()
@@ -680,15 +687,89 @@ def get_platform_city_badges(users):
 
     # most capitals (216)
 
+def get_most_capitals_badge(users):
+
+    def count_user_caps(person):
+        all_user_town_types = list(map(lambda town: town['capital'], person['towns']))
+        all_user_capitals = list(filter(lambda town_type: town_type != 'primary', all_user_town_types))
+
+        return all_user_capitals
+
+    badge = Badge.objects.get(pk=216)
+
+    serialized_badge = BadgeSerializer(badge)
+
+    leader = False
+
+    serialized_badge.data['users'].clear()
+
+    for user in users.data:
+        current_user = count_user_caps(user)
+
+        if leader is not False:
+            current_leader = count_user_caps(leader)
+
+            if len(current_user) > len(current_leader):
+                leader = user
+
+        else:
+            leader = user
+    
+    serialized_badge.data['users'].append(leader['id'])
+    updated_badge = BadgeSerializer(badge, data=serialized_badge.data)
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
+
     # mega badge (217)
 
+def get_most_badges_badge(users):
 
+    def count_user_badges(person):
+        all_user_badges = list(map(lambda badges: badges['id'], person['badges']))
 
+        return all_user_badges
 
+    badge = Badge.objects.get(pk=217)
 
+    serialized_badge = BadgeSerializer(badge)
 
+    leader = False
 
+    serialized_badge.data['users'].clear()
 
+    for user in users.data:
+        current_user = count_user_badges(user)
+
+        if leader is not False:
+            current_leader = count_user_badges(leader)
+
+            if len(current_user) > len(current_leader):
+                leader = user
+
+        else:
+            leader = user
+    
+    serialized_badge.data['users'].append(leader['id'])
+    updated_badge = BadgeSerializer(badge, data=serialized_badge.data)
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
+
+    # --------------------
+
+def get_platform_badges(users):
+    get_most_countries_badge(users)
+    get_most_cities_badge(users)
+    get_most_capitals_badge(users)
+    get_most_badges_badge(users)
+
+def get_user_badges(user):
+    person = user.data
+    person['towns']
+    # no idea why this doesnt run!
+    # print(type(all_user_towns), 'DOES THIS RUN??') 
+    return get_badges(person['towns'])
 
 
 
