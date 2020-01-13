@@ -40,9 +40,9 @@ const Navbar = () => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/add_group" className="button"> <i className="fa fa-users"></i></Link>
+                    <Link to="/groups" className="button"> <i className="fa fa-users"></i></Link>
                     {'\n'}
-                    <Link to="/add_group"> <p className="navbar-links">GROUPS</p> </Link>
+                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
                   </div>
                 </div>
               </li>
