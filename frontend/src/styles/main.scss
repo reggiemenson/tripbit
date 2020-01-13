@@ -665,6 +665,8 @@ transform: rotate(180deg);
       a.card-footer-item {
       
         color: $dark;
+        border-right: none;
+        border-left: none;
 
         :hover{
           color: $light-gold;
