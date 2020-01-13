@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import Register from './RegistrationForm'
 import Login from './LoginForm'
@@ -8,6 +9,34 @@ const Hero = (props) => {
 
   const [registrationModal, setRegistrationModal] = useState(false)
   const [loginModal, setLoginModal] = useState(false)
+  const [countriesData, setCountriesData] = useState({})
+  const [errors, setErrors] = useState('')
+
+  function fetchTownData() {
+    axios.get('/api/towns')
+      .then(resp => {
+        console.log('RESPONSE')
+        const data = resp.data
+          .reduce((countries, town) => {
+            if (countries[town.iso2]) {
+              countries[town.iso2] += town.visitors.length
+            } else {
+              countries[town.iso2] = town.visitors.length
+            }
+            return countries
+          }, {})
+        setCountriesData(data)
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
+
+  useEffect(() => {
+    fetchTownData()
+  }, [])
+  
 
   function toggleRegistration() {
     setRegistrationModal(!registrationModal)
@@ -17,16 +46,15 @@ const Hero = (props) => {
     setLoginModal(!loginModal)
   }
 
-  // add Ken's escape function for desktop?
-
   return (
     <section id="homepage" className="hero is-fullheight">
+      {console.log('DATA', countriesData)}
       <div className="hero-body">
 
         <div className="columns is-desktop">
           <div className="column is-8-desktop">
             <div id="home-worldmap" className="has-text-centered is-centered">
-              < WorldMap />
+              < WorldMap countriesData={countriesData} />
             </div>
           </div>
 
@@ -49,7 +77,7 @@ const Hero = (props) => {
 
 
       <div className={registrationModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
+        <div className="modal-background" onClick={toggleRegistration}></div>
         <div className="modal-content">
           <Register
             toggleRegistration={toggleRegistration}
@@ -59,7 +87,7 @@ const Hero = (props) => {
         <button className="modal-close is-large" aria-label="close" onClick={toggleRegistration}></button>
       </div>
       <div className={loginModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
+        <div className="modal-background" onClick={toggleLogin}></div>
         <div className="modal-content">
           <Login props={props}/>
         </div>

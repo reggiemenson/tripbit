@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import MapGL from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
+import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
 import Register from './RegistrationForm'
@@ -416,7 +418,6 @@ const Profile = (props) => {
       .catch(err => setErrors(err))
   }
 
-
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
   // states for stats modals
@@ -462,12 +463,15 @@ const Profile = (props) => {
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
-    axios.get(`api/profile/${props.match.params.id}`)
-      .then(resp => setProfile(resp))
+    axios.get(`api/profile/${props.match.params.id}`, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(resp => {
+        console.log(resp)
+        setProfile(resp)
+      })
       .catch(err => setErrors(err))
   }, [])
-
-  // console.log('profile ', profile)
 
   return (
     <div>
@@ -485,7 +489,7 @@ const Profile = (props) => {
       <section className="hero" id="user-profile-header">
         {console.log(!!data.image)}
         <div className="hero-body level is-mobile">
-          <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
+          <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
             preload={true}
             apikey={fileloaderKey}
@@ -500,7 +504,7 @@ const Profile = (props) => {
             )}
             onSuccess={handleImageUpload}
           />
-          <p className="level-item subtitle is-3" onClick={showRight}>Link 2</p>
+          <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
         </div>
 
         <div className="level is-mobile">
@@ -524,7 +528,7 @@ const Profile = (props) => {
           </div>
           <div className="level-item has-text-centered">
             <div>
-              <p className="heading">XP</p>
+              <p className="heading">Travel XP</p>
               <p className="title">780</p>
             </div>
           </div>
@@ -534,9 +538,9 @@ const Profile = (props) => {
 
       <section className={panel ? 'section' : 'section hide'} id="user-profile">
         <div className="container">
-          <div className="subtitle">
+          <h2 className="title">
             Badges
-          </div>
+          </h2>
           <div className="badge-display">
             {/* replace test data with actual api data when ready */}
             {example_user.badges.map((badge, i) => {
@@ -558,15 +562,15 @@ const Profile = (props) => {
 
       <section className={panel ? 'section hide' : 'section'} id="user-profile">
         <div className="container">
-          <div className="subtitle">
+          <h2 className="title">
             Groups
-          </div>
+          </h2>
           {/* replace test data with profile.groups_joined when api call working */}
           {example_user.groups_joined.map((group, i) => {
-            return <div key={i}>
+            return <Link to={`/groups/${group.id}`} key={i}>
               <p>{group.name}</p>
               <img src={group.image} alt="group photo" />
-            </div>
+            </Link>
           })}
         </div>
       </section>
@@ -582,9 +586,9 @@ const Profile = (props) => {
       {/* stats modals below */}
 
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <p>inContinents</p>
+        <div className="modal-background" onClick={toggleContinent}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Continents visited</h2>
           {listContinentsCountries(example_user, 'continent').map((continent, i) => {
             return <div key={i}>
               <p>{continent}</p>
@@ -595,9 +599,9 @@ const Profile = (props) => {
       </div>
 
       <div className={countryModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <p>Countries you've been to</p>
+        <div className="modal-background" onClick={toggleCountry}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Countries visited</h2>
           {listContinentsCountries(example_user, 'country').map((country, i) => {
             return <div key={i}>
               <p>{country}</p>
@@ -608,9 +612,9 @@ const Profile = (props) => {
       </div>
 
       <div className={cityModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <p>Cities you've been to</p>
+        <div className="modal-background" onClick={toggleCity}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Cities visited</h2>
           {example_user.towns.map((town, i) => {
             return <div key={i}>
               <p>{town.name_ascii}</p>

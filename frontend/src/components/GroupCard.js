@@ -2,7 +2,7 @@ import React from 'react'
 import Auth from '../lib/Auth'
 
 const GroupCard = ({ group, goToGroupProfile, sendRequest }) => (
-  <div id="group-card" className="column is-one-quarter-desktop is-one-third-tablet is-half-mobile">
+  <div id="group-card" className="column is-one-fifth-desktop is-one-quarter-tablet is-half-mobile">
     <div className="card">
       {/* <div className="card-image">
         <figure className="image is-9by10">
