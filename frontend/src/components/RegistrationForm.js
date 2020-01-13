@@ -1,16 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import ReactFilestack from 'filestack-react'
-import { fileloaderKey } from '../config/environment'
-
-const options = {
-  accept: 'image/*',
-  transformations: {
-    crop: true,
-    circle: true,
-    rotate: true
-  }
-}
 
 const Register = ({ toggleRegistration, toggleLogin }) => {
 
@@ -35,30 +24,16 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // console.log(register.data)
-    if (register.data.image === '') {
-      delete register.data.image
-    }
     axios.post('/api/register', register.data)
-      // change code so that upon successful registration login modal appears
       .then(() => {
         toggleRegistration()
         toggleLogin()
       })
       .catch(err => {
-        // console.log(err.response.data)
         setRegister({ errors: err.response.data })
       })
   }
   
-  const handleImageUpload = (res) => {
-    console.log(res.filesUploaded[0].url)
-    // console.log(res.filesUploaded[1].url)
-    const data = { ...register.data, image: res.filesUploaded[0].url }
-    // const errors = { ...register.errors, image: res.filesUploaded[1].status }
-    setRegister({ data })
-  }
-
   return <>
     {console.log(register)}
     <div className=''>
@@ -120,33 +95,6 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               </div>
 
               <div className='field'>
-                <label htmlFor='image' className='label'>
-                  Image
-                </label>
-                <ReactFilestack
-                  mode='transform'
-                  apikey={fileloaderKey}
-                  componentDisplayMode={{
-                    type: 'button',
-                    customText: 'Add an Image'
-                  }}
-                  buttonClass='button'
-                  options={options}
-                  onSuccess={handleImageUpload}
-                  preload={true}
-                />
-                {register.data.image &&
-                  <figure className="image is-128x128">
-                    <img className="is-rounded" src={register.data.image} />
-                    <br />
-                  </figure>
-                }
-                {register.errors.image && <small className='help is-danger'>
-                  {register.errors.image[0]}
-                </small>}
-              </div>
-
-              <div className='field'>
                 <label htmlFor='email' className='label'>
                   Email
                 </label>
@@ -178,6 +126,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 {register.errors.password && <small className='help is-danger'>
                   {register.errors.password[0]}
                 </small>}
+
               </div>
               <div className='field'>
                 <label htmlFor='password_confirmation' className='label'>
@@ -194,6 +143,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 {register.errors.password_confirmation && <small className='help is-danger'>
                   {register.errors.password_confirmation[0]}
                 </small>}
+
               </div>
               <button className='button is-rounded'>
                 Register
