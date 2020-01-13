@@ -9,7 +9,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from django.conf import settings
 import jwt
 
-from .badge_logic import get_platform_badges
+from .badge_logic import get_platform_badges, get_user_badges
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -57,15 +57,15 @@ class ProfileView(APIView):
         serialized_user = PopulatedUserSerializer(user)
         return Response(serialized_user.data)
 
-        # Temporary working path to edit a user. It has no additional logic inbetween.
+        # limited edit user path.
 
     def put(self, request):
-        serialized_user = User.objects.get(pk=request.user.id)
-        updated_user = UserSerializer(serialized_user, data=request.data)
+        initial_user = User.objects.get(pk=request.user.id)
+        updated_user = UserSerializer(initial_user, data=request.data)
         if (updated_user.is_valid()):
-            serialized_user = updated_user
-            serialized_user.save()
-            return Response(serialized_user.data)
+            initial_user = updated_user
+            initial_user.save()
+            return Response(initial_user.data)
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request):
@@ -74,35 +74,38 @@ class ProfileView(APIView):
         return Response(status=HTTP_204_NO_CONTENT)
 
         # The following view is for editing the user preference points (badges, towns, etc) that will affect ranking.
-        # It's the same as the one above but with space to include logic. Mine has been commented out. Note that it is on a different url path
         
 class EditDetailView(APIView):
 
     permission_classes = (IsAuthenticated, )
 
     def put(self, request):
-        serialized_user = User.objects.get(pk=request.user.id)
-        updated_user = UserSerializer(serialized_user, data=request.data)
+        initial_user = User.objects.get(pk=request.user.id)
+        updated_user = UserSerializer(initial_user, data=request.data)
         if (updated_user.is_valid()):
+            initial_user = updated_user
+            initial_user.save()
+            new_user = User.objects.get(pk=request.user.id)
+            user_data = PopulatedUserSerializer(new_user)
 
-            serialized_user = updated_user
-            serialized_user.save()
+            badges = get_user_badges(user_data)
 
+            test_user = User.objects.get(pk=request.user.id)
+            badge_user = UserSerializer(test_user)
+            badge_user.data['badges'].clear()
+            badge_user.data['badges'].extend(badges)
 
-        #  This is the point where badge logic might be entered.
+            updated_badge_user = UserSerializer(test_user, data=badge_user.data)
+            if (updated_badge_user.is_valid()):
+                test_user = updated_badge_user
+                test_user.save()
 
-            all_users = User.objects.all()
-            serialized_userList = PopulatedUserSerializer(all_users, many=True)
-            
-            get_platform_badges(serialized_userList)
+                all_users = User.objects.all()
+                serialized_userList = PopulatedUserSerializer(all_users, many=True)
+                get_platform_badges(serialized_userList)
 
-        #  Possible catch to check all is fine
-            
-            # updated_and_ranked_user = User.objects.get(pk=request.user.id)
-            # serialized_user = UserSerializer(updated_and_ranked_user)
-            # serialized_user.save()
-
-            return Response(serialized_user.data)
+                return Response(test_user.data)
+            return Response(updated_badge_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
         return Response(updated_user.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
 

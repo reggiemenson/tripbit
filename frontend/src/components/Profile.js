@@ -5,7 +5,9 @@ import LazyHero from 'react-lazy-hero'
 import MapGL from 'react-map-gl'
 // why is this needed?
 // import { render } from 'react-dom'
+import ReactFilestack from 'filestack-react'
 
+import { fileloaderKey } from '../config/environment'
 import Mask from '../images/mask-dark-gradient.png'
 
 // this is a public key but maybe change to different key and put in .env?
@@ -295,6 +297,16 @@ const example_user = {
   'groups_podium3': []
 }
 
+const options = {
+  accept: 'image/*',
+  transformations: {
+    crop: true,
+    circle: true,
+    rotate: true
+  }
+}
+
+
 const Profile = () => {
 
   // TO DO write code to zoom to bounding box containing all places user has been to
@@ -305,6 +317,15 @@ const Profile = () => {
     bearing: 0,
     pitch: 0
   })
+  const [data, setData] = useState({})
+
+  const handleImageUpload = (res) => {
+    console.log(res.filesUploaded[0].url)
+    // console.log(res.filesUploaded[1].url)
+    const data = { ...data, image: res.filesUploaded[0].url }
+    setData({ data })
+  }
+
 
   return (
     <div>
@@ -315,9 +336,9 @@ const Profile = () => {
         minHeight="33vh"
         color="#00eaff"
         opacity="0.4"
-        isFixed="true"  
+        isFixed="true"
         transitionDuration="1000"
-        // imageSrc="https://unsplash.it/2000/1000"
+      // imageSrc="https://unsplash.it/2000/1000"
       >
         {/* <h1>Generic Startup Hype Headline</h1> */}
         <MapGL
@@ -338,6 +359,29 @@ const Profile = () => {
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus?</p>
         </div>
       </section>
+      <section className="section">
+        <div className="container">
+          <h1 className="title is-1">Add details</h1>
+          <ReactFilestack
+            mode='transform'
+            apikey={fileloaderKey}
+            componentDisplayMode={{
+              type: 'button',
+              customText: 'Add an Image'
+            }}
+            buttonClass='button'
+            options={options}
+            onSuccess={handleImageUpload}
+            preload={true}
+          />
+          {data.image &&
+            <figure className="image is-128x128">
+              <img className="is-rounded" src={data.image} />
+              <br />
+            </figure>
+          }
+        </div>
+      </section>
 
 
       <section className="section" id="user-profile">
@@ -350,7 +394,7 @@ const Profile = () => {
               return <div className="badge" key={i}>
                 <div className="image is-150x150">
                   <div className="badge" >
-                    <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt=""/>
+                    <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt="" />
                     <div className="overlay">
                       <div className="is-size-6">{badge.name}</div>
                       <div className="is-size-7">{badge.description}</div>
@@ -361,7 +405,7 @@ const Profile = () => {
             })}
           </div>
 
-          
+
         </div>
       </section>
 

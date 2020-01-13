@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import ReactFilestack from 'filestack-react'
-import { fileloaderKey } from '../config/environment'
+// import ReactFilestack from 'filestack-react'
+// import { fileloaderKey } from '../config/environment'
 
-const options = {
-  accept: 'image/*',
-  transformations: {
-    crop: true,
-    circle: true,
-    rotate: true
-  }
-}
+// const options = {
+//   accept: 'image/*',
+//   transformations: {
+//     crop: true,
+//     circle: true,
+//     rotate: true
+//   }
+// }
 
 const Register = ({ toggleRegistration, toggleLogin }) => {
 
@@ -51,13 +51,13 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
       })
   }
   
-  const handleImageUpload = (res) => {
-    console.log(res.filesUploaded[0].url)
-    // console.log(res.filesUploaded[1].url)
-    const data = { ...register.data, image: res.filesUploaded[0].url }
-    // const errors = { ...register.errors, image: res.filesUploaded[1].status }
-    setRegister({ data })
-  }
+  // const handleImageUpload = (res) => {
+  //   console.log(res.filesUploaded[0].url)
+  //   // console.log(res.filesUploaded[1].url)
+  //   const data = { ...register.data, image: res.filesUploaded[0].url }
+  //   // const errors = { ...register.errors, image: res.filesUploaded[1].status }
+  //   setRegister({ data })
+  // }
 
   return <>
     {console.log(register)}
@@ -119,7 +119,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 </small>}
               </div>
 
-              <div className='field'>
+              {/* <div className='field'>
                 <label htmlFor='image' className='label'>
                   Image
                 </label>
@@ -144,7 +144,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 {register.errors.image && <small className='help is-danger'>
                   {register.errors.image[0]}
                 </small>}
-              </div>
+              </div> */}
 
               <div className='field'>
                 <label htmlFor='email' className='label'>
