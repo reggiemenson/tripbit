@@ -63,7 +63,7 @@ const CitySelection = () => {
   return (
     <section className="section" id="city-selection">
       <div className="container">
-        {console.log(towns)}
+        {console.log(townsVisited)}
         <h1 className="title">Select cities</h1>
         <h2 className="subtitle">Where have you travelled to?</h2>
     
@@ -71,8 +71,11 @@ const CitySelection = () => {
           <div className="columns is-mobile">
             <div className="column is-10-desktop is-8-tablet is-8-mobile">
               <div className="field">
-                <div className="control">
-                  <input className="input has-text-info" type="text" placeholder="Search for countries or cities" onChange={handleSearchChange}></input>
+                <div className="control has-icons-left">
+                  <input className="input has-text-info" type="search" placeholder="Search for countries or cities" onChange={handleSearchChange}></input>
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-compass"></i>
+                  </span>
                 </div>
               </div>
             </div>

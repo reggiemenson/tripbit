@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-import LazyHero from 'react-lazy-hero'
-// import ReactMapGL from 'react-map-gl'
-// use this instead for hooks?
+import React, { useState, useEffect } from 'react'
 import MapGL from 'react-map-gl'
-// why is this needed?
-// import { render } from 'react-dom'
+import axios from 'axios'
 
 import Mask from '../images/mask-dark-gradient.png'
+import Auth from '../lib/auth'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -297,6 +294,10 @@ const example_user = {
 
 const Profile = () => {
 
+  // info from api get request will be stored here
+  const [profile, setProfile] = useState({})
+  const [errors, setErrors] = useState({})
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -306,41 +307,92 @@ const Profile = () => {
     pitch: 0
   })
 
+  // toggle between profile info, true for left and false for right (links next to profile image)
+  const [panel, setPanel] = useState(true)
+  // states for stats modals
+  const [continentModal, setContinentModal] = useState(false)
+  const [countryModal, setCountryModal] = useState(false)
+  const [cityModal, setCityModal] = useState(false)
+
+  // show 'right' stats
+  const showRight = () => {
+    setPanel(false)
+  }
+
+  // show 'left' stats
+  const showLeft = () => {
+    setPanel(true)
+  }
+
+  const toggleContinent = () => {
+    setContinentModal(!continentModal)
+  }
+
+  const toggleCountry = () => {
+    setCountryModal(!countryModal)
+  }
+
+  const toggleCity = () => {
+    setCityModal(!cityModal)
+  }
+
+  useEffect(() => {
+    axios.get(`api/profile/${Auth.getUserId()}`)
+      .then(resp => setProfile(resp))
+      .catch(err => setErrors(err))
+  }, [])
+  console.log('profile ', profile)
+
   return (
     <div>
-      {/* parallaxOffset warning expects number not string */}
-      {/* LazyHero probably isn't compatible with mapbox as it takes an image via imageSrc */}
-      <LazyHero
-        // parallaxOffset="100"
-        minHeight="33vh"
-        color="#00eaff"
-        opacity="0.4"
-        isFixed="true"  
-        transitionDuration="1000"
-        // imageSrc="https://unsplash.it/2000/1000"
-      >
-        {/* <h1>Generic Startup Hype Headline</h1> */}
-        <MapGL
-          {...viewport}
-          position="absolute"
-          width="100vw"
-          height="33vh"
-          mapStyle="mapbox://styles/mapbox/dark-v9"
-          onViewportChange={setViewport}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-        />
-      </LazyHero>
-      {/* placeholder text to test parallax effect with mapbox */}
 
-      <section className="section test">
-        <div className="container">
-          <h1 className="title is-1">Welcome to your profile!</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima blanditiis distinctio delectus voluptatem ratione illo laborum tenetur autem dolor nostrum aliquid odio saepe, quo nobis sunt impedit eos laboriosam. Accusamus?</p>
+      <MapGL
+        {...viewport}
+        position="absolute"
+        width="100vw"
+        height="66vh"
+        mapStyle="mapbox://styles/mapbox/dark-v9"
+        onViewportChange={setViewport}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+      />
+
+      <section className="hero" id="user-profile-header">
+        <div className="hero-body level is-mobile">
+          <p className="level-item subtitle is-3" onClick={showLeft}>Link 1</p>
+          <figure className="level-item image is-128x128">
+            <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" />
+          </figure>
+          <p className="level-item subtitle is-3" onClick={showRight}>Link 2</p>
+        </div>
+        <div className="level is-mobile">
+          <div className="level-item has-text-centered" onClick={toggleContinent}>
+            <div>
+              <p className="heading">Continents</p>
+              <p className="title">3</p>
+            </div>
+          </div>
+          <div className="level-item has-text-centered" onClick={toggleCountry}>
+            <div>
+              <p className="heading">Countries</p>
+              <p className="title">12</p>
+            </div>
+          </div>
+          <div className="level-item has-text-centered" onClick={toggleCity}>
+            <div>
+              <p className="heading">Cities</p>
+              <p className="title">22</p>
+            </div>
+          </div>
+          <div className="level-item has-text-centered">
+            <div>
+              <p className="heading">XP</p>
+              <p className="title">780</p>
+            </div>
+          </div>
         </div>
       </section>
 
-
-      <section className="section" id="user-profile">
+      <section className={panel ? 'section' : 'section hide'} id="user-profile">
         <div className="container">
           <div className="subtitle">
             Badges
@@ -350,7 +402,7 @@ const Profile = () => {
               return <div className="badge" key={i}>
                 <div className="image is-150x150">
                   <div className="badge" >
-                    <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt=""/>
+                    <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt="" />
                     <div className="overlay">
                       <div className="is-size-6">{badge.name}</div>
                       <div className="is-size-7">{badge.description}</div>
@@ -360,19 +412,51 @@ const Profile = () => {
               </div>
             })}
           </div>
-
-          
         </div>
       </section>
 
+      <section className={panel ? 'section hide' : 'section'} id="user-profile">
+        <div className="container">
+          <div className="subtitle">
+            Groups
+          </div>
+        </div>
+      </section>
 
       <section className="section">
         <div className="container">
           <div className="subtitle">
-            Need some space down here
+            Need some space down here - agreed!
           </div>
         </div>
       </section>
+
+      {/* stats modals below */}
+
+      <div className={continentModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>inContinents</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
+      </div>
+      
+      <div className={countryModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>Countries you've been to</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCountry}></button>
+      </div>
+      
+      <div className={cityModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
+          <p>Cities you've been to</p>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
+      </div>
+
     </div>
   )
 }
