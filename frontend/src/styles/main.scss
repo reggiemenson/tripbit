@@ -214,6 +214,7 @@ $input-placeholder-color: $gold;
     position: sticky;
     top: 0;
     background-color: rgba(16, 16, 16, 0.7);
+    z-index: 10;
 
     .input {
       width: 100%;       
@@ -227,10 +228,9 @@ $input-placeholder-color: $gold;
   .loading {
     padding: 10px;
   }
-
-
-
+  
   .accordion {
+    z-index: -10;
 
     .accordion__button {
       cursor: pointer;
