@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import axios from 'axios'
+import Auth from '../lib/Auth'
 import {
   Accordion,
   AccordionItem,
@@ -10,21 +11,53 @@ import {
   AccordionItemPanel
 } from 'react-accessible-accordion'
 
-const CitySelection = () => {
+const CitySelection = (props) => {
 
   const [towns, setTowns] = useState([])
   const [errors, setErrors] = useState('')
   const [searchBar, setSearchBar] = useState('')
-  const [townsVisited, setTownsVisited] = useState([])
+  // const [townsVisited, setTownsVisited] = useState([])
+  const [user, setUser] = useState({})
+  const [data, setData] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    towns: []
+  })
 
-  useEffect(() => {
+  function getTownData() {
     axios.get('/api/towns/')
+    .then(resp => {
+      console.log('Response!')
+      setTowns(resp.data)
+    })
+    .catch(err => setErrors(err.response.message))
+  }
+
+  function getUserData() {
+    axios.get('/api/profile', {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
       .then(resp => {
         console.log('Response!')
-        setTowns(resp.data)
+        const town_ids = resp.data.towns.map(town => town.id.toString())
+        setData({
+          username: resp.data.username,
+          first_name: resp.data.first_name,
+          last_name: resp.data.last_name,
+          towns: town_ids
+        })
+        setUser(resp.data)
       })
-      .catch(err => setErrors(err.response.message))
-    // AT SOME POINT WILL NEED TO QUERY API HERE TO GET USER'S ALREADY VISITED CITIES
+      .catch(err => {
+        console.log(err)
+        setErrors(err)
+      })
+  }
+
+  useEffect(() => {
+    getTownData()
+    getUserData()
   }, [])
 
   function handleSearchChange(e) {
@@ -43,27 +76,36 @@ const CitySelection = () => {
     console.log(e.target.id)
 
     if (e.target.checked) {
-      const newTowns = [...townsVisited]
-      newTowns.push(e.target.id)
-      setTownsVisited(newTowns)
+      const towns = [...data.towns]
+      towns.push(e.target.id)
+      setData({...data, towns})
 
     } else {
-      const newTowns = [...townsVisited]
+      const towns = [...data.towns]
         .filter(id => id !== e.target.id)
-      setTownsVisited(newTowns)
+      setData({...data, towns})
     }
   }
 
   function handleSubmit(e) {
-    e.preventDefault
-    // some day need to send city IDs to API
+    e.preventDefault()
+    axios.put('/api/profile/edit/all', data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(resp => {
+        props.history.push(`/profile/${resp.data.id}`)
+      })
+      .catch(err => {
+        setErrors(err)
+        console.log(err)
+      })
     return
   }
 
   return (
     <section className="section" id="city-selection">
       <div className="container">
-        {console.log(townsVisited)}
+        {console.log(data)}
         <h1 className="title">Select cities</h1>
         <h2 className="subtitle">Where have you travelled to?</h2>
     
@@ -95,7 +137,7 @@ const CitySelection = () => {
           allowMultipleExpanded={true}
           allowZeroExpanded={true}
         >
-          {
+          {towns &&
             [...new Set(filterBySearch(towns).map(town => town.country))]
               .sort()
               .map((country, i) => {
@@ -124,7 +166,7 @@ const CitySelection = () => {
                             type="checkbox" 
                             name={town.id} 
                             onChange={handleCheck} 
-                            checked={townsVisited.includes(town.id.toString()) ? true : false}
+                            checked={data.towns.includes(town.id.toString()) ? true : false}
                           />
                           <label className="city-checkbox-label" htmlFor={town.id}>{town.name} ({town.admin_name})</label>
                         </div>
