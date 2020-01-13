@@ -1,6 +1,8 @@
 # Functions to check which badges are awarded
 # from django.apps import apps
 # Badge = apps.get_model('badges', 'Badge')
+from travels.models import Badge, Town
+from travels.serializers import BadgeSerializer
 # from .travels.models import Badge
 
 
@@ -605,20 +607,25 @@ get_badges(single_user['towns'])
 
 def get_platform_badges(users):
 
+    # print(users, 'lets see the users!!!!')
+
     # most countries (214)
 
     def count_user_countries(person):
         all_user_town_countries = list(map(lambda town: town['country'], person['towns']))
+
         unique_user_countries = set(all_user_town_countries)
         return unique_user_countries
 
-    badge = Badge.object.get(pk=214)
+    badge = Badge.objects.get(pk=214)
 
-    leader = badge.users[0] or False
+    serialized_badge = BadgeSerializer(badge)
 
-    badge.users.clear()
+    leader = False
 
-    for user in users:
+    serialized_badge.data['users'].clear()
+
+    for user in users.data:
         current_user = count_user_countries(user)
 
         if leader is not False:
@@ -627,16 +634,48 @@ def get_platform_badges(users):
             if len(current_user) > len(current_leader):
                 leader = user
 
-            else:
-                leader = user
-
-        return leader
-
-    badge.users.append(leader)
-    badge.save()
+        else:
+            leader = user
+    
+    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
 
     # most cities (215)
+    # untested function
 
+def get_platform_city_badges(users):
+
+    def count_user_cities(person):
+        all_user_towns = list(map(lambda town: town['id'], person['towns']))
+
+        return all_user_towns
+
+    badge = Badge.objects.get(pk=215)
+
+    serialized_badge = BadgeSerializer(badge)
+
+    leader = False
+
+    serialized_badge.data['users'].clear()
+
+    for user in users.data:
+        current_user = count_user_cities(user)
+
+        if leader is not False:
+            current_leader = count_user_cities(leader)
+
+            if len(current_user) > len(current_leader):
+                leader = user
+
+        else:
+            leader = user
+    
+    updated_badge = BadgeSerializer(serialized_badge, data=serialized_badge.data['users'].append(leader['id']))
+    if (updated_badge.is_valid()):
+        badge = updated_badge
+        badge.save()
    
 
     # most capitals (216)
