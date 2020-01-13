@@ -58,6 +58,10 @@ $input-placeholder-color: $gold;
   max-width: 90%;
 }
 
+.modal-stats {
+  text-align: center;
+}
+
 .navbar {
   background-color: $dark;
 
@@ -197,10 +201,13 @@ font-style: italic;
 
 #user-profile {
 
+  text-align: center;
+
   div.badge-display {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
   img {
     height: auto;

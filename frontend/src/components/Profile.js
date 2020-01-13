@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import MapGL from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
@@ -525,9 +526,9 @@ const Profile = (props) => {
 
       <section className={panel ? 'section' : 'section hide'} id="user-profile">
         <div className="container">
-          <div className="subtitle">
+          <h2 className="title">
             Badges
-          </div>
+          </h2>
           <div className="badge-display">
             {/* replace test data with actual api data when ready */}
             {example_user.badges.map((badge, i) => {
@@ -549,15 +550,15 @@ const Profile = (props) => {
 
       <section className={panel ? 'section hide' : 'section'} id="user-profile">
         <div className="container">
-          <div className="subtitle">
+          <h2 className="title">
             Groups
-          </div>
+          </h2>
           {/* replace test data with profile.groups_joined when api call working */}
           {example_user.groups_joined.map((group, i) => {
-            return <div key={i}>
+            return <Link to={`/groups/${group.id}`} key={i}>
               <p>{group.name}</p>
               <img src={group.image} alt="group photo" />
-            </div>
+            </Link>
           })}
         </div>
       </section>
@@ -573,24 +574,22 @@ const Profile = (props) => {
       {/* stats modals below */}
 
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <h2 className="title">inContinents</h2>
-          <div className="container">
-            <div className="columns">
-              {listContinentsCountries(example_user, 'continent').map((continent, i) => {
-                return <div key={i} className="column">{continent}</div>
-              })}
+        <div className="modal-background" onClick={toggleContinent}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Continents visited</h2>
+          {listContinentsCountries(example_user, 'continent').map((continent, i) => {
+            return <div key={i}>
+              <p>{continent}</p>
             </div>
-          </div>
+          })}
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
       </div>
 
       <div className={countryModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <p>Countries you've been to</p>
+        <div className="modal-background" onClick={toggleCountry}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Countries visited</h2>
           {listContinentsCountries(example_user, 'country').map((country, i) => {
             return <div key={i}>
               <p>{country}</p>
@@ -601,9 +600,9 @@ const Profile = (props) => {
       </div>
 
       <div className={cityModal === true ? 'modal is-active' : 'modal'}>
-        <div className="modal-background"></div>
-        <div className="modal-content">
-          <p>Cities you've been to</p>
+        <div className="modal-background" onClick={toggleCity}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Cities visited</h2>
           {example_user.towns.map((town, i) => {
             return <div key={i}>
               <p>{town.name_ascii}</p>
