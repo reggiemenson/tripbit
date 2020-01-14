@@ -408,15 +408,15 @@ const Profile = (props) => {
     setData({ ...data, image: res.filesUploaded[0].url })
   }
 
-  // Django creates a user input window when an authorised path is requested outside a useEffect/ component did mount
+  // Django creates a user input window when an authorised path does is incorrectly authorised.
 
   const handleSubmit = () => {
     // e.preventDefault()
-    setToken(Auth.getToken())
-    console.log(token)
-    axios.put('api/profile', {
+    
+    // console.log(token)
+    axios.put('api/profile', data, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${Auth.getToken()}`
       }
     })
       .then(resp => console.log(resp, 'success'))
@@ -473,13 +473,14 @@ const Profile = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log(resp)
+        console.log(resp.data)
         setProfile(resp.data)
         setData({
-          username: profile.username,
-          first_name: profile.first_name,
-          last_name: profile.last_name
+          username: resp.data.username,
+          first_name: resp.data.first_name,
+          last_name: resp.data.last_name
         })
+        setToken(Auth.getToken())
       })
       .catch(err => setErrors(err))
   }, [])
@@ -498,7 +499,7 @@ const Profile = (props) => {
       />
 
       <section className="hero" id="user-profile-header">
-        {console.log(profile.data)}
+        {console.log(data)}
         <div className="hero-body level is-mobile">
           <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
