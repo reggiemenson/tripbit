@@ -34,45 +34,46 @@ const Login = ({ props }) => {
   return <>
     <div className='container'>
       <div className='columns'>
-        <div className='column'>
-          <h1>Login</h1>
+        <div className='column has-text-centered'>
+          <h1 className='title'>Login</h1>
           <form className='form' onSubmit={handleSubmit}>
 
-            <div className="field">
-              <p className="control has-icons-left has-icons-right">
+            <div className='field'>
+              <p className='control has-icons-left has-icons-right'>
                 <input
                   onChange={handleChange}
-                  className="input has-text-info"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
+                  className='input has-text-info'
+                  name='email'
+                  type='email'
+                  placeholder='Email'
                 />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-envelope'></i>
                 </span>
-                <span className="icon is-small is-right">
-                  <i className="fas fa-check"></i>
+                <span className='icon is-small is-right'>
+                  {/* add condition for check icon */}
+                  <i className='fas fa-check'></i>
                 </span>
               </p>
             </div>
-            <div className="field">
-              <p className="control has-icons-left">
+            <div className='field'>
+              <p className='control has-icons-left'>
                 <input
                   onChange={handleChange}
-                  name="password"
-                  className="input has-text-info"
-                  type="password"
-                  placeholder="Password"
+                  name='password'
+                  className='input has-text-info'
+                  type='password'
+                  placeholder='Password'
                 />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-lock"></i>
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-lock'></i>
                 </span>
               </p>
             </div>
             {login.errors && <small className='help is-danger'>
               {login.errors}
             </small>}
-            <button className='button is-rounded'>
+            <button className='button'>
               Login
             </button>
           </form>

@@ -35,75 +35,86 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
   }
 
   return <>
-    {console.log(register)}
-    <div className='container'>
-      <h1>Register</h1>
+    <div className='container has-text-centered'>
       <div className='columns'>
+        <h1 className='title'>Register</h1>
         <div className='column'>
-          <form className='form' onSubmit={handleSubmit}>
+          <form className='form has-text-centered' onSubmit={handleSubmit}>
 
             <div className='field'>
-              <label htmlFor='username' className='label'>
-                Username
-              </label>
-              <div className='control'>
+              <div className='control has-icons-left has-icons-right'>
                 <input
                   onChange={handleChange}
-                  className="input has-text-info"
                   type='text'
                   name='username'
+                  className='input has-text-info'
+                  placeholder='Username'
                 />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-user'></i>
+                </span>
+                <span className='icon is-small is-right'>
+                  <i className='fas fa-check'></i>
+                </span>
               </div>
               {register.errors.username && <small className='help is-danger'>
                 {register.errors.username[0]}
               </small>}
+              {/* can we implement this somehow? */}
+              <p className='help is-success'>This username is available</p>
             </div>
 
             <div className='field'>
-              <label htmlFor='first_name' className='label'>
-                First name
-              </label>
-              <div className='control'>
+              <p className='control has-icons-left'>
                 <input
                   onChange={handleChange}
-                  className="input has-text-info"
+                  className='input has-text-info'
                   type='text'
                   name='first_name'
+                  placeholder='First name'
                 />
-              </div>
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-id-card'></i>
+                </span>
+              </p>
               {register.errors.first_name && <small className='help is-danger'>
                 {register.errors.first_name[0]}
               </small>}
             </div>
 
             <div className='field'>
-              <label htmlFor='last_name' className='label'>
-                Last name
-              </label>
-              <div className='control'>
+              <p className='control has-icons-left'>
                 <input
                   onChange={handleChange}
-                  className="input has-text-info"
+                  className='input has-text-info'
                   type='text'
                   name='last_name'
+                  placeholder='Last name'
                 />
-              </div>
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-id-card'></i>
+                </span>
+              </p>
               {register.errors.last_name && <small className='help is-danger'>
                 {register.errors.last_name[0]}
               </small>}
             </div>
 
             <div className='field'>
-              <label htmlFor='email' className='label'>
-                Email
-              </label>
-              <div className='control'>
+              <div className='control has-icons-left has-icons-right'>
                 <input
                   onChange={handleChange}
-                  className="input has-text-info"
-                  type='email'
+                  className='input has-text-info'
                   name='email'
+                  type='email'
+                  placeholder='Email'
                 />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-envelope'></i>
+                </span>
+                <span className='icon is-small is-right'>
+                  <i className='fas fa-exclamation-triangle'></i>
+                </span>
               </div>
               {register.errors.email && <small className='help is-danger'>
                 {register.errors.email[0]}
@@ -111,16 +122,19 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
             </div>
 
             <div className='field'>
-              <label htmlFor='password' className='label'>
-                Password
-              </label>
               <div className='control'>
-                <input
-                  onChange={handleChange}
-                  className="input has-text-info"
-                  type='text'
-                  name='password'
-                />
+                <p className='control has-icons-left'>
+                  <input
+                    onChange={handleChange}
+                    className='input has-text-info'
+                    type='password'
+                    name='password'
+                    placeholder='Password'
+                  />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-lock'></i>
+                  </span>
+                </p>
               </div>
               {register.errors.password && <small className='help is-danger'>
                 {register.errors.password[0]}
@@ -128,23 +142,26 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
 
             </div>
             <div className='field'>
-              <label htmlFor='password_confirmation' className='label'>
-                Confirm Password
-              </label>
               <div className='control'>
-                <input
-                  onChange={handleChange}
-                  className="input has-text-info"
-                  type='text'
-                  name='password_confirmation'
-                />
+                <p className='control has-icons-left'>
+                  <input
+                    onChange={handleChange}
+                    className='input has-text-info'
+                    type='password'
+                    name='password_confirmation'
+                    placeholder='Password confirmation'
+                  />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-lock'></i>
+                  </span>
+                </p>
               </div>
               {register.errors.password_confirmation && <small className='help is-danger'>
                 {register.errors.password_confirmation[0]}
               </small>}
 
             </div>
-            <button className='button is-rounded'>
+            <button className='button'>
               Register
             </button>
           </form>
