@@ -86,11 +86,6 @@ $input-placeholder-color: $gold;
   font-size: 3rem;
 }
 
-.subtitle {
-font-style: italic;
-
-}
-
 .input, .textarea {
   background-color: $dark;
   border: 1px solid $gray;
@@ -138,8 +133,8 @@ font-style: italic;
 
   button.button.mappage.is-link {
     margin: 10px;
-    
-    .is-inverted {
+
+    .is-outlined {
       background-color: $dark;
     }
   }
@@ -269,17 +264,6 @@ div.buttons.is-right {
   }
 
 
-}
-
-// mapbox styling
-
-.marker {
-  background-image: url('../images/marker-gold.png');
-  background-size: cover;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;  
 }
 
 // styling to toggle between left and right info on profile page

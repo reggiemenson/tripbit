@@ -41,12 +41,7 @@ const MapPage = () => {
     console.log('computing user country data...')
     const data = towns
       .filter((town) => {
-        return town.visitors
-          .reduce((list, visitor) => {
-            list.push(visitor.id)
-            return list
-          }, [])
-          .includes(Auth.getUserId())
+        return town.visitors.includes(Auth.getUserId())
       })
       .reduce((countries, town) => {
         if (countries[town.iso2]) {
@@ -84,9 +79,9 @@ const MapPage = () => {
 
           <div className="column is-4-desktop" id="title-column-mappage">
             <div className="container has-text-centered">
-              {infoLevel === 'platform' ? <h1 className="title is-size-1">Where everybody&apos;s been</h1> : <></>}
-              {infoLevel === 'user' ? <h1 className="title is-size-1">Where you&apos;ve been</h1> : <></>}
-              <h2 className="is-size-4">
+              {infoLevel === 'platform' ? <h1 className="title is-size-1 is-size-3-mobile">Where everybody&apos;s been</h1> : <></>}
+              {infoLevel === 'user' ? <h1 className="title is-size-1 is-size-3-mobile">Where you&apos;ve been</h1> : <></>}
+              <h2 className="is-size-4 is-size-5-mobile">
                 Select an option below.
               </h2>
               <button id="platform" className={infoLevel === 'platform' ? 'button mappage is-link' : 'is-outlined button mappage is-link'} onClick={toggleInfoLevel}>Everybody&apos;s travels</button>
