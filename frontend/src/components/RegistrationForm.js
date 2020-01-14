@@ -178,7 +178,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               </div>
             </div>
 
-            <button className='button'>
+            <button className='button is-link'>
               Register
             </button>
           </form>

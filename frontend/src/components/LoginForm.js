@@ -69,7 +69,7 @@ const Login = ({ props }) => {
             {login.errors && <small className='help is-danger'>
               {login.errors}
             </small>}
-            <button className='button'>
+            <button className='button is-link'>
               Login
             </button>
           </form>

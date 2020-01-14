@@ -267,6 +267,16 @@ div.buttons.is-right {
 
 }
 
+// mapbox styling
+.marker {
+  background-image: url('../images/marker-gold.png');
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;  
+}
+
 // styling to toggle between left and right info on profile page
 .hide {
   display: none;

@@ -43,7 +43,7 @@ const Profile = (props) => {
     groups_podium3: []
   })
   const [errors, setErrors] = useState({})
-
+  
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -52,6 +52,23 @@ const Profile = (props) => {
     bearing: 0,
     pitch: 0
   })
+
+  // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
+  const midCoordinate = (towns) => {
+    const arrLats = towns.map((town) => {
+      return parseFloat(town.lat.replace(',','.'))
+    })
+    const maxLat = Math.max(...arrLats)
+    const minLat = Math.min(...arrLats)
+    const midLat = (maxLat + minLat) / 2
+    const arrLngs = towns.map((town) => {
+      return parseFloat(town.lng.replace(',','.'))
+    })
+    const maxLng = Math.max(...arrLngs)
+    const minLng = Math.min(...arrLngs)
+    const midLng = (maxLng + minLng) / 2
+    setViewport({ latitude: midLat, longitude: midLng, zoom: 1 })
+  }
 
   // store profile image here
   const [data, setData] = useState({})
@@ -83,7 +100,6 @@ const Profile = (props) => {
       handleSubmit()
     }
   }, [data])
-
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -124,16 +140,16 @@ const Profile = (props) => {
     const all = profile.towns.map((elem) => {
       return elem[size]
     })
-    console.log(Array.from(new Set(all)))
+    // console.log(Array.from(new Set(all)))
     return Array.from(new Set(all))
   }
 
   // work out how many continents, countries, or cities visited to show on modal
   const countContinentsCountries = (profile, size) => {
-    console.log(listContinentsCountries(profile, size).length)
+    // console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
-
+  
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
@@ -141,13 +157,14 @@ const Profile = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log(resp.data)
+        console.log('api resp ', resp.data)
         setProfile(resp.data)
         setData({
           username: resp.data.username,
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
+        midCoordinate(resp.data.towns)
       })
       .catch(err => setErrors(err))
   }, [])
@@ -173,7 +190,7 @@ const Profile = (props) => {
             offsetLeft={-20}
           >
             <div className="marker"></div>
-            {/* {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))} */}
+            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
           </Marker>
         })}
       </MapGL>
