@@ -7,7 +7,7 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
-import Register from './RegistrationForm'
+// import Register from './RegistrationForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -125,7 +125,7 @@ const Profile = (props) => {
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
-    axios.get(`/profile/${props.match.params.id}`, {
+    axios.get(`api/profile/${props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
