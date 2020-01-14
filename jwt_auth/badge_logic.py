@@ -691,7 +691,7 @@ def get_most_capitals_badge(users):
 
     def count_user_caps(person):
         all_user_town_types = list(map(lambda town: town['capital'], person['towns']))
-        all_user_capitals = list(filter(lambda town_type: town_type != 'primary', all_user_town_types))
+        all_user_capitals = list(filter(lambda town_type: town_type == 'primary', all_user_town_types))
 
         return all_user_capitals
 

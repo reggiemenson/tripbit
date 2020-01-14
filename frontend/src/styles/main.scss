@@ -86,11 +86,6 @@ $input-placeholder-color: $gold;
   font-size: 3rem;
 }
 
-.subtitle {
-font-style: italic;
-
-}
-
 .input, .textarea {
   background-color: $dark;
   border: 1px solid $gray;
@@ -101,7 +96,7 @@ font-style: italic;
 }
 
 
-#homepage {
+#homepage, #mappage {
 
   max-height: 100vh;
 
@@ -109,12 +104,12 @@ font-style: italic;
     width: 100%;
   }
 
-  #title-column {
+  #title-column, #title-column-mappage {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    button {
+    button.homepage {
       color: $dark;
       background-color: $dark;
       text-shadow: 1px 1px 2px $gold;
@@ -129,9 +124,18 @@ font-style: italic;
       background-repeat: no-repeat;
     }
 
-    button:hover {
+    button.homepage:hover {
       background-image: url(../images/crayon-shading-gold-gradient-light.png);
       text-shadow: 1px 1px 2px $light-gold;
+    }
+
+  }
+
+  button.button.mappage.is-link {
+    margin: 10px;
+
+    .is-outlined {
+      background-color: $dark;
     }
   }
 }
@@ -140,10 +144,16 @@ font-style: italic;
 .worldmapsvg {
 
   .pageloader {
-    background-color: rgba($dark, 0.2);
+    background-color: rgba($dark, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .label {
+      color: $gold;
+      font-weight: normal;
+      padding: 40px 0 0 0;
+    }
 
   }
 
@@ -242,17 +252,6 @@ font-style: italic;
   }
 
 
-}
-
-// mapbox styling
-
-.marker {
-  background-image: url('../images/marker-gold.png');
-  background-size: cover;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;  
 }
 
 // styling to toggle between left and right info on profile page

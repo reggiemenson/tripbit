@@ -5,6 +5,8 @@ import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
 
+const infoType = 'user'
+
 const Hero = (props) => {
 
   const [registrationModal, setRegistrationModal] = useState(false)
@@ -29,6 +31,7 @@ const Hero = (props) => {
       })
       .catch(err => {
         console.log(err)
+        alert(err)
         setErrors({ ...errors, ...err })
       })
   }
@@ -48,27 +51,26 @@ const Hero = (props) => {
 
   return (
     <section id="homepage" className="hero is-fullheight">
-      {console.log('DATA', countriesData)}
       <div className="hero-body">
 
         <div className="columns is-desktop">
           <div className="column is-8-desktop">
             <div id="home-worldmap" className="has-text-centered is-centered">
-              < WorldMap countriesData={countriesData} />
+              <WorldMap countriesData={countriesData} infoType={infoType} />
             </div>
           </div>
 
           <div className="column is-4-desktop" id="title-column">
             <div className="container has-text-centered">
               <h1 className="title is-size-1">
-                inCONTINENTAL
+                TripBit
               </h1>
               <h2 className="subtitle is-size-4">
-                Wherever you&apos;ve been. Leave a trail.
+                Your personal travel tracker
               </h2>
 
-              <button className="is-size-4" onClick={toggleLogin}>Login</button>
-              <button className="is-size-4" onClick={toggleRegistration}>Register</button>
+              <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>
+              <button className="is-size-4 homepage" onClick={toggleRegistration}>Register</button>
             </div>
           </div>
         </div>
