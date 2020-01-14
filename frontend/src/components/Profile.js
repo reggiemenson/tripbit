@@ -60,13 +60,14 @@ const Profile = (props) => {
     // console.log(res.filesUploaded[0].url)
     // console.log(res.filesUploaded[1].url)
     setData({ ...data, image: res.filesUploaded[0].url })
+    // handleSubmit()
   }
 
   // Django creates a user input window when an authorised path does is incorrectly authorised.
 
   const handleSubmit = () => {
     // e.preventDefault()
-    
+
     // console.log(token)
     axios.put('api/profile', data, {
       headers: {
@@ -76,6 +77,12 @@ const Profile = (props) => {
       .then(resp => console.log(resp, 'success'))
       .catch(err => console.log(err))
   }
+
+  useEffect(() => {
+    if (data.image) {
+      handleSubmit()
+    }
+  }, [data])
 
 
   // toggle between profile info, true for left and false for right (links next to profile image)
@@ -167,7 +174,7 @@ const Profile = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {console.log(data)}
+        {/* {console.log(profile)} */}
         <div className="hero-body level is-mobile">
           <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
@@ -185,9 +192,9 @@ const Profile = (props) => {
             onSuccess={handleImageUpload}
           />
           <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
-          <button onClick={handleSubmit} className="button is-link">
+          {/* <button onClick={handleSubmit} className="button is-link">
             Save Image
-          </button>
+          </button> */}
         </div>
 
         <div className="level is-mobile">
