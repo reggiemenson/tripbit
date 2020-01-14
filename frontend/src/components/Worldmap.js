@@ -14,7 +14,7 @@ const WorldMap = ({ countriesData }) => {
   })
 
   return <div className="worldmapsvg">
-    <div class={`pageloader ${Object.keys(countriesData).length === 0 ? 'is-active' : ''}`}></div>
+    <div class={`pageloader ${Object.keys(countriesData).length === 0 ? 'is active' : ''}`}></div>
     {console.log(countriesData.length)}   
     
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" space="preserve" viewBox="100 0 1400 900">

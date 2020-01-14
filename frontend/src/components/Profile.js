@@ -388,6 +388,7 @@ const Profile = (props) => {
   // info from api get request will be stored here
   const [profile, setProfile] = useState({})
   const [errors, setErrors] = useState({})
+  const [token, setToken] = useState('')
 
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
@@ -399,11 +400,7 @@ const Profile = (props) => {
   })
 
   // store profile image here
-  const [data, setData] = useState({
-    username: profile.username,
-    first_name: profile.first_name,
-    last_name: profile.last_name
-  })
+  const [data, setData] = useState({})
 
   const handleImageUpload = (res) => {
     // console.log(res.filesUploaded[0].url)
@@ -411,14 +408,21 @@ const Profile = (props) => {
     setData({ ...data, image: res.filesUploaded[0].url })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.put('api/profile/'), {
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-        .then(resp => console.log('success'))
-        .catch(err => console.log(err))
-    }
+  // Django creates a user input window when an authorised path is requested outside a useEffect/ component did mount
+
+  const handleSubmit = () => {
+    // e.preventDefault()
+    setToken(Auth.getToken())
+    console.log(token)
+    axios.put('api/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(resp => console.log(resp, 'success'))
+      .catch(err => console.log(err))
   }
+
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -471,6 +475,11 @@ const Profile = (props) => {
       .then(resp => {
         console.log(resp)
         setProfile(resp.data)
+        setData({
+          username: profile.username,
+          first_name: profile.first_name,
+          last_name: profile.last_name
+        })
       })
       .catch(err => setErrors(err))
   }, [])
@@ -500,17 +509,17 @@ const Profile = (props) => {
               <div onClick={onPick}>
                 <figure className="level-item image is-128x128">
                   {/* Class creates an oval. Look to change this so all propics are circles. */}
-                  <img className="is-rounded" src={!data.image ? profile.image : data.image} />
+                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                 </figure>
               </div>
             )}
             onSuccess={handleImageUpload}
           />
           <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
+          <button onClick={handleSubmit} className="button is-link">
+            Save Image
+          </button>
         </div>
-          {/* <button className="button is-link">
-            Done
-          </button> */}
 
         <div className="level is-mobile">
           <div className="level-item has-text-centered" onClick={toggleContinent}>
