@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Auth from '../lib/auth'
 
-const Navbar = () => {
+const Navbar = ({ toggleSearch }) => {
   const history = useHistory()
 
   const [state, setState] = useState({
@@ -18,8 +18,6 @@ const Navbar = () => {
   // const toggleNavbar = () => {
   //   setState({ isOpen: !state.isOpen })
   // }
-
-
 
   return (
     <>
@@ -112,9 +110,9 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/add_trip" className="navbutton"><i className="fa fa-plane"></i></Link>
+                    <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
                     {'\n'}
-                    <Link><p className="navbar-links">ADD TRIP</p></Link>
+                    <p className="navbar-links">SEARCH</p>
                   </div>
                 </div>
               </li>

@@ -263,7 +263,7 @@ const Profile = (props) => {
           </div>
           
           <div className="hero-body level is-mobile">
-            <i className={!panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
+            <i className={panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
             <ReactFilestack
               preload={true}
               apikey={fileloaderKey}
@@ -278,7 +278,7 @@ const Profile = (props) => {
               )}
               onSuccess={handleImageUpload}
             />
-            <i className={panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
+            <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
         </div>
 

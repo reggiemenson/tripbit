@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 import SecureRoute from './lib/SecureRoute'
@@ -16,11 +16,17 @@ import AddTrip from './components/AddTrip'
 import Game from './components/Game'
 import MapPage from './components/MapPage'
 
-// we'll need a path for other people's profiles as well
+const App = () => {
 
-const App = () => (
-  <HashRouter>
-    <Navbar />
+  const [searchModal, setSearchModal] = useState(false)
+
+  const toggleSearch = () => {
+    console.log('success')
+    setSearchModal(!searchModal)
+  }
+
+  return <HashRouter>
+    <Navbar toggleSearch={toggleSearch}/>
     <Switch>
       <Route exact path="/" component={Hero} />
       <SecureRoute exact path="/profile/:id" component={Profile} />
@@ -31,8 +37,15 @@ const App = () => (
       <SecureRoute exact path="/play" component={Game} />
       <SecureRoute exact path="/map" component={MapPage} />
     </Switch>
+    <div className={searchModal === true ? 'modal is-active' : 'modal'}>
+      <div className="modal-background" onClick={toggleSearch}></div>
+      <div className="modal-content modal-stats">
+        <h2 className="title">Surprise motherfucker!</h2>
+      </div>
+      <button className="modal-close is-large" aria-label="close" onClick={toggleSearch}></button>
+    </div>
   </HashRouter>
-)
+}
 
 ReactDOM.render(
   <App />,
