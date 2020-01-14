@@ -63,20 +63,20 @@ $input-placeholder-color: $gold;
   text-align: center;
 }
 
-.navbar {
-  background-color: $dark;
+// .navbar {
+//   background-color: $dark;
 
-  .logo-text {
-    font-family: 'Cabin Sketch', sans-serif;
-    background-image: linear-gradient(to top right, $dark-gold, $gold);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-style: normal;
-    font-size: 1.7em;
-    font-weight: 700;
-  }
-}
+//   .logo-text {
+//     font-family: 'Cabin Sketch', sans-serif;
+//     background-image: linear-gradient(to top right, $dark-gold, $gold);
+//     -webkit-background-clip: text;
+//     background-clip: text;
+//     color: transparent;
+//     font-style: normal;
+//     font-size: 1.7em;
+//     font-weight: 700;
+//   }
+// }
 
 .title {
   font-family: 'Cabin Sketch', sans-serif;
@@ -96,6 +96,7 @@ $input-placeholder-color: $gold;
   margin: 5px;
 }
 
+// HOMEPAGE / MAPPAGE ***************************************** //
 
 #homepage, #mappage {
 
@@ -141,6 +142,7 @@ $input-placeholder-color: $gold;
   }
 }
 
+// MAP ***************************************** //
 
 .worldmapsvg {
 
@@ -195,81 +197,137 @@ $input-placeholder-color: $gold;
   }
 }
 
-#user-profile-header {
-  position: -webkit-sticky; 
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: $dark;
-  background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0) 90%);
-  padding-bottom: 100px;
+// PROFILE PAGE ***************************************** //
 
-  .click-me {
-    color: $gold;
-  }
-}
+#profile {
 
-div.hero-body {
-  padding: 1em 1.5rem 3em;
-}
+  #user-profile-header {
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: $dark;
+    background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0.8) 90%);
 
-div.buttons.is-right {
-  margin-bottom: 0;
-}
-
-#settings {
-  margin: 0.5rem;
-}
+    .mobile-header {
+      min-height: 36vh; 
+    }
 
 
-#user-profile {
+    // @media only screen and (min-width: 768px) {
 
-  text-align: center;
+    .click-me {
+      color: $gold;
+    }
 
-  div.badge-display {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  img {
-    height: auto;
-    width: 150px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-
-  div.overlay {
-    position: absolute;
-    top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 150px;
-    background-color: rgba(255, 216, 132, 0.9);
-    padding: 10px;
-    opacity: 0;
+    i:not(.click-me):hover {
+      color: $light-gold;
+    }
   
-    div {
-      max-width: 100%;
-      overflow-wrap: break-word;
-      color: $dark-gold;
+
+  div.hero-body {
+    // padding: 1em 1.5rem 3em;
+    // max-height: 34vh;
+    padding: 0;
+  }
+
+  .banner {
+    margin: 0.7rem;
+
+    .name {
+      
+      .fullname {
+        font-family: $family-sans-serif;
+        color: $text;
+        font-weight: normal;
+      }
     }
   }
 
-  div.overlay:hover {
-    opacity: 1;
+
+  .stats {
+      
+    .stat:hover {
+      cursor: pointer;
+      p.title {
+        background-image: linear-gradient(to top right, $gold, $light-gold);
+      }
+    }
+  }
   }
 
+  #user-profile {
 
-}
+    text-align: center;
 
-// styling to toggle between left and right info on profile page
-.hide {
-  display: none;
+    div.display {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    img {
+      height: auto;
+      width: 150px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .group-link {
+      margin: 10px;
+      border: 1px solid $gold;
+      border-radius: 10px;
+      padding: 20px;
+
+      .label {
+        font-weight: normal;
+        color: $gold;
+        margin-bottom: 10px;
+      }
+    }
+
+    div.overlay {
+      position: absolute;
+      top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 150px;
+      background-color: rgba(255, 216, 132, 0.9);
+      padding: 10px;
+      opacity: 0;
+    
+      div {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        color: $dark-gold;
+      }
+    }
+
+    .badge:hover, .group:hover {
+      div.overlay {
+        opacity: 1;
+      }
+    }
+   
+
+
+  }
+
+  // styling to toggle between left and right info on profile page
+  .hide {
+    display: none;
+  }
+
+  .modal-content {
+    background-color: $dark;
+    padding: 10px;
+    border-radius: 10px;
+  }
 }
 
 // ********** ******* //
@@ -278,6 +336,8 @@ div.buttons.is-right {
 .is-checkradio[type="checkbox"] + label:before {
   border: 0.1rem solid $light-gray;
 }
+
+// CITY SELECTION PAGE ***************************************** //
 
 #city-selection {
 
@@ -345,8 +405,7 @@ div.buttons.is-right {
 }
 
 
-// NAVBAR STYLING
-
+// NAVBAR ***************************************** //
 
 .icons {
   position: absolute;
@@ -659,6 +718,8 @@ transform: rotate(180deg);
 .navbar-links:hover {
   color: $light-gold;
 }
+
+// GROUPS PAGE ***************************************** //
 
 #groups-page {
   .subtitle {
