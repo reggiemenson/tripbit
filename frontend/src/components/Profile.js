@@ -170,13 +170,13 @@ const Profile = (props) => {
   }, [])
 
   return (
-    <div>
+    <div id="profile">
 
       <MapGL
         {...viewport}
         position="absolute"
         width="100vw"
-        height="66vh"
+        height="64vh"
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -207,47 +207,65 @@ const Profile = (props) => {
           </div>
           <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
         </div>
-        <div className="buttons is-right">
-          <button className="button is-link" id='settings' onClick={toggleSettings}>
-            <span className="icon is-small">
-              <i className="fas fa-cog"></i>
-            </span>
-          </button>
-        </div>
-        <div className="hero-body level is-mobile">
-          <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
-          <ReactFilestack
-            preload={true}
-            apikey={fileloaderKey}
-            options={options}
-            customRender={({ onPick }) => (
-              <div onClick={onPick}>
-                <figure className="level-item image is-128x128">
-                  {/* Class creates an oval. Look to change this so all propics are circles. */}
-                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                </figure>
+
+
+        <div className="mobile-header">
+          <div className="banner level is-mobile">
+            <div className="level-left">
+              <div className="name level-item">
+                <div className="username title is-size-3">
+                  {data.username} 
+                  <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
+                </div>
               </div>
-            )}
-            onSuccess={handleImageUpload}
-          />
-          <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
+            </div>
+            
+            <div className="level-right">
+              <div className="buttons level-item">
+                <button className="button is-link" id='settings' onClick={toggleSettings}>
+                  <span className="icon is-small">
+                    <i className="fas fa-cog"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="hero-body level is-mobile">
+            <i className={!panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
+            <ReactFilestack
+              preload={true}
+              apikey={fileloaderKey}
+              options={options}
+              customRender={({ onPick }) => (
+                <div onClick={onPick}>
+                  <figure className="level-item image is-128x128">
+                    {/* Class creates an oval. Look to change this so all propics are circles. */}
+                    <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                  </figure>
+                </div>
+              )}
+              onSuccess={handleImageUpload}
+            />
+            <i className={panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
+          </div>
         </div>
 
-        <div className="level is-mobile">
+        <div className="level is-mobile stats">
           <div className="level-item has-text-centered" onClick={toggleContinent}>
-            <div>
+            <div className="stat">
               <p className="heading">Continents</p>
               <p className="title">{countContinentsCountries(profile, 'continent')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCountry}>
-            <div>
+            <div className="stat">
               <p className="heading">Countries</p>
               <p className="title">{countContinentsCountries(profile, 'country')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCity}>
-            <div>
+            <div className="stat">
               <p className="heading">Cities</p>
               <p className="title">{profile.towns.length}</p>
             </div>
@@ -255,7 +273,7 @@ const Profile = (props) => {
           <div className="level-item has-text-centered">
             <div>
               <p className="heading">Travel XP</p>
-              <p className="title">780</p>
+              <p className="title">{profile.score}</p>
             </div>
           </div>
         </div>
@@ -267,7 +285,7 @@ const Profile = (props) => {
           <h2 className="title">
             Badges
           </h2>
-          <div className="badge-display">
+          <div className="display">
             {/* replace test data with actual api data when ready */}
             {profile.badges.sort().map((badge, i) => {
               return <div className="badge" key={i}>
@@ -291,20 +309,21 @@ const Profile = (props) => {
           <h2 className="title">
             Groups
           </h2>
-          {/* replace test data with profile.groups_joined when api call working */}
-          {profile.groups_joined.map((group, i) => {
-            return <Link to={`/groups/${group.id}`} key={i}>
-              <p>{group.name}</p>
-              <img src={group.image} alt="group photo" />
-            </Link>
-          })}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="subtitle">
-            Need some space down here - agreed!
+          <div className="display">
+            {/* replace test data with profile.groups_joined when api call working */}
+            {profile.groups_joined.map((group, i) => {
+              return <Link to={`/groups/${group.id}`} className="group-link" key={i}>
+                <div className="image is-150x150">
+                  <div className="group">
+                    <div className="label">{group.name}</div>
+                    <img className="image is-150x150 is-rounded" src={group.image} alt="" />
+                    <div className="overlay">
+                      <div className="is-size-7">{group.description}</div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            })}
           </div>
         </div>
       </section>
