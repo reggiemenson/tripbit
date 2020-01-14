@@ -66,12 +66,12 @@ const Profile = (props) => {
     setData({ ...data, image: res.filesUploaded[0].url })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.get('api/profile/')
-      .then(resp => setProfile(resp))
-      .catch(err => setErrors(err))
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   axios.get('api/profile/')
+  //     .then(resp => setProfile(resp))
+  //     .catch(err => setErrors(err))
+  // }
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -141,7 +141,7 @@ const Profile = (props) => {
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {profile.towns.map((country, i) => {
-          return <Marker key={i} latitude={country.lat} longitude={country.lng}>
+          return <Marker key={i} latitude={parseFloat(country.lat)} longitude={parseFloat(country.lng)}>
             <div>oi</div>
           </Marker>
         })}
