@@ -14,7 +14,7 @@ import Groups from './components/Groups'
 import IndividualGroup from './components/IndividualGroup'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
-import WorldMap from './components/Worldmap'
+import MapPage from './components/MapPage'
 
 // we'll need a path for other people's profiles as well
 
@@ -29,7 +29,7 @@ const App = () => (
       <SecureRoute exact path="/groups/:id" component={IndividualGroup} />
       <SecureRoute exact path="/add_trip" component={AddTrip} />
       <SecureRoute exact path="/play" component={Game} />
-      <SecureRoute exact path="/world_map" component={WorldMap} />
+      <SecureRoute exact path="/map" component={MapPage} />
     </Switch>
   </HashRouter>
 )

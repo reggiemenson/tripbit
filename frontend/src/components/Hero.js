@@ -5,6 +5,8 @@ import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
 
+const infoType = 'user'
+
 const Hero = (props) => {
 
   const [registrationModal, setRegistrationModal] = useState(false)
@@ -48,13 +50,12 @@ const Hero = (props) => {
 
   return (
     <section id="homepage" className="hero is-fullheight">
-      {console.log('DATA', countriesData)}
       <div className="hero-body">
 
         <div className="columns is-desktop">
           <div className="column is-8-desktop">
             <div id="home-worldmap" className="has-text-centered is-centered">
-              < WorldMap countriesData={countriesData} />
+              <WorldMap countriesData={countriesData} infoType={infoType} />
             </div>
           </div>
 
@@ -67,8 +68,8 @@ const Hero = (props) => {
                 Wherever you&apos;ve been. Leave a trail.
               </h2>
 
-              <button className="is-size-4" onClick={toggleLogin}>Login</button>
-              <button className="is-size-4" onClick={toggleRegistration}>Register</button>
+              <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>
+              <button className="is-size-4 homepage" onClick={toggleRegistration}>Register</button>
             </div>
           </div>
         </div>
