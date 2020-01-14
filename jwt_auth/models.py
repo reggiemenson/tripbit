@@ -12,7 +12,7 @@ class User(AbstractUser):
     # custom fields here...
     email = models.CharField(max_length=50, unique=True)
     image = models.CharField(max_length=500, default='https://bit.ly/37UONby')
-    score = models.IntegerField(null=True, blank=True, default=0)
+    score = models.IntegerField(default=0)
     dexterity = models.CharField(max_length=2, choices=ORIENTATION, default='RH')
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)

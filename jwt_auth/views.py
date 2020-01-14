@@ -9,7 +9,9 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTIT
 from django.conf import settings
 import jwt
 
-from .badge_logic import get_platform_badges, get_user_badges
+from django.db.models import F
+
+from .badge_logic import get_platform_badges, get_user_badges, get_user_score
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -95,10 +97,12 @@ class EditDetailView(APIView):
             initial_user.save()
             new_user = User.objects.get(pk=request.user.id)
             user_data = PopulatedUserSerializer(new_user)
-
+            
             badges = get_user_badges(user_data)
-
+            score = get_user_score(user_data)
+            
             test_user = User.objects.get(pk=request.user.id)
+            test_user.score = score
             badge_user = UserSerializer(test_user)
             badge_user.data['badges'].clear()
             badge_user.data['badges'].extend(badges)
