@@ -3,6 +3,7 @@ from .views import BadgesView, IndividualBadgeView, GroupsView, IndividualGroupV
 
 urlpatterns = [
     path('towns/', TownsView.as_view()),
+    # path('countries/', CountriesView.as_view()),
     path('groups/', GroupsView.as_view()),
     path('groups/<int:pk>/', IndividualGroupView.as_view()),
     path('groups/<int:pk>/membership/', GroupMembershipView.as_view()),

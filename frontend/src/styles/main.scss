@@ -54,6 +54,14 @@ $input-placeholder-color: $gold;
   box-sizing: border-box;
 }
 
+.modal-content {
+  max-width: 90%;
+}
+
+.modal-stats {
+  text-align: center;
+}
+
 .navbar {
   background-color: $dark;
 
@@ -93,7 +101,7 @@ font-style: italic;
 }
 
 
-#homepage {
+#homepage, #mappage {
 
   max-height: 100vh;
 
@@ -101,12 +109,12 @@ font-style: italic;
     width: 100%;
   }
 
-  #title-column {
+  #title-column, #title-column-mappage {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    button {
+    button.homepage {
       color: $dark;
       background-color: $dark;
       text-shadow: 1px 1px 2px $gold;
@@ -121,9 +129,18 @@ font-style: italic;
       background-repeat: no-repeat;
     }
 
-    button:hover {
+    button.homepage:hover {
       background-image: url(../images/crayon-shading-gold-gradient-light.png);
       text-shadow: 1px 1px 2px $light-gold;
+    }
+
+  }
+
+  button.button.mappage.is-link {
+    margin: 10px;
+    
+    .is-inverted {
+      background-color: $dark;
     }
   }
 }
@@ -132,10 +149,16 @@ font-style: italic;
 .worldmapsvg {
 
   .pageloader {
-    background-color: rgba($dark, 0.2);
+    background-color: rgba($dark, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .label {
+      color: $gold;
+      font-weight: normal;
+      padding: 40px 0 0 0;
+    }
 
   }
 
@@ -184,15 +207,22 @@ font-style: italic;
   background-color: $dark;
   background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0) 90%);
   padding-bottom: 100px;
+
+  .click-me {
+    color: $gold;
+  }
 }
 
 
 #user-profile {
 
+  text-align: center;
+
   div.badge-display {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
   img {
     height: auto;
@@ -227,6 +257,17 @@ font-style: italic;
   }
 
 
+}
+
+// mapbox styling
+
+.marker {
+  background-image: url('../images/marker-gold.png');
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;  
 }
 
 // styling to toggle between left and right info on profile page
@@ -650,6 +691,8 @@ transform: rotate(180deg);
       a.card-footer-item {
       
         color: $dark;
+        border-right: none;
+        border-left: none;
 
         :hover{
           color: $light-gold;

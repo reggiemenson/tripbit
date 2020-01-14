@@ -17,6 +17,14 @@ from .serializers import ValidateSerializer, UserSerializer, PopulatedUserSerial
 
 class RegisterView(APIView):
 
+    def get_user(self, request):
+        serializer = ValidateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Registration successful'})
+
+        return Response(serializer.errors, status=422)
+
     def post(self, request):
         serializer = ValidateSerializer(data=request.data)
         if serializer.is_valid():

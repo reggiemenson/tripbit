@@ -37,11 +37,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
         extra_kwargs = {
             'score': {'required': False},
             'towns': {'required': False},
-            'trips': {'required': False},
             'badges': {'required': False},
             'groups_owned': {'required': False},
             'groups_joined': {'required': False},
@@ -54,7 +53,6 @@ class UserSerializer(serializers.ModelSerializer):
 class PopulatedUserSerializer(serializers.ModelSerializer):
 
     towns = TownSerializer(many=True)
-    trips = TripSerializer(many=True)
     badges = BadgeSerializer(many=True)
     groups_owned = GroupSerializer(many=True)
     groups_requested = GroupSerializer(many=True)
@@ -65,4 +63,4 @@ class PopulatedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'trips', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
