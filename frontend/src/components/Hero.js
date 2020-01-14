@@ -21,13 +21,17 @@ const Hero = (props) => {
         const data = resp.data
           .reduce((countries, town) => {
             if (countries[town.iso2]) {
-              countries[town.iso2] += town.visitors.length
+              countries[town.iso2] = countries[town.iso2].concat(town.visitors)
             } else {
-              countries[town.iso2] = town.visitors.length
+              countries[town.iso2] = town.visitors
             }
             return countries
           }, {})
-        setCountriesData(data)
+        const uniqueVisitors = {}
+        Object.keys(data).forEach((country) => {
+          uniqueVisitors[country] = (new Set(data[country])).size
+        })
+        setCountriesData(uniqueVisitors)
       })
       .catch(err => {
         console.log(err)

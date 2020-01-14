@@ -26,15 +26,20 @@ const MapPage = () => {
 
   function computePlatformData(towns) {
     console.log('computing platform country data...')
-    const data = towns.reduce((countries, town) => {
-      if (countries[town.iso2]) {
-        countries[town.iso2] += town.visitors.length
-      } else {
-        countries[town.iso2] = town.visitors.length
-      }
-      return countries
-    }, {})
-    setPlatformData(data)
+    const data = towns
+      .reduce((countries, town) => {
+        if (countries[town.iso2]) {
+          countries[town.iso2] = countries[town.iso2].concat(town.visitors)
+        } else {
+          countries[town.iso2] = town.visitors
+        }
+        return countries
+      }, {})
+    const uniqueVisitors = {}
+    Object.keys(data).forEach((country) => {
+      uniqueVisitors[country] = (new Set(data[country])).size
+    })
+    setPlatformData(uniqueVisitors)
   }
 
   function computeUserData(towns) {

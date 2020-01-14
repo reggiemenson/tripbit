@@ -85,9 +85,19 @@ const Groups = (props) => {
           <div className="subtitle">
             Groups you belong to
           </div>
-          
+          {groups
+            .filter((group) => {
+              return group.members
+                .reduce((list, member) => {
+                  list.push(member.id)
+                  return list
+                }, [])
+                .includes(Auth.getUserId())
+            })
+            .length === 0 ? <div className="is-size-5 no-groups">You haven&apos;t joined any groups yet!</div> : <></>}
 
           <div className="columns is-mobile is-multiline">
+           
             {groups
               .filter((group) => {
                 return group.members
@@ -112,6 +122,17 @@ const Groups = (props) => {
           <div className="subtitle">
             All other groups
           </div>
+
+          {groups
+            .filter((group) => {
+              return !group.members
+                .reduce((list, member) => {
+                  list.push(member.id)
+                  return list
+                }, [])
+                .includes(Auth.getUserId())
+            })
+            .length === 0 ? <div className="is-size-5 no-groups">No other groups to display</div> : <></>}
 
           <div className="columns is-mobile is-multiline">
             {groups
