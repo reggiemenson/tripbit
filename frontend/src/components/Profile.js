@@ -7,7 +7,7 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
-// import Register from './RegistrationForm'
+import Settings from './SettingsForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -71,19 +71,44 @@ const Profile = (props) => {
   }
 
   // store profile image here
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    dexterity: ''
+  })
 
   const handleImageUpload = (res) => {
-    // console.log(res.filesUploaded[0].url)
-    // console.log(res.filesUploaded[1].url)
     setData({ ...data, image: res.filesUploaded[0].url })
-    // handleSubmit()
   }
 
   // Django creates a user input window when an authorised path does is incorrectly authorised.
 
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+    // const errors = { ...register.errors, [e.target.name]: '' }
+  }
+
+  const modalSubmit = (e) => {
+    e.preventDefault()
+
+    // console.log(token)
+    axios.put('api/profile', data, {
+      headers: {
+        Authorization: `Bearer ${Auth.getToken()}`
+      }
+    })
+      .then(resp => {
+        console.log(resp, 'success')
+        toggleSettings()
+      })
+      .catch(err => {
+        console.log(err, 'failed')
+        console.log(data, 'failed')
+      })
+  }
+
   const handleSubmit = () => {
-    // e.preventDefault()
 
     // console.log(token)
     axios.put('api/profile', data, {
@@ -161,6 +186,7 @@ const Profile = (props) => {
         setProfile(resp.data)
         setData({
           username: resp.data.username,
+          email: resp.data.email,
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
@@ -196,14 +222,19 @@ const Profile = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {/* {console.log(profile)} */}
+        {console.log(data.email)}
         {/* <div className="is-link">
           Settings
         </div> */}
         <div className={settingModal === true ? 'modal is-active' : 'modal'}>
           <div className="modal-background" onClick={toggleSettings}></div>
           <div className="modal-content">
-            {/* <Login props={props} /> */}
+            <Settings
+              toggleSettings={toggleSettings}
+              handleChange={(e) => handleChange(e)}
+              modalSubmit={(e) => modalSubmit(e)}
+              data={data}
+            />
           </div>
           <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
         </div>
