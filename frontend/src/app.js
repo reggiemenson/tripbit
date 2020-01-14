@@ -44,7 +44,7 @@ const App = () => {
     <div className={searchModal === true ? 'modal is-active' : 'modal'}>
       <div className="modal-background"></div>
       <div className="modal-content modal-stats">
-        <h2 className="title">Surprise motherfucker!</h2>
+        <SearchBar/>
       </div>
       <button className="modal-close is-large" aria-label="close" onClick={toggleSearch}></button>
     </div>
