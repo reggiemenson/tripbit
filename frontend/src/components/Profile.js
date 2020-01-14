@@ -54,11 +54,7 @@ const Profile = (props) => {
   })
 
   // store profile image here
-  const [data, setData] = useState({
-    username: profile.username,
-    first_name: profile.first_name,
-    last_name: profile.last_name
-  })
+  const [data, setData] = useState({})
 
   const handleImageUpload = (res) => {
     // console.log(res.filesUploaded[0].url)
@@ -66,12 +62,21 @@ const Profile = (props) => {
     setData({ ...data, image: res.filesUploaded[0].url })
   }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   axios.get('api/profile/')
-  //     .then(resp => setProfile(resp))
-  //     .catch(err => setErrors(err))
-  // }
+  // Django creates a user input window when an authorised path does is incorrectly authorised.
+
+  const handleSubmit = () => {
+    // e.preventDefault()
+    
+    // console.log(token)
+    axios.put('api/profile', data, {
+      headers: {
+        Authorization: `Bearer ${Auth.getToken()}`
+      }
+    })
+      .then(resp => console.log(resp, 'success'))
+      .catch(err => console.log(err))
+  }
+
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -120,12 +125,17 @@ const Profile = (props) => {
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
-    axios.get(`api/profile/${props.match.params.id}`, {
+    axios.get(`/profile/${props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        // console.log('response.data', resp.data)
+        console.log(resp.data)
         setProfile(resp.data)
+        setData({
+          username: resp.data.username,
+          first_name: resp.data.first_name,
+          last_name: resp.data.last_name
+        })
       })
       .catch(err => setErrors(err))
   }, [])
@@ -157,7 +167,7 @@ const Profile = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {console.log(!!data.image)}
+        {console.log(data)}
         <div className="hero-body level is-mobile">
           <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
@@ -167,14 +177,17 @@ const Profile = (props) => {
             customRender={({ onPick }) => (
               <div onClick={onPick}>
                 <figure className="level-item image is-128x128">
-                  {/* Class creates an oval. Look to change this so all propics are circles */}
-                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' : data.image} />
+                  {/* Class creates an oval. Look to change this so all propics are circles. */}
+                  <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                 </figure>
               </div>
             )}
             onSuccess={handleImageUpload}
           />
           <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
+          <button onClick={handleSubmit} className="button is-link">
+            Save Image
+          </button>
         </div>
 
         <div className="level is-mobile">
