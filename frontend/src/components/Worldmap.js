@@ -2,10 +2,6 @@ import React from 'react'
 import CrayonGold from '../images/crayon-shading-gold-gradient.png'
 import CrayonGoldLight from '../images/crayon-shading-gold-gradient-light.png'
 
-// import axios from 'axios'
-
-// const countries = ['BR', 'US', 'GB', 'JP', 'CN', 'ZA', 'IT', 'AU', 'AT', 'DE', 'CH', 'FR', 'BE', 'NL', 'NO']
-
 const WorldMap = ({ countriesData, infoType }) => {
 
   const countries = Object.keys(countriesData).filter(key => {
@@ -14,7 +10,6 @@ const WorldMap = ({ countriesData, infoType }) => {
   })
 
   return <div className="worldmapsvg">
-    {console.log('DATA', countriesData)}
     <div className={`pageloader ${Object.keys(countriesData).length === 0 ? 'is-active' : ''}`}><span className="label is-size-4">Just a moment, loading data...</span></div>
     
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" space="preserve" viewBox="100 0 1400 900">

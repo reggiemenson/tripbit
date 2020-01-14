@@ -17,8 +17,6 @@ User = get_user_model()
 
 class TownsView(APIView):
 
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
     def get(self, request):
         towns = Town.objects.all()
         serializer = PopulatedTownSerializer(towns, many=True,)
