@@ -42,7 +42,7 @@ const App = () => {
       <SecureRoute exact path="/map" component={MapPage} />
     </Switch>
     <div className={searchModal === true ? 'modal is-active' : 'modal'}>
-      <div className="modal-background"></div>
+      <div className="modal-background" onClick={toggleSearch}></div>
       <div className="modal-content modal-stats">
         <SearchBar/>
       </div>
