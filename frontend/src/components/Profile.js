@@ -91,6 +91,7 @@ const Profile = (props) => {
   const [continentModal, setContinentModal] = useState(false)
   const [countryModal, setCountryModal] = useState(false)
   const [cityModal, setCityModal] = useState(false)
+  const [settingModal, setSettingModal] = useState(false)
 
   // show 'right' stats
   const showRight = () => {
@@ -112,6 +113,10 @@ const Profile = (props) => {
 
   const toggleCity = () => {
     setCityModal(!cityModal)
+  }
+
+  function toggleSettings() {
+    setSettingModal(!settingModal)
   }
 
   // work out which continents, countries or cities visited to show on modal
@@ -175,6 +180,23 @@ const Profile = (props) => {
 
       <section className="hero" id="user-profile-header">
         {/* {console.log(profile)} */}
+        {/* <div className="is-link">
+          Settings
+        </div> */}
+        <div className={settingModal === true ? 'modal is-active' : 'modal'}>
+          <div className="modal-background" onClick={toggleSettings}></div>
+          <div className="modal-content">
+            {/* <Login props={props} /> */}
+          </div>
+          <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+        </div>
+        <div className="buttons is-right">
+          <button className="button is-link" id='settings' onClick={toggleSettings}>
+            <span className="icon is-small">
+              <i className="fas fa-cog"></i>
+            </span>
+          </button>
+        </div>
         <div className="hero-body level is-mobile">
           <i className={!panel ? 'level-item fas fa-chevron-left' : 'level-item fas fa-chevron-left click-me'} onClick={showLeft}></i>
           <ReactFilestack
@@ -192,9 +214,6 @@ const Profile = (props) => {
             onSuccess={handleImageUpload}
           />
           <i className={panel ? 'level-item fas fa-chevron-right' : 'level-item fas fa-chevron-right click-me'} onClick={showRight}></i>
-          {/* <button onClick={handleSubmit} className="button is-link">
-            Save Image
-          </button> */}
         </div>
 
         <div className="level is-mobile">
