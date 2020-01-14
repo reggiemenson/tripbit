@@ -9,6 +9,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
       first_name: '',
       last_name: '',
       email: '',
+      dexterity: '',
       password: '',
       password_confirmation: ''
     },
@@ -139,8 +140,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               {register.errors.password && <small className='help is-danger'>
                 {register.errors.password[0]}
               </small>}
-
             </div>
+
             <div className='field'>
               <div className='control'>
                 <p className='control has-icons-left'>
@@ -159,8 +160,24 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               {register.errors.password_confirmation && <small className='help is-danger'>
                 {register.errors.password_confirmation[0]}
               </small>}
-
             </div>
+
+            <div className="field">
+              <div className="control">
+                <div className='control has-icons-left'>
+                  <div className='select'>
+                    <select>
+                      <option>Left-handed operation</option>
+                      <option>Right-handed operation</option>
+                    </select>
+                  </div>
+                  <span className="icon is-small is-left">
+                    <i className='fas fa-gamepad'></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
             <button className='button'>
               Register
             </button>

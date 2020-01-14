@@ -50,10 +50,6 @@ const Login = ({ props }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-envelope'></i>
                 </span>
-                <span className='icon is-small is-right'>
-                  {/* add condition for check icon */}
-                  <i className='fas fa-check'></i>
-                </span>
               </p>
             </div>
             <div className='field'>
