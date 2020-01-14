@@ -60,10 +60,10 @@ const Settings = ({ data, handleChange, modalSubmit }) => {
             <div className="field">
               <div className="control">
                 <div className='control has-icons-left'>
-                  <div className='select'>
+                  <div className='select is-link'>
                     <select>
-                      <option>Left-handed operation</option>
                       <option>Right-handed operation</option>
+                      <option>Left-handed operation</option>
                     </select>
                   </div>
                   <span className="icon is-small is-left">
@@ -73,7 +73,7 @@ const Settings = ({ data, handleChange, modalSubmit }) => {
               </div>
             </div>
 
-            <button className='button'>
+            <button className='button is-link'>
               Save
             </button>
           </form>
