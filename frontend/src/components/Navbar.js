@@ -49,7 +49,7 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
+                    <Link to={'/profile'} className="navbutton"><i className="fa fa-user"></i></Link>
                     {'\n'}
                     <Link><p className="navbar-links">USER</p></Link>
                   </div>

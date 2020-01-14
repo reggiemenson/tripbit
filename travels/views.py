@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.contrib.auth import get_user_model
 
 from .models import Town, Badge, Trip, Group
-from .serializers import TripSerializer, BadgeSerializer, PopulatedGroupSerializer, PopulatedTownSerializer, GroupSerializer, PopulatedBadgeSerializer, PopulatedTripSerializer
+from .serializers import TripSerializer, BadgeSerializer, PopulatedGroupSerializer, PopulatedTownSerializer, GroupSerializer, PopulatedBadgeSerializer, PopulatedTripSerializer, TownSerializer
 
 User = get_user_model()
 
@@ -21,10 +21,26 @@ class TownsView(APIView):
 
     def get(self, request):
         towns = Town.objects.all()
-        serializer = PopulatedTownSerializer(towns, many=True)
+        serializer = PopulatedTownSerializer(towns, many=True,)
 
         return Response(serializer.data)
 
+
+# # CountriesView
+# # /countries
+# # GET all countries and number of users who visited
+
+# class CountriesView(APIView):
+
+#     def get(self, request):
+#         towns = Town.objects.all()
+#         serialized_towns = PopulatedTownSerializer(towns, many=True)
+#         print(serialized_towns.data)
+
+#         all_user_countries = list(map(lambda town: town['country'], serialized_towns.data))
+#         unique_user_countries = set(all_user_countries)
+
+#         return Response(unique_user_countries)
 
 # BadgesView
 # /badges
