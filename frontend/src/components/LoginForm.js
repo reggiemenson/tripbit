@@ -23,7 +23,7 @@ const Login = ({ props }) => {
     axios.post('/api/login', login.data)
       .then(resp => {
         Auth.setToken(resp.data.token)
-        props.history.push('/profile/')
+        props.history.push(`/profile/${Auth.getUserId()}`)
       })
       .catch(() => {
         setLogin({ errors: 'Email or password incorrect' })
