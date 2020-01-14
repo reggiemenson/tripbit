@@ -14,12 +14,9 @@ import Groups from './components/Groups'
 import IndividualGroup from './components/IndividualGroup'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
-<<<<<<< HEAD
 import WorldMap from './components/Worldmap'
 import SearchBar from './components/SearchBar'
-=======
 import MapPage from './components/MapPage'
->>>>>>> development
 
 // we'll need a path for other people's profiles as well
 
@@ -34,12 +31,9 @@ const App = () => (
       <SecureRoute exact path="/groups/:id" component={IndividualGroup} />
       <SecureRoute exact path="/add_trip" component={AddTrip} />
       <SecureRoute exact path="/play" component={Game} />
-<<<<<<< HEAD
       <SecureRoute exact path="/world_map" component={WorldMap} />
       <SecureRoute exact path="/SearchBar" component={SearchBar} />
-=======
       <SecureRoute exact path="/map" component={MapPage} />
->>>>>>> development
     </Switch>
   </HashRouter>
 )

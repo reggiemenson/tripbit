@@ -1,50 +1,91 @@
-// import React, { useState, useEffect } from 'react'
-// import axios from 'axios'
-// import Auth from '../lib/auth'
-// import FilteredSearchForm from './FilteredSearchForm'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Auth from '../lib/auth'
+import UserCard from './UserCard'
 
-// const SearchBar = () => {
-//   const [initialData, setInitialData] = useState([])
-//   const [filteredData, setFilteredData] = useState([])
-//   const [searchBarModal, setSearchBarModal] = useState(false)
-
-
-//   useEffect(() => {
-//     axios.get('/api/users')
-//       .then(response => {
-//         setInitialData(response.data)
-//         setFilteredData([...response.data])
-//         console.log(filteredData)
-//       })
-//       .catch(error => console.log(error))
-//   }, [])
+const SearchBar = (props) => {
+  const [data, setData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
+  const [searchBarModal, setSearchBarModal] = useState(false)
+  const [searchBar, setSearchBar] = useState('')
 
 
+  useEffect(() => {
+    axios.get('/api/users', {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(response => {
+        setData(response.data)
+        console.log(data)
+        console.log(response.data)
+      })
+      .catch(error => console.log(error))
+  }, [])
+
+  function filterBySearch(Users) {
+    return Users.filter(user => {
+      if (searchBar !== '') return user.first_name.toLowerCase().includes(searchBar.toLowerCase()) || user.last_name.toLowerCase().includes(searchBar.toLowerCase())
+      return user
+    })
+  }
+
+  function handleSearchChange(e) {
+    setSearchBar(e.target.value)
+    console.log(searchBar)
+    console.log(data.map((user) => {
+      return user.first_name
+    }))
+  }
 
 
-//   // function toggleSearchBar() {
-//   //   setSearchBarModal(!searchBarModal)
-//   // }
 
-//   return <>
 
-//     {/* <div className={searchBarModal === true ? 'modal is-active' : 'modal'}>
-//       <div className="modal-background" onClick={toggleSearchBar}></div>
-//       <div className="modal-content">
-//           toggleRegistration={toggleSearchBar}
-//       </div>
-//       <button className="modal-close is-large" aria-label="close" onClick={toggleSearchBar}></button>
-//     </div> */}
-//     <div>
-//       <FilteredSearchForm
-//         Users={filteredData}
-//       />
-//     </div>
-//     <div className="columns is-multiline">
-//       {/* {filteredData.map((results, i) => {
-//         return <UserCard key={i} results={results} />
-//       })} */}
-//     </div>
-//   </>
-// }
-// export default SearchBar
+
+
+  function goToUserProfile(e) {
+    props.history.push(`/profile/${e.target.id}`)
+  }
+
+
+
+  function handleSubmit(e) {
+    setSearchBar(e.target.value)
+    const returnedResults = data.filter(data => data.first_name.includes(searchBar) || data.last_name.includes(searchBar) || data.username.includes(searchBar))
+    setFilteredData(returnedResults)
+    console.log(returnedResults)
+    
+  }
+
+
+
+
+
+
+
+
+
+  return <>
+    <div>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="columns is-mobile">
+          <div className="column is-10-desktop is-8-tablet is-8-mobile">
+            <div className="field">
+              <div className="control has-icons-left">
+                <input className="input has-text-info" type="search" placeholder="Search for your friends" onChange={handleSearchChange}></input>
+                <span className="icon is-small is-left">
+                  <i className="fas fa-compass"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div className="columns is-multiline">
+      {filteredData.map((user, i) => {
+        return <UserCard key={i} user={user} goToUserProfile={(e) => goToUserProfile(e)} />
+      })}
+    </div>
+  </>
+}
+export default SearchBar
