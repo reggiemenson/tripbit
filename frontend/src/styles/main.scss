@@ -16,6 +16,7 @@ $dark-gold: rgb(97, 67, 0);
 $dark: #101010;
 $gray: #585858;
 $light-gray: #7d7c7c;
+$nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 
 
 // Update Bulma's global variables
@@ -457,7 +458,7 @@ $input-placeholder-color: $gold;
   margin: 0;
   height: 100%;
   width: 100%;
-  background-color: rgb(255, 216, 132);
+  background-color: $gold;
   border-radius: 50%;
   transform: rotate(108deg);
   overflow: hidden;
@@ -503,62 +504,62 @@ $input-placeholder-color: $gold;
   color: $dark;
       background-color: $dark;
       text-shadow: 1px 1px 2px $gold;
-      background-image: linear-gradient(to top right, $dark-gold, $gold)
+      background-image: $nav-gradient;
       
 }
 .circle li:nth-child(2) {
   transform: rotate(36deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(3) {
   transform: rotate(72deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(4) {
   transform: rotate(108deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(5) {
   transform: rotate(144deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(6) {
   transform: rotate(180deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(7) {
   transform: rotate(216deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(8) {
   transform: rotate(252deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(9) {
   transform: rotate(288deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(10) {
   transform: rotate(324deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 #menu__active {
   position: fixed;
@@ -570,16 +571,21 @@ $input-placeholder-color: $gold;
   transition: transform 1s;
 }
 #menu__active:checked ~ label .menu__toggle {
-  background-color: rgb(255, 216, 132);
+  background-color: $gold;
   transition: all 1s;
 }
+
+#menu__active:checked ~ label .menu__toggle:hover {
+  background-color: $light-gold
+}
+
 #menu__active:checked ~ label .hamburger {
   border-color: transparent;
   transition: border-color 0.333333333333333s;
 }
 #menu__active:checked ~ label .hamburger:after {
   top: -2px;
-  border-color: rgb(97, 67, 0);
+  border-color: $dark-gold;
   transform: translateX(-50%) rotate(45deg);
   transition-property: top, transform;
   transition-duration: 0.25s, 1s;
@@ -592,7 +598,7 @@ $input-placeholder-color: $gold;
   transition-duration: 0.25s, 1s;
 }
 #menu__active:checked ~ label .navbutton:hover {
-  color: rgb(255, 216, 132);
+  color: $light-gold;
 }
 #menu__active:checked ~ label .menu__arrow {
   visibility: visible;
@@ -639,7 +645,7 @@ transform: rotate(180deg);
 
 
 .navbar-links:hover {
-  color: rgb(255, 216, 132);
+  color: $light-gold;
 }
 
 #groups-page {
@@ -654,6 +660,10 @@ transform: rotate(180deg);
 
     .subtitle {
       margin-top: 10px;
+    }
+
+    .no-groups {
+      margin-bottom: 20px;
     }
   }
 }
