@@ -31,6 +31,7 @@ const Hero = (props) => {
       })
       .catch(err => {
         console.log(err)
+        prompt(err)
         setErrors({ ...errors, ...err })
       })
   }
@@ -62,10 +63,10 @@ const Hero = (props) => {
           <div className="column is-4-desktop" id="title-column">
             <div className="container has-text-centered">
               <h1 className="title is-size-1">
-                inCONTINENTAL
+                TripBit
               </h1>
               <h2 className="subtitle is-size-4">
-                Wherever you&apos;ve been. Leave a trail.
+                Your personal travel tracker
               </h2>
 
               <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>
