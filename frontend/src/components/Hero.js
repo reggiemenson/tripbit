@@ -31,7 +31,7 @@ const Hero = (props) => {
       })
       .catch(err => {
         console.log(err)
-        prompt(err)
+        alert(err)
         setErrors({ ...errors, ...err })
       })
   }
