@@ -15,12 +15,12 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  transformations: {
-    crop: true,
-    circle: true,
-    rotate: true
+  transformations: {  
+    circle: true, 
+    crop: false
   }
 }
+
 
 const Profile = (props) => {
 
