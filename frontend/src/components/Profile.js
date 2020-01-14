@@ -7,7 +7,7 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
-import Register from './RegistrationForm'
+// import Register from './RegistrationForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -119,11 +119,13 @@ const Profile = (props) => {
     const all = profile.towns.map((elem) => {
       return elem[size]
     })
+    console.log(Array.from(new Set(all)))
     return Array.from(new Set(all))
   }
 
   // work out how many continents, countries, or cities visited to show on modal
-  const countContinentsCountries = (size) => {
+  const countContinentsCountries = (profile, size) => {
+    console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
 
