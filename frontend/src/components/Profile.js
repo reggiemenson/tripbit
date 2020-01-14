@@ -195,35 +195,35 @@ const example_user = {
       "id": 184,
       "name": "5+ Countries",
       "description": "Vistied at least 5 countries",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://previews.123rf.com/images/antonbrand/antonbrand1404/antonbrand140400008/27715571-jumping-cartoon-viking-with-sword-and-axe-isolated-on-white.jpg",
       "users": []
     },
     {
       "id": 185,
       "name": "10+ Countries",
       "description": "Visited at least 10 countries",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://i.imgur.com/MpFJ2L1.png",
       "users": []
     },
     {
       "id": 195,
       "name": "5+ Cities",
       "description": "Vistied at least 5 cities",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://i.imgur.com/mAD0sEH.jpg",
       "users": []
     },
     {
       "id": 196,
       "name": "10+ Cities",
       "description": "Visited at least 10 cities",
-      "image": "http://pixelartmaker.com/art/086fe7507559c28.png",
+      "image": "https://i.imgur.com/iSzeRm4.jpg",
       "users": []
     },
     {
       "id": 202,
       "name": "Europe",
       "description": "Visit at least one country on the continent of Europe",
-      "image": "https://image.flaticon.com/icons/svg/533/533467.svg",
+      "image": "https://i.imgur.com/6gd3kbz.jpg",
       "users": []
     }
   ],

@@ -15,6 +15,7 @@ import IndividualGroup from './components/IndividualGroup'
 import AddTrip from './components/AddTrip'
 import Game from './components/Game'
 import WorldMap from './components/Worldmap'
+import SearchBar from './components/SearchBar'
 
 // we'll need a path for other people's profiles as well
 
@@ -30,9 +31,18 @@ const App = () => (
       <SecureRoute exact path="/add_trip" component={AddTrip} />
       <SecureRoute exact path="/play" component={Game} />
       <SecureRoute exact path="/world_map" component={WorldMap} />
+      <SecureRoute exact path="/SearchBar" component={SearchBar} />
     </Switch>
   </HashRouter>
 )
+
+
+
+
+
+
+
+
 
 ReactDOM.render(
   <App />,

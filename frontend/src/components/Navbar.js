@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Auth from '../lib/auth'
+import SearchBar from './SearchBar'
 
 const Navbar = () => {
+
   const history = useHistory()
+
 
   const [state, setState] = useState({
     isOpen: false
@@ -15,15 +18,13 @@ const Navbar = () => {
     setState({ isOpen: false })
   }
 
-  // const toggleNavbar = () => {
-  //   setState({ isOpen: !state.isOpen })
-  // }
+
 
 
 
   return (
     <>
-      {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar"> 
+      {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
         <input type="checkbox" id="menu__active" />
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
@@ -40,7 +41,7 @@ const Navbar = () => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i></Link>
+                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i> </Link>
                     {'\n'}
                     <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
                   </div>
@@ -51,7 +52,7 @@ const Navbar = () => {
                   <div className="upside">
                     <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">USER</p></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -60,7 +61,7 @@ const Navbar = () => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">ADD CITIES</p></Link>
+                    <Link to="/city_selection"> <p className="navbar-links">ADD CITIES</p></Link>
                   </div>
                 </div>
               </li>
@@ -96,25 +97,27 @@ const Navbar = () => {
                   <div className="upside">
                     <Link to="/" onClick={() => handleLogout()} className="navbutton"><i className="fa fa-sign-out"></i> </Link>
                     {'\n'}
-                    <Link><p className="navbar-links"> {' '}LOG-OUT</p></Link>
+                    <Link to="/" onClick={() => handleLogout()}> <p className="navbar-links"> {' '}LOG-OUT</p></Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link href="/play" className="navbutton"><i className="fa fa-gamepad"></i></Link>
+                    <Link to="/play" className="navbutton"><i className="fa fa-gamepad"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">GAME</p></Link>
+                    <Link to="/play"><p className="navbar-links">GAME</p></Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/add_trip" className="navbutton"><i className="fa fa-plane"></i></Link>
+                    <Link onClick={SearchBar} className="navbutton"><i className="fa fa-plane"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">ADD TRIP</p></Link>
+                    <Link onClick={SearchBar} ><p className="navbar-links">SEARCH</p></Link>
+                   
+
                   </div>
                 </div>
               </li>
@@ -123,7 +126,7 @@ const Navbar = () => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">ADD CITY</p></Link>
+                    <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
                   </div>
                 </div>
               </li>
