@@ -7,7 +7,7 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
-// import Register from './RegistrationForm'
+import Settings from './SettingsForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -43,7 +43,7 @@ const Profile = (props) => {
     groups_podium3: []
   })
   const [errors, setErrors] = useState({})
-
+  
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -53,20 +53,62 @@ const Profile = (props) => {
     pitch: 0
   })
 
+  // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
+  const midCoordinate = (towns) => {
+    const arrLats = towns.map((town) => {
+      return parseFloat(town.lat.replace(',','.'))
+    })
+    const maxLat = Math.max(...arrLats)
+    const minLat = Math.min(...arrLats)
+    const midLat = (maxLat + minLat) / 2
+    const arrLngs = towns.map((town) => {
+      return parseFloat(town.lng.replace(',','.'))
+    })
+    const maxLng = Math.max(...arrLngs)
+    const minLng = Math.min(...arrLngs)
+    const midLng = (maxLng + minLng) / 2
+    setViewport({ latitude: midLat, longitude: midLng, zoom: 1 })
+  }
+
   // store profile image here
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    dexterity: ''
+  })
 
   const handleImageUpload = (res) => {
-    // console.log(res.filesUploaded[0].url)
-    // console.log(res.filesUploaded[1].url)
     setData({ ...data, image: res.filesUploaded[0].url })
-    // handleSubmit()
   }
 
   // Django creates a user input window when an authorised path does is incorrectly authorised.
 
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+    // const errors = { ...register.errors, [e.target.name]: '' }
+  }
+
+  const modalSubmit = (e) => {
+    e.preventDefault()
+
+    // console.log(token)
+    axios.put('api/profile', data, {
+      headers: {
+        Authorization: `Bearer ${Auth.getToken()}`
+      }
+    })
+      .then(resp => {
+        console.log(resp, 'success')
+        toggleSettings()
+      })
+      .catch(err => {
+        console.log(err, 'failed')
+        console.log(data, 'failed')
+      })
+  }
+
   const handleSubmit = () => {
-    // e.preventDefault()
 
     // console.log(token)
     axios.put('api/profile', data, {
@@ -83,7 +125,6 @@ const Profile = (props) => {
       handleSubmit()
     }
   }, [data])
-
 
   // toggle between profile info, true for left and false for right (links next to profile image)
   const [panel, setPanel] = useState(true)
@@ -124,16 +165,16 @@ const Profile = (props) => {
     const all = profile.towns.map((elem) => {
       return elem[size]
     })
-    console.log(Array.from(new Set(all)))
+    // console.log(Array.from(new Set(all)))
     return Array.from(new Set(all))
   }
 
   // work out how many continents, countries, or cities visited to show on modal
   const countContinentsCountries = (profile, size) => {
-    console.log(listContinentsCountries(profile, size).length)
+    // console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
-
+  
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
@@ -141,13 +182,15 @@ const Profile = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log(resp.data)
+        console.log('api resp ', resp.data)
         setProfile(resp.data)
         setData({
           username: resp.data.username,
+          email: resp.data.email,
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
+        midCoordinate(resp.data.towns)
       })
       .catch(err => setErrors(err))
   }, [])
@@ -173,20 +216,25 @@ const Profile = (props) => {
             offsetLeft={-20}
           >
             <div className="marker"></div>
-            {/* {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))} */}
+            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
           </Marker>
         })}
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {/* {console.log(profile)} */}
+        {console.log(data.email)}
         {/* <div className="is-link">
           Settings
         </div> */}
         <div className={settingModal === true ? 'modal is-active' : 'modal'}>
           <div className="modal-background" onClick={toggleSettings}></div>
           <div className="modal-content">
-            {/* <Login props={props} /> */}
+            <Settings
+              toggleSettings={toggleSettings}
+              handleChange={(e) => handleChange(e)}
+              modalSubmit={(e) => modalSubmit(e)}
+              data={data}
+            />
           </div>
           <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
         </div>

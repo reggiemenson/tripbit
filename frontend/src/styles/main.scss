@@ -201,6 +201,16 @@ $input-placeholder-color: $gold;
 
 #profile {
 
+  // mapbox styling
+  .marker {
+    background-image: url('../images/marker-gold.png');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;  
+  }
+
   #user-profile-header {
     position: -webkit-sticky; 
     position: sticky;
