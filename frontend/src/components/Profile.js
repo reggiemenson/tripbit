@@ -107,11 +107,13 @@ const Profile = (props) => {
     const all = profile.towns.map((elem) => {
       return elem[size]
     })
+    console.log(Array.from(new Set(all)))
     return Array.from(new Set(all))
   }
 
   // work out how many continents, countries, or cities visited to show on modal
-  const countContinentsCountries = (size) => {
+  const countContinentsCountries = (profile, size) => {
+    console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
 
