@@ -388,7 +388,6 @@ const Profile = (props) => {
   // info from api get request will be stored here
   const [profile, setProfile] = useState({})
   const [errors, setErrors] = useState({})
-  const [token, setToken] = useState('')
 
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
@@ -480,7 +479,6 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        setToken(Auth.getToken())
       })
       .catch(err => setErrors(err))
   }, [])
