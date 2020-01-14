@@ -3,8 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import Auth from '../lib/auth'
 import SearchBar from './SearchBar'
 
-const Navbar = () => {
-
+const Navbar = ({ toggleSearch }) => {
   const history = useHistory()
 
 
@@ -17,8 +16,6 @@ const Navbar = () => {
     history.push('/')
     setState({ isOpen: false })
   }
-
-
 
 
 
@@ -113,11 +110,17 @@ const Navbar = () => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
+<<<<<<< HEAD
                     <Link onClick={SearchBar} className="navbutton"><i className="fa fa-plane"></i></Link>
                     {'\n'}
                     <Link onClick={SearchBar} ><p className="navbar-links">SEARCH</p></Link>
                    
 
+=======
+                    <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
+                    {'\n'}
+                    <p className="navbar-links">SEARCH</p>
+>>>>>>> development
                   </div>
                 </div>
               </li>

@@ -16,6 +16,7 @@ $dark-gold: rgb(97, 67, 0);
 $dark: #101010;
 $gray: #585858;
 $light-gray: #7d7c7c;
+$nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 
 
 // Update Bulma's global variables
@@ -62,20 +63,20 @@ $input-placeholder-color: $gold;
   text-align: center;
 }
 
-.navbar {
-  background-color: $dark;
+// .navbar {
+//   background-color: $dark;
 
-  .logo-text {
-    font-family: 'Cabin Sketch', sans-serif;
-    background-image: linear-gradient(to top right, $dark-gold, $gold);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-style: normal;
-    font-size: 1.7em;
-    font-weight: 700;
-  }
-}
+//   .logo-text {
+//     font-family: 'Cabin Sketch', sans-serif;
+//     background-image: linear-gradient(to top right, $dark-gold, $gold);
+//     -webkit-background-clip: text;
+//     background-clip: text;
+//     color: transparent;
+//     font-style: normal;
+//     font-size: 1.7em;
+//     font-weight: 700;
+//   }
+// }
 
 .title {
   font-family: 'Cabin Sketch', sans-serif;
@@ -84,11 +85,6 @@ $input-placeholder-color: $gold;
   background-clip: text;
   color: transparent;
   font-size: 3rem;
-}
-
-.subtitle {
-font-style: italic;
-
 }
 
 .input, .textarea {
@@ -100,6 +96,7 @@ font-style: italic;
   margin: 5px;
 }
 
+// HOMEPAGE / MAPPAGE ***************************************** //
 
 #homepage, #mappage {
 
@@ -138,13 +135,14 @@ font-style: italic;
 
   button.button.mappage.is-link {
     margin: 10px;
-    
-    .is-inverted {
+
+    .is-outlined {
       background-color: $dark;
     }
   }
 }
 
+// MAP ***************************************** //
 
 .worldmapsvg {
 
@@ -199,80 +197,147 @@ font-style: italic;
   }
 }
 
-#user-profile-header {
-  position: -webkit-sticky; 
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: $dark;
-  background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0) 90%);
-  padding-bottom: 100px;
+// PROFILE PAGE ***************************************** //
 
-  .click-me {
-    color: $gold;
-  }
-}
+#profile {
 
-
-#user-profile {
-
-  text-align: center;
-
-  div.badge-display {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  img {
-    height: auto;
-    width: 150px;
-    background-position: center;
+  // mapbox styling
+  .marker {
+    background-image: url('../images/marker-gold.png');
     background-size: cover;
-    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;  
   }
 
-  div.overlay {
-    position: absolute;
-    top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 150px;
-    background-color: rgba(255, 216, 132, 0.9);
-    padding: 10px;
-    opacity: 0;
+  #user-profile-header {
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: $dark;
+    background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0.8) 90%);
+
+    .mobile-header {
+      min-height: 36vh; 
+    }
+
+
+    // @media only screen and (min-width: 768px) {
+
+    .click-me {
+      color: $gold;
+    }
+
+    i:not(.click-me):hover {
+      color: $light-gold;
+    }
   
-    div {
-      max-width: 100%;
-      overflow-wrap: break-word;
-      color: $dark-gold;
+
+  div.hero-body {
+    // padding: 1em 1.5rem 3em;
+    // max-height: 34vh;
+    padding: 0;
+  }
+
+  .banner {
+    margin: 0.7rem;
+
+    .name {
+      
+      .fullname {
+        font-family: $family-sans-serif;
+        color: $text;
+        font-weight: normal;
+      }
     }
   }
 
-  div.overlay:hover {
-    opacity: 1;
+
+  .stats {
+      
+    .stat:hover {
+      cursor: pointer;
+      p.title {
+        background-image: linear-gradient(to top right, $gold, $light-gold);
+      }
+    }
+  }
   }
 
+  #user-profile {
 
-}
+    text-align: center;
 
-// mapbox styling
+    div.display {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-.marker {
-  background-image: url('../images/marker-gold.png');
-  background-size: cover;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;  
-}
+    img {
+      height: auto;
+      width: 150px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
 
-// styling to toggle between left and right info on profile page
-.hide {
-  display: none;
+    .group-link {
+      margin: 10px;
+      border: 1px solid $gold;
+      border-radius: 10px;
+      padding: 20px;
+
+      .label {
+        font-weight: normal;
+        color: $gold;
+        margin-bottom: 10px;
+      }
+    }
+
+    div.overlay {
+      position: absolute;
+      top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 150px;
+      background-color: rgba(255, 216, 132, 0.9);
+      padding: 10px;
+      opacity: 0;
+    
+      div {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        color: $dark-gold;
+      }
+    }
+
+    .badge:hover, .group:hover {
+      div.overlay {
+        opacity: 1;
+      }
+    }
+   
+
+
+  }
+
+  // styling to toggle between left and right info on profile page
+  .hide {
+    display: none;
+  }
+
+  .modal-content {
+    background-color: $dark;
+    padding: 10px;
+    border-radius: 10px;
+  }
 }
 
 // ********** ******* //
@@ -281,6 +346,8 @@ font-style: italic;
 .is-checkradio[type="checkbox"] + label:before {
   border: 0.1rem solid $light-gray;
 }
+
+// CITY SELECTION PAGE ***************************************** //
 
 #city-selection {
 
@@ -348,8 +415,7 @@ font-style: italic;
 }
 
 
-// NAVBAR STYLING
-
+// NAVBAR ***************************************** //
 
 .icons {
   position: absolute;
@@ -473,7 +539,7 @@ font-style: italic;
   margin: 0;
   height: 100%;
   width: 100%;
-  background-color: rgb(255, 216, 132);
+  background-color: $gold;
   border-radius: 50%;
   transform: rotate(108deg);
   overflow: hidden;
@@ -519,62 +585,62 @@ font-style: italic;
   color: $dark;
       background-color: $dark;
       text-shadow: 1px 1px 2px $gold;
-      background-image: linear-gradient(to top right, $dark-gold, $gold)
+      background-image: $nav-gradient;
       
 }
 .circle li:nth-child(2) {
   transform: rotate(36deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(3) {
   transform: rotate(72deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(4) {
   transform: rotate(108deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(5) {
   transform: rotate(144deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(6) {
   transform: rotate(180deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(7) {
   transform: rotate(216deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(8) {
   transform: rotate(252deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(9) {
   transform: rotate(288deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 .circle li:nth-child(10) {
   transform: rotate(324deg) skewY(-54deg);
   background-color: $dark;
   text-shadow: 1px 1px 2px $gold;
-  background-image: linear-gradient(to top right, $dark-gold, $gold)
+  background-image: $nav-gradient;
 }
 #menu__active {
   position: fixed;
@@ -586,16 +652,21 @@ font-style: italic;
   transition: transform 1s;
 }
 #menu__active:checked ~ label .menu__toggle {
-  background-color: rgb(255, 216, 132);
+  background-color: $gold;
   transition: all 1s;
 }
+
+#menu__active:checked ~ label .menu__toggle:hover {
+  background-color: $light-gold
+}
+
 #menu__active:checked ~ label .hamburger {
   border-color: transparent;
   transition: border-color 0.333333333333333s;
 }
 #menu__active:checked ~ label .hamburger:after {
   top: -2px;
-  border-color: rgb(97, 67, 0);
+  border-color: $dark-gold;
   transform: translateX(-50%) rotate(45deg);
   transition-property: top, transform;
   transition-duration: 0.25s, 1s;
@@ -608,7 +679,7 @@ font-style: italic;
   transition-duration: 0.25s, 1s;
 }
 #menu__active:checked ~ label .navbutton:hover {
-  color: rgb(255, 216, 132);
+  color: $light-gold;
 }
 #menu__active:checked ~ label .menu__arrow {
   visibility: visible;
@@ -655,8 +726,10 @@ transform: rotate(180deg);
 
 
 .navbar-links:hover {
-  color: rgb(255, 216, 132);
+  color: $light-gold;
 }
+
+// GROUPS PAGE ***************************************** //
 
 #groups-page {
   .subtitle {
@@ -670,6 +743,10 @@ transform: rotate(180deg);
 
     .subtitle {
       margin-top: 10px;
+    }
+
+    .no-groups {
+      margin-bottom: 20px;
     }
   }
 }

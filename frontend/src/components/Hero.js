@@ -21,16 +21,21 @@ const Hero = (props) => {
         const data = resp.data
           .reduce((countries, town) => {
             if (countries[town.iso2]) {
-              countries[town.iso2] += town.visitors.length
+              countries[town.iso2] = countries[town.iso2].concat(town.visitors)
             } else {
-              countries[town.iso2] = town.visitors.length
+              countries[town.iso2] = town.visitors
             }
             return countries
           }, {})
-        setCountriesData(data)
+        const uniqueVisitors = {}
+        Object.keys(data).forEach((country) => {
+          uniqueVisitors[country] = (new Set(data[country])).size
+        })
+        setCountriesData(uniqueVisitors)
       })
       .catch(err => {
         console.log(err)
+        alert(err)
         setErrors({ ...errors, ...err })
       })
   }
@@ -62,10 +67,10 @@ const Hero = (props) => {
           <div className="column is-4-desktop" id="title-column">
             <div className="container has-text-centered">
               <h1 className="title is-size-1">
-                inCONTINENTAL 💩
+                TripBit
               </h1>
               <h2 className="subtitle is-size-4">
-                Wherever you&apos;ve been. Leave a trail.
+                Your personal travel tracker
               </h2>
 
               <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>

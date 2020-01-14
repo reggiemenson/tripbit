@@ -64,7 +64,3 @@ class TownSerializer(serializers.ModelSerializer):
             'population': {'required': False},
             'visitors': {'required': False}
         }
-
-class PopulatedTownSerializer(TownSerializer):
-
-    visitors = UserSerializer(many=True)

@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from django.contrib.auth import get_user_model
 
 from .models import Town, Badge, Trip, Group
-from .serializers import TripSerializer, BadgeSerializer, PopulatedGroupSerializer, PopulatedTownSerializer, GroupSerializer, PopulatedBadgeSerializer, PopulatedTripSerializer, TownSerializer
+from .serializers import TripSerializer, BadgeSerializer, PopulatedGroupSerializer, TownSerializer, GroupSerializer, PopulatedBadgeSerializer, PopulatedTripSerializer, TownSerializer
 
 User = get_user_model()
 
@@ -17,11 +17,9 @@ User = get_user_model()
 
 class TownsView(APIView):
 
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-
     def get(self, request):
         towns = Town.objects.all()
-        serializer = PopulatedTownSerializer(towns, many=True,)
+        serializer = TownSerializer(towns, many=True,)
 
         return Response(serializer.data)
 

@@ -27,11 +27,11 @@ const CitySelection = (props) => {
 
   function getTownData() {
     axios.get('/api/towns/')
-    .then(resp => {
-      console.log('Response!')
-      setTowns(resp.data)
-    })
-    .catch(err => setErrors(err.response.message))
+      .then(resp => {
+        console.log('Response!')
+        setTowns(resp.data)
+      })
+      .catch(err => setErrors(err.response.message))
   }
 
   function getUserData() {
@@ -78,12 +78,12 @@ const CitySelection = (props) => {
     if (e.target.checked) {
       const towns = [...data.towns]
       towns.push(e.target.id)
-      setData({...data, towns})
+      setData({ ...data, towns })
 
     } else {
       const towns = [...data.towns]
         .filter(id => id !== e.target.id)
-      setData({...data, towns})
+      setData({ ...data, towns })
     }
   }
 
@@ -108,7 +108,7 @@ const CitySelection = (props) => {
         {console.log(data)}
         <h1 className="title">Select cities</h1>
         <h2 className="subtitle">Where have you travelled to?</h2>
-    
+
         <form className="form" onSubmit={handleSubmit}>
           <div className="columns is-mobile">
             <div className="column is-10-desktop is-8-tablet is-8-mobile">
@@ -130,9 +130,9 @@ const CitySelection = (props) => {
 
           </div>
         </form>
-        
-        
-        {towns.length === 0 ? <div className="loading">Loading cities...</div> : <></> }
+
+
+        {towns.length === 0 ? <div className="loading">Loading cities...</div> : <></>}
         <Accordion
           allowMultipleExpanded={true}
           allowZeroExpanded={true}
@@ -153,24 +153,24 @@ const CitySelection = (props) => {
                   <AccordionItemPanel>
                     {filterBySearch(towns)
                       .filter(town => town.country === country)
-                      .sort(function(a, b){
+                      .sort(function (a, b) {
                         if (a.name < b.name) { return -1 }
                         if (a.name > b.name) { return 1 }
                         return 0
                       })
                       .map((town, i) => {
                         return <div key={i} className="field">
-                          <input 
-                            className="is-checkradio is-info" 
-                            id={town.id} 
-                            type="checkbox" 
-                            name={town.id} 
-                            onChange={handleCheck} 
+                          <input
+                            className="is-checkradio is-info"
+                            id={town.id}
+                            type="checkbox"
+                            name={town.id}
+                            onChange={handleCheck}
                             checked={data.towns.includes(town.id.toString()) ? true : false}
                           />
                           <label className="city-checkbox-label" htmlFor={town.id}>{town.name} ({town.admin_name})</label>
                         </div>
-                     
+
                       })
                     }
                   </AccordionItemPanel>

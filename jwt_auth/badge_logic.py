@@ -455,6 +455,16 @@ single_user = {
       }
 
 
+def get_score(towns):
+
+    all_user_countries = list(map(lambda town: town['country'], towns))
+    unique_user_countries = set(all_user_countries)
+    unique_continents = set(map(lambda town: town['continent'], towns))
+    capitals = [town for town in towns if town['capital'] == 'primary']
+
+    return 5 * len(towns) + 10 * len(capitals) + 20 * len(unique_user_countries) + 50 * len(unique_continents)
+
+
 def get_badges(towns):
 
     badge_ids = []
@@ -691,7 +701,7 @@ def get_most_capitals_badge(users):
 
     def count_user_caps(person):
         all_user_town_types = list(map(lambda town: town['capital'], person['towns']))
-        all_user_capitals = list(filter(lambda town_type: town_type != 'primary', all_user_town_types))
+        all_user_capitals = list(filter(lambda town_type: town_type == 'primary', all_user_town_types))
 
         return all_user_capitals
 
@@ -766,10 +776,15 @@ def get_platform_badges(users):
 
 def get_user_badges(user):
     person = user.data
-    person['towns']
     # no idea why this doesnt run!
     # print(type(all_user_towns), 'DOES THIS RUN??') 
     return get_badges(person['towns'])
+
+def get_user_score(user):
+    person = user.data
+    # no idea why this doesnt run!
+    # print(type(all_user_towns), 'DOES THIS RUN??') 
+    return get_score(person['towns'])
 
 
 
