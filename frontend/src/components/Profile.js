@@ -141,13 +141,17 @@ const Profile = (props) => {
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {profile.towns.map((country, i) => {
-          return <Marker key={i} latitude={parseFloat(country.lat)} longitude={parseFloat(country.lng)}>
-            <div>oi</div>
+          return <Marker
+            key={i}
+            latitude={parseFloat(country.lat.replace(',', '.'))}
+            longitude={parseFloat(country.lng.replace(',', '.'))}
+            offsetTop={-30}
+            offsetLeft={-20}
+          >
+            <div className="marker"></div>
+            {/* {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))} */}
           </Marker>
         })}
-        {/* <Marker latitude={37.78} longitude={-122.41} offsetLeft={-20} offsetTop={-10}>
-          <div>oi</div>
-        </Marker> */}
       </MapGL>
 
       <section className="hero" id="user-profile-header">
