@@ -252,7 +252,7 @@ const Profile = (props) => {
           </h2>
           <div className="badge-display">
             {/* replace test data with actual api data when ready */}
-            {profile.badges.map((badge, i) => {
+            {profile.badges.sort().map((badge, i) => {
               return <div className="badge" key={i}>
                 <div className="image is-150x150">
                   <div className="badge" >
@@ -298,7 +298,7 @@ const Profile = (props) => {
         <div className="modal-background" onClick={toggleContinent}></div>
         <div className="modal-content modal-stats">
           <h2 className="title">Continents visited</h2>
-          {listContinentsCountries(profile, 'continent').map((continent, i) => {
+          {listContinentsCountries(profile, 'continent').sort().map((continent, i) => {
             return <div key={i}>
               <p>{continent}</p>
             </div>
@@ -311,7 +311,7 @@ const Profile = (props) => {
         <div className="modal-background" onClick={toggleCountry}></div>
         <div className="modal-content modal-stats">
           <h2 className="title">Countries visited</h2>
-          {listContinentsCountries(profile, 'country').map((country, i) => {
+          {listContinentsCountries(profile, 'country').sort().map((country, i) => {
             return <div key={i}>
               <p>{country}</p>
             </div>
@@ -324,7 +324,9 @@ const Profile = (props) => {
         <div className="modal-background" onClick={toggleCity}></div>
         <div className="modal-content modal-stats">
           <h2 className="title">Cities visited</h2>
-          {profile.towns.map((town, i) => {
+          {/* if you want to sort anything numerically */}
+          {/* {profile.towns.sort((a, b) => a.id - b.id).map((town, i) => { */}
+          {profile.towns.sort((a, b) => a.name_ascii.localeCompare(b.name_ascii)).map((town, i) => {
             return <div key={i}>
               <p>{town.name_ascii}</p>
             </div>
