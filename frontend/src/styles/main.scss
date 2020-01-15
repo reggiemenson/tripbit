@@ -231,8 +231,9 @@ $input-placeholder-color: $gold;
       color: $gold;
     }
 
-    i:not(.click-me):hover {
+    i.click-me:hover {
       color: $light-gold;
+      cursor: pointer;
     }
   
 

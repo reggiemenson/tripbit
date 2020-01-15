@@ -1,11 +1,10 @@
 import React from 'react'
 
-const Settings = ({ data, handleChange, modalSubmit }) => {
+const Settings = ({ data, errors, handleChange, modalSubmit }) => {
 
   return <>
     <div className='container has-text-centered'>
       <div className='columns'>
-        <h1 className='title'>Profile Information</h1>
         <div className='column'>
           <form className='form has-text-centered' onSubmit={modalSubmit}>
 
@@ -26,7 +25,9 @@ const Settings = ({ data, handleChange, modalSubmit }) => {
                 </span>
               </div>
             </div>
-
+            {errors.username && <small className='help is-danger'>
+              {errors.username[0]}
+            </small>}
             <div className='field'>
               <p className='control has-icons-left'>
                 <input
@@ -41,7 +42,9 @@ const Settings = ({ data, handleChange, modalSubmit }) => {
                 </span>
               </p>
             </div>
-
+            {errors.first_name && <small className='help is-danger'>
+              {errors.first_name[0]}
+            </small>}
             <div className='field'>
               <p className='control has-icons-left'>
                 <input
@@ -56,7 +59,9 @@ const Settings = ({ data, handleChange, modalSubmit }) => {
                 </span>
               </p>
             </div>
-
+            {errors.last_name && <small className='help is-danger'>
+              {errors.last_name[0]}
+            </small>}
             <div className="field">
               <div className="control">
                 <div className='control has-icons-left'>
