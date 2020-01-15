@@ -18,8 +18,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
 
   const handleChange = (e) => {
     const data = { ...register.data, [e.target.name]: e.target.value }
-    const errors = ''
-    // const errors = { ...register.errors, [e.target.name]: '' }
+    // const errors = ''
+    const errors = { ...register.errors, [e.target.name]: '' }
     setRegister({ data, errors })
   }
 
@@ -31,9 +31,12 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
         toggleLogin()
       })
       .catch(err => {
-        setRegister({ errors: err.response.data })
+        setRegister({ ...register, errors: err.response.data })
+        console.log('form data!', register.data)
+        console.log('error data!', err.response.data)
       })
   }
+
 
   return <>
     <div className='container has-text-centered'>
@@ -53,9 +56,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-user'></i>
                 </span>
-                {/* <span className='icon is-small is-right'>
+                <span className='icon is-small is-right'>
                   <i className='fas fa-check'></i>
-                </span> */}
+                </span>
               </div>
               {register.errors.username && <small className='help is-danger'>
                 {register.errors.username[0]}
@@ -112,9 +115,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-envelope'></i>
                 </span>
-                {/* <span className='icon is-small is-right'>
+                <span className='icon is-small is-right'>
                   <i className='fas fa-exclamation-triangle'></i>
-                </span> */}
+                </span>
               </div>
               {register.errors.email && <small className='help is-danger'>
                 {register.errors.email[0]}
