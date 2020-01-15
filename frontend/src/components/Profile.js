@@ -67,8 +67,6 @@ const Profile = (props) => {
     message: ''
   })
 
-  // console.log(popupInfo)
-
   const closePopup = () => {
     setShowPopup(false)
   }
@@ -257,16 +255,16 @@ const Profile = (props) => {
       // onClick={closePopup}
       >
         {/* boolean check not necessary */}
-        {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((town, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(city.lat.replace(',', '.'))}
-            longitude={parseFloat(city.lng.replace(',', '.'))}
+            latitude={parseFloat(town.lat.replace(',', '.'))}
+            longitude={parseFloat(town.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker" id2='no' id={city.id} onClick={showMarkerInfo}></div>
-            {/* {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))} */}
+            <div className="marker" id={town.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(town.name_ascii, ' coordinates: lat ', parseFloat(town.lat.replace(',', '.')), 'lng ', parseFloat(town.lng.replace(',', '.')))} */}
           </Marker>
         })}
         {showPopup && <Popup
