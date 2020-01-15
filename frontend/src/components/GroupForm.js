@@ -4,7 +4,9 @@ import Auth from '../lib/auth'
 import { toast } from 'react-toastify'
 
 const GroupForm = ({ details, errors, handleChange, handleSubmit }) => {
-  const notify = () => toast('Group Successfully Added!')
+  const notify = () => toast('Group Successfully Added!' ,{
+    progressClassName: 'toast-progress'
+  })
 
   return <div className=''>
     <div className='container'>
