@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+import { toast } from 'react-toastify'
+
 const Register = ({ toggleRegistration, toggleLogin }) => {
+
+  const notify = () => toast('Registered!')
 
   const [register, setRegister] = useState({
     data: {
@@ -27,6 +31,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
     e.preventDefault()
     axios.post('/api/register', register.data)
       .then(() => {
+        notify()
         toggleRegistration()
         toggleLogin()
       })

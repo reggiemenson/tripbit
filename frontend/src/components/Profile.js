@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
@@ -10,6 +10,7 @@ import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
 import { toast } from 'react-toastify'
+import UserContext from './UserContext'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -29,6 +30,8 @@ const Profile = (props) => {
   const notifyImage = () => toast('Image Changed!')
   const notifyProfile = () => toast('Details changed!')
   const notifyError = () => toast('Profile Not Found..')
+
+  const [userLogin, setUserLogin] = useState(UserContext)
 
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
@@ -120,6 +123,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        // setUserLogin(resp.data)
         notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
@@ -229,22 +233,23 @@ const Profile = (props) => {
         setData({
           username: resp.data.username,
           first_name: resp.data.first_name,
-          last_name: resp.data.last_name
+          last_name: resp.data.last_name,
+          dexterity: resp.data.dexterity
         })
         Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       // Profile not found and redirect
       .catch(() => {
         notifyError()
-        props.history.push(`/profile/${Auth.getUserId()}`) 
+        props.history.push(`/profile/${Auth.getUserId()}`)
         // setErrors(err)
       })
   }, [])
 
   return (
     <div id="profile">
-      {/* {console.log('profile.towns ', profile.towns)}
-      {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
+      {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())}
+      {/* {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
       {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL
         {...viewport}
@@ -313,33 +318,40 @@ const Profile = (props) => {
 
             <div className="level-right">
               <div className="buttons level-item">
-                <button className="button is-link" id='settings' onClick={toggleSettings}>
+                {(Auth.getUserId() === parseInt(props.match.params.id)) && <button className="button is-link" id='settings' onClick={toggleSettings}>
                   <span className="icon is-small">
                     <i className="fas fa-cog"></i>
                   </span>
-                </button>
+                </button>}
               </div>
             </div>
           </div>
 
           <div className="hero-body level is-mobile">
             <i className={panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
-            <ReactFilestack
-              preload={true}
-              apikey={fileloaderKey}
-              options={options}
-              customRender={({ onPick }) => (
-                <div className="level-item" onClick={onPick}>
-                  <div>
-                    <figure className="image-cropper">
-                      {/* Class creates an oval. Look to change this so all propics are circles. */}
-                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                    </figure>
+            {!(Auth.getUserId() === parseInt(props.match.params.id)) ? <div className="level-item">
+              <div>
+                <figure className="image-cropper">
+                  {/* Class creates an oval. Look to change this so all propics are circles. */}
+                  <img className="profilepic" src={profile.image} />
+                </figure>
+              </div>
+            </div> : <ReactFilestack
+                preload={true}
+                apikey={fileloaderKey}
+                options={options}
+                customRender={({ onPick }) => (
+                  <div className="level-item" onClick={onPick}>
+                    <div>
+                      <figure className="image-cropper">
+                        {/* Class creates an oval. Look to change this so all propics are circles. */}
+                        <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                      </figure>
+                    </div>
                   </div>
-                </div>
-              )}
-              onSuccess={handleImageUpload}
-            />
+                )}
+                onSuccess={handleImageUpload}
+              />}
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
           {/* <i className="fas fa-chevron-down"></i> */}

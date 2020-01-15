@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
 
 import { toast } from 'react-toastify'
+import UserContext from './UserContext'
 
 const Login = ({ props }) => {
   // const [message, setMessage] = useState('')
@@ -16,7 +17,7 @@ const Login = ({ props }) => {
     },
     errors: ''
   })
-  const [userLogin, setUserLogin] = useState(null)
+  const [userLogin, setUserLogin] = useState(UserContext)
 
   const handleChange = (e) => {
     const data = { ...login.data, [e.target.name]: e.target.value }
