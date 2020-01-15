@@ -16,6 +16,7 @@ $dark-gold: rgb(97, 67, 0);
 $dark: #101010;
 $gray: #585858;
 $light-gray: #7d7c7c;
+$dark-gray: #3a3a3a;
 $nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 
 
@@ -66,7 +67,7 @@ a.mapboxgl-ctrl-logo {
     background-color: $dark;
   }
   i {
-    color: $gold;
+    color: white;
   }
 }
 
@@ -995,6 +996,17 @@ transform: rotate(180deg);
   // width: auto;
   cursor: pointer;
   object-fit: cover;
+}
+
+#profile-banner-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  i.down {
+    margin: 10px 0;
+    color: $dark-gray;
+  }
 }
 
 

@@ -344,21 +344,22 @@ const Profile = (props) => {
                 </figure>
               </div>
             </div> : <ReactFilestack
-                preload={true}
-                apikey={fileloaderKey}
-                options={options}
-                customRender={({ onPick }) => (
-                  <div className="level-item" onClick={onPick}>
-                    <div>
-                      <figure className="image-cropper">
-                        {/* Class creates an oval. Look to change this so all propics are circles. */}
-                        <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                      </figure>
-                    </div>
+              preload={true}
+              apikey={fileloaderKey}
+              options={options}
+              customRender={({ onPick }) => (
+                <div className="level-item" onClick={onPick}>
+                  <div id="profile-banner-center">
+                    <figure className="image-cropper">
+                      {/* Class creates an oval. Look to change this so all propics are circles. */}
+                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                    </figure>
+                    <i className="fas fa-chevron-down is-size-3 down"></i>
                   </div>
-                )}
-                onSuccess={handleImageUpload}
-              />}
+                </div>
+              )}
+              onSuccess={handleImageUpload}
+            />}
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
           {/* <i className="fas fa-chevron-down"></i> */}

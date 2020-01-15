@@ -468,16 +468,16 @@ const IndividualGroup = (props) => {
                       <i className="fas fa-trash-alt"></i>
                     </span>
                   </button>
-                    <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
-                      <span className="icon is-small">
-                        <i className="fas fa-users-cog"></i>
-                      </span>
-                    </button>
-                    <button className="button is-link" id='settings' onClick={toggleSettings}>
-                      <span className="icon is-small">
-                        <i className="fas fa-cog"></i>
-                      </span>
-                    </button></>
+                  <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
+                    <span className="icon is-small">
+                      <i className="fas fa-users-cog"></i>
+                    </span>
+                  </button>
+                  <button className="button is-link" id='settings' onClick={toggleSettings}>
+                    <span className="icon is-small">
+                      <i className="fas fa-cog"></i>
+                    </span>
+                  </button></>
                   : <></>
                 }
 
@@ -518,11 +518,12 @@ const IndividualGroup = (props) => {
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
-                <div onClick={onPick}>
+                <div id="profile-banner-center" onClick={onPick}>
                   <figure className="image is-128x128">
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
                     <img className="profilepic" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
+                  <i className="fas fa-chevron-down is-size-3 down"></i>
                 </div>
               )}
               onSuccess={handleImageUpload}
