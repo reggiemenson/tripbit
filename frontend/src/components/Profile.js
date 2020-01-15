@@ -9,21 +9,26 @@ import Auth from '../lib/Auth'
 import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
+import { toast } from 'react-toastify'
+
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  transformations: {
-    crop: true,
-    circle: true,
-    rotate: true
+  transformations: {  
+    circle: true, 
+    crop: false
   }
 }
 
+
 const Profile = (props) => {
 
+  const notifyImage = () => toast('Image Changed!')
+  const notifyProfile = () => toast('Details changed!')
+  
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     id: null,
@@ -101,6 +106,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
       })
@@ -118,7 +124,10 @@ const Profile = (props) => {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
-      .then(resp => console.log(resp, 'success'))
+      .then(resp => {
+        notifyImage()
+        console.log(resp, 'success')
+      })
       .catch(err => console.log(err))
   }
 
@@ -293,6 +302,7 @@ const Profile = (props) => {
             />
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
+          {/* <i className="fas fa-chevron-down"></i> */}
         </div>
 
         <div className="level is-mobile stats">

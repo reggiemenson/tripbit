@@ -14,7 +14,7 @@ const Navbar = ({ toggleSearch }) => {
   const handleLogout = () => {
     Auth.logout()
     history.push('/')
-    setState({ isOpen: false })
+    // setState({ isOpen: false })
   }
 
   const [nav, setNav] = useState(false)
@@ -44,7 +44,7 @@ const Navbar = ({ toggleSearch }) => {
 
                     <Link to="/groups" className="navbutton" onClick={toggleNavbar}> <i className="fa fa-users"></i> </Link>
                     {'\n'}
-                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
+                    <Link to="/groups"> <p className="navbar-links" onClick={toggleNavbar}>GROUPS</p> </Link>
                   </div>
                 </div>
               </li>
@@ -53,7 +53,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -107,7 +107,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/play" className="navbutton" onClick={toggleNavbar}><i className="fa fa-gamepad"></i></Link>
                     {'\n'}
-                    <Link to="/play"><p className="navbar-links">GAME</p></Link>
+                    <Link to="/play"><p className="navbar-links" onClick={toggleNavbar}>GAME</p></Link>
                   </div>
                 </div>
               </li>
@@ -116,7 +116,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
                     {'\n'}
-                    <p className="navbar-links">SEARCH</p>
+                    <p className="navbar-links" onClick={toggleNavbar}>SEARCH</p>
                   </div>
                 </div>
               </li>
@@ -125,7 +125,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton" onClick={toggleNavbar}><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
+                    <Link to="/city_selection"><p className="navbar-links" onClick={toggleNavbar}>ADD CITY</p></Link>
                   </div>
                 </div>
               </li>

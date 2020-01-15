@@ -5,7 +5,10 @@ import Auth from '../lib/Auth'
 import GroupCard from './GroupCard'
 import GroupForm from './GroupForm'
 
+import { toast } from 'react-toastify'
+
 const Groups = (props) => {
+  const notify = () => toast('Group membership requested!')
 
   const [groups, setGroups] = useState([])
   const [errors, setErrors] = useState('')
@@ -71,6 +74,7 @@ const Groups = (props) => {
       .then(resp => {
         console.log(resp)
         fetchGroupData()
+        notify()
       })
       .catch(err => {
         console.log(err)

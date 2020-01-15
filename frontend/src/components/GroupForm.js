@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
+import { toast } from 'react-toastify'
 
 const GroupForm = ({ details, errors, handleChange, handleSubmit }) => {
+  const notify = () => toast('Group Successfully Added!')
 
   return <div className=''>
     <div className='container'>
