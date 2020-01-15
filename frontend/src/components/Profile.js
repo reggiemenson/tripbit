@@ -53,7 +53,19 @@ const Profile = (props) => {
     pitch: 0
   })
 
-  const [popupInfo, setPopupInfo] = useState(null)
+  const [showPopup, setShowPopup] = useState(true)
+
+  const [popupInfo, setPopupInfo] = useState({
+    latitude: 0,
+    longitude: 0,
+    message: ''
+  })
+
+  // console.log(popupInfo)
+
+  const fuckingClose = () => {
+    setShowPopup(false)
+  }
 
   // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
   const midCoordinate = (towns) => {
@@ -178,10 +190,21 @@ const Profile = (props) => {
   }
 
   const showMarkerInfo = (e) => {
-    console.log('hello')
-    console.log(e.target.id)
+    const cityId = parseInt(e.target.id)
+    const citySelected = profile.towns.filter((elem) => {
+      return elem.id === cityId
+    })[0]
+    setPopupInfo({
+      latitude: parseFloat(citySelected.lat.replace(',', '.')),
+      longitude: parseFloat(citySelected.lng.replace(',', '.')),
+      message: citySelected.name
+    })
+    setShowPopup(true)
   }
 
+  // const closePopup = () => {
+  //   setMarkerInfo({ showPopup: null })
+  // }
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
@@ -215,6 +238,7 @@ const Profile = (props) => {
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
+      // onClick={fuckingClose}
       >
         {/* boolean check not necessary */}
         {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
@@ -225,13 +249,19 @@ const Profile = (props) => {
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker" id={city.name_ascii} onClick={showMarkerInfo}></div>
-            {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))}
+            <div className="marker" id2='no' id={city.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))} */}
           </Marker>
         })}
-        <Popup longitude={0} latitude={0} closeButton={true} closeOnClick={true}>
-          Hi there! 👋
-        </Popup>
+        {showPopup && <Popup
+          anchor="top"
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          closeButton={true}
+          // closeOnClick={true} // not needed?
+          onClose={fuckingClose}>
+          <div>{popupInfo.message}</div>
+        </Popup>}
       </MapGL>
 
       <section className="hero" id="user-profile-header">
