@@ -46,12 +46,12 @@ const App = (props) => {
         <SecureRoute exact path="/SearchBar" component={SearchBar} />
         <SecureRoute exact path="/map" component={MapPage} />
       </Switch>
-      <div className={searchModal === true ? 'modal is-active' : 'modal'} props={props}>
-        <div className="modal-background" onClick={toggleSearch} props={props}></div>
+      <div className={searchModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleSearch}></div>
         <div className="modal-content modal-stats">
           <SearchBar />
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={toggleSearch} props={props}></button>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSearch}></button>
       </div>
     </UserContext.Provider>
   </HashRouter >
