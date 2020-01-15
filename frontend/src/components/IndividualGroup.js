@@ -545,9 +545,18 @@ const IndividualGroup = (props) => {
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
+    
+
+    <div className={deleteModal === true ? 'modal is-active form' : 'modal form'}>
+      <div className="modal-background" onClick={toggleSettings}></div>
+      <div className="modal-content">
+        
+      </div>
+      <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
     </div>
 
-   
+    </div>
   )
 }
 
