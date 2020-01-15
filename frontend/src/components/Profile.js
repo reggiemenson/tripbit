@@ -17,15 +17,9 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  options: {
-    resize: {
-      width: 50
-    },
-    transformations: {
-      force: true,
-      circle: true,
-      crop: false
-    }
+  transformations: {
+    circle: true,
+    crop: false
   }
 }
 
@@ -334,11 +328,13 @@ const Profile = (props) => {
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
-                <div onClick={onPick}>
-                  <figure className="level-item image is-128x128">
-                    {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                  </figure>
+                <div className="level-item" onClick={onPick}>
+                  <div>
+                    <figure className="image-cropper">
+                      {/* Class creates an oval. Look to change this so all propics are circles. */}
+                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                    </figure>
+                  </div>
                 </div>
               )}
               onSuccess={handleImageUpload}
