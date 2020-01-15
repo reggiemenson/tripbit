@@ -54,14 +54,24 @@ const Hero = (props) => {
     setLoginModal(!loginModal)
   }
 
+  function displayText(country) {
+    const num = countriesData[country]
+    if (num > 1) {
+      return `${num} users have been`
+    } else if (num === 1){
+      return `${num} user has been`
+    } else {
+      return 'no user has been'
+    }
+  }
+
   return (
     <section id="homepage" className="hero is-fullheight">
       <div className="hero-body">
-
         <div className="columns is-desktop">
           <div className="column is-8-desktop">
             <div id="home-worldmap" className="has-text-centered is-centered">
-              <WorldMap countriesData={countriesData} infoType={infoType} />
+              <WorldMap displayText={displayText} countriesData={countriesData} />
             </div>
           </div>
 

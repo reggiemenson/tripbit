@@ -69,6 +69,37 @@ const MapPage = () => {
       setInfoLevel(e.target.id)
     } 
   }
+
+  function displayText(country) {
+    let allcountriesdata = []
+    if (infoLevel === 'platform') {
+      allcountriesdata = platformData
+    } else {
+      allcountriesdata = userData
+    }
+
+    const num = allcountriesdata[country]
+
+    if (infoLevel === 'platform') {
+      if (num > 1) {
+        return `${num} users have been`
+      } else if (num === 1){
+        return `${num} user has been`
+      } else {
+        return 'no user has been'
+      }
+    } else if (infoLevel === 'user') {
+      if (num > 1) {
+        return `${num} cities visited`
+      } else if (num === 1) {
+        return `${num} city visited`
+      } else {
+        return 'no city visited'
+      }
+    } else {
+      return 'something went wrong'
+    }
+  }
   
   return (
     <section id="mappage" className="hero is-fullheight">
@@ -78,7 +109,7 @@ const MapPage = () => {
         <div className="columns is-desktop">
           <div className="column is-8-desktop">
             <div id="home-worldmap" className="has-text-centered is-centered">
-              < WorldMap countriesData={infoLevel === 'platform' ? platformData : userData} infoType={infoLevel === 'platform' ? 'user' : 'town'} />
+              < WorldMap countriesData={infoLevel === 'platform' ? platformData : userData} displayText={displayText} />
             </div>
           </div>
 
