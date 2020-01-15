@@ -66,9 +66,12 @@ const Settings = ({ data, errors, handleChange, modalSubmit }) => {
               <div className="control">
                 <div className='control has-icons-left'>
                   <div className='select is-link'>
-                    <select>
-                      <option>Right-handed operation</option>
-                      <option>Left-handed operation</option>
+                    <select
+                      onChange={handleChange}
+                      value={data.dexterity}
+                      name='dexterity'>
+                      <option value='RH'>Right-handed operation</option>
+                      <option value='LH'>Left-handed operation</option>
                     </select>
                   </div>
                   <span className="icon is-small is-left">

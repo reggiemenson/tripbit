@@ -9,7 +9,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
       first_name: '',
       last_name: '',
       email: '',
-      dexterity: '',
+      dexterity: 'RH',
       password: '',
       password_confirmation: ''
     },
@@ -168,9 +168,12 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
               <div className="control">
                 <div className='control has-icons-left'>
                   <div className='select'>
-                    <select>
-                      <option>Left-handed operation</option>
-                      <option>Right-handed operation</option>
+                    <select
+                      onChange={handleChange}
+                      value={register.data.dexterity}
+                      name='dexterity'>
+                      <option value='RH'>Right-handed operation</option>
+                      <option value='LH'>Left-handed operation</option>
                     </select>
                   </div>
                   <span className="icon is-small is-left">

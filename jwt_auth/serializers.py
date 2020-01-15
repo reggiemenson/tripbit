@@ -31,7 +31,7 @@ class ValidateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'image', 'email', 'password', 'password_confirmation')
+        fields = ('username', 'first_name', 'last_name', 'dexterity', 'image', 'email', 'password', 'password_confirmation')
 
 class UserSerializer(serializers.ModelSerializer):
 

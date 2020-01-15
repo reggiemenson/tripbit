@@ -75,8 +75,6 @@ const Profile = (props) => {
     message: ''
   })
 
-  // console.log(popupInfo)
-
   const closePopup = () => {
     setShowPopup(false)
   }
@@ -114,6 +112,7 @@ const Profile = (props) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
+    console.log(data)
     setErrors({})
   }
 
@@ -238,7 +237,8 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
+        // zoom map to center of all points
+        Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       // Profile not found and redirect
       .catch(() => {
@@ -264,16 +264,16 @@ const Profile = (props) => {
       // onClick={closePopup}
       >
         {/* boolean check not necessary */}
-        {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((town, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(city.lat.replace(',', '.'))}
-            longitude={parseFloat(city.lng.replace(',', '.'))}
+            latitude={parseFloat(town.lat.replace(',', '.'))}
+            longitude={parseFloat(town.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker" id2='no' id={city.id} onClick={showMarkerInfo}></div>
-            {/* {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))} */}
+            <div className="marker" id={town.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(town.name_ascii, ' coordinates: lat ', parseFloat(town.lat.replace(',', '.')), 'lng ', parseFloat(town.lng.replace(',', '.')))} */}
           </Marker>
         })}
         {showPopup && <Popup
@@ -313,7 +313,7 @@ const Profile = (props) => {
               <div className="name level-item">
                 <div className="username title is-size-3 is-size-4-mobile">
                   {data.username}
-                  <span className="fullname is-size-4 is-size-7-mobile"> ({data.first_name} {data.last_name})</span>
+                  <span className="fullname is-size-4 is-size-6-mobile"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
