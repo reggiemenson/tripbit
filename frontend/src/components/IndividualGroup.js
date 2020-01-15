@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import MapGL, { Marker } from 'react-map-gl'
+import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
@@ -56,14 +56,14 @@ const IndividualGroup = (props) => {
     name: '',
     description: ''
   })
-  
-  
+
+
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     towns: [],
     badges: []
   })
-  
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -73,16 +73,57 @@ const IndividualGroup = (props) => {
     pitch: 0
   })
 
+  // marker popup
+  const [showPopup, setShowPopup] = useState(false)
+
+  // marker popup content
+  const [popupInfo, setPopupInfo] = useState({
+    latitude: 0,
+    longitude: 0,
+    message: ''
+  })
+
+  const closePopup = () => {
+    setShowPopup(false)
+  }
+
+  const showMarkerInfo = (e) => {
+    const cityId = parseInt(e.target.id)
+    // console.log(cityId)
+    const citySelected = towns.filter((elem) => {
+      return elem.id === cityId
+    })[0]
+    const users = citySelected.members.map((member) => {
+      return member.first_name
+    }).join(', ').replace(/,(?=[^,]*$)/, ' and')
+    const multipleUsers = ' have been to '
+    const singleUserStart = 'Only '
+    const singleUserEnd = ' has been to '
+    let addGrammar
+    if (citySelected.members.length <= 1) {
+      addGrammar = singleUserStart.concat(users, singleUserEnd)
+    } else {
+      addGrammar = users.concat(multipleUsers)
+    }
+    const formattedOutput = addGrammar.concat(citySelected.name)
+    setPopupInfo({
+      latitude: parseFloat(citySelected.lat.replace(',', '.')),
+      longitude: parseFloat(citySelected.lng.replace(',', '.')),
+      message: formattedOutput
+    })
+    setShowPopup(true)
+  }
+
   // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
   const midCoordinate = (towns) => {
     const arrLats = towns.map((town) => {
-      return parseFloat(town.lat.replace(',','.'))
+      return parseFloat(town.lat.replace(',', '.'))
     })
     const maxLat = Math.max(...arrLats)
     const minLat = Math.min(...arrLats)
     const midLat = (maxLat + minLat) / 2
     const arrLngs = towns.map((town) => {
-      return parseFloat(town.lng.replace(',','.'))
+      return parseFloat(town.lng.replace(',', '.'))
     })
     const maxLng = Math.max(...arrLngs)
     const minLng = Math.min(...arrLngs)
@@ -104,6 +145,8 @@ const IndividualGroup = (props) => {
           name: resp.data.name,
           description: resp.data.description
         })
+        console.log(towns)
+        // midCoordinate(resp.data)
       })
       .catch(err => {
         console.log(err)
@@ -125,7 +168,7 @@ const IndividualGroup = (props) => {
           console.log(err)
           setErrors({ ...errors, ...err })
         })
-    }) 
+    })
   }
 
   function calculateTowns(memberData) {
@@ -147,8 +190,9 @@ const IndividualGroup = (props) => {
             townData.push(memberTown)
             return townData
           }
+
         })
-     
+      midCoordinate(townData)
     })
 
     setTowns(townData)
@@ -158,7 +202,7 @@ const IndividualGroup = (props) => {
     const userID = Auth.getUserId()
     const memberIDs = group.members.map(member => member.id)
     const requestIDs = group.requests.map(request => request.id)
-    
+
     if (userID === group.owner.id) {
       setStatus('owner')
     } else if (memberIDs.includes(userID)) {
@@ -226,7 +270,7 @@ const IndividualGroup = (props) => {
         toggleSettings()
       })
       .catch(err => {
-        setErrors({...err})
+        setErrors({ ...err })
         console.log(err)
       })
   }
@@ -262,9 +306,10 @@ const IndividualGroup = (props) => {
 
   function leaveGroup(e) {
     e.preventDefault()
-    axios.delete(`api/groups/${group.id}/membership/`, 
-      { data: { id: Auth.getUserId() } ,
-        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    axios.delete(`api/groups/${group.id}/membership/`,
+      {
+        data: { id: Auth.getUserId() },
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
         fetchGroupData()
@@ -308,8 +353,8 @@ const IndividualGroup = (props) => {
       {/* {console.log('MEMBER DATA', members)} */}
       {/* {console.log('GROUP DATA', group)} */}
       {/* {console.log('TOWN DATA', towns)} */}
-      {console.log('USER STATUS', status)}
-      {console.log('editable data', editableData)}
+      {/* {console.log('USER STATUS', status)} */}
+      {/* {console.log('editable data', editableData)} */}
 
       <MapGL
         {...viewport}
@@ -320,18 +365,27 @@ const IndividualGroup = (props) => {
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
-        {/* {profile.towns.map((country, i) => {
+        {towns.map((town, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(country.lat.replace(',', '.'))}
-            longitude={parseFloat(country.lng.replace(',', '.'))}
+            latitude={parseFloat(town.lat.replace(',', '.'))}
+            longitude={parseFloat(town.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker"></div>
-            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
+            <div className="marker" id={town.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(town.name_ascii, ' coordinates: lat ', parseFloat(town.lat.replace(',', '.')), 'lng ', parseFloat(town.lng.replace(',', '.')))} */}
           </Marker>
-        })} */}
+        })}
+        {showPopup && <Popup
+          anchor="top"
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          closeButton={true}
+          // closeOnClick={true} // not needed?
+          onClose={closePopup}>
+          <div>{popupInfo.message}</div>
+        </Popup>}
       </MapGL>
 
       <section className="hero" id="user-profile-header">
@@ -340,34 +394,34 @@ const IndividualGroup = (props) => {
             <div className="level-left">
               <div className="name level-item">
                 <div className="username title is-size-3">
-                  {group.name} 
+                  {group.name}
                 </div>
               </div>
             </div>
-            
+
             <div className="level-right">
               <div className="buttons level-item">
 
-                {status === 'owner' ? 
+                {status === 'owner' ?
                   <><button className="button is-danger" id='settings' onClick={handleDelete}>
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
                     </span>
                   </button>
-                  <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
-                    <span className="icon is-small">
-                      <i className="fas fa-users-cog"></i>
-                    </span>
-                  </button>
-                  <button className="button is-link" id='settings' onClick={toggleSettings}>
-                    <span className="icon is-small">
-                      <i className="fas fa-cog"></i>
-                    </span>
-                  </button></>
+                    <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
+                      <span className="icon is-small">
+                        <i className="fas fa-users-cog"></i>
+                      </span>
+                    </button>
+                    <button className="button is-link" id='settings' onClick={toggleSettings}>
+                      <span className="icon is-small">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                    </button></>
                   : <></>
                 }
 
-                {status === 'member' ? 
+                {status === 'member' ?
                   <button className="button is-link" id='leave' onClick={leaveGroup}>
                     <span className="icon is-small">
                       <i className="fas fa-sign-out-alt"></i>
@@ -376,7 +430,7 @@ const IndividualGroup = (props) => {
                   : <></>
                 }
 
-                {status === 'requester' ? 
+                {status === 'requester' ?
                   <button className="button is-primary" id='pending' disabled>
                     <span className="icon is-small">
                       <i className="fas fa-clock"></i>
@@ -385,7 +439,7 @@ const IndividualGroup = (props) => {
                   : <></>
                 }
 
-                {status === 'unaffiliated' ? 
+                {status === 'unaffiliated' ?
                   <button className="button is-link" id='request' onClick={sendRequest}>
                     <span className="icon is-small">
                       <i className="fas fa-paper-plane"></i>
@@ -393,11 +447,11 @@ const IndividualGroup = (props) => {
                   </button>
                   : <></>
                 }
-                
+
               </div>
             </div>
           </div>
-          
+
           <div className="hero-body group-page">
             <ReactFilestack
               preload={true}
@@ -463,7 +517,7 @@ const IndividualGroup = (props) => {
           </h2>
           <div className="text is-size-5">
             {members
-              .sort(function(a, b){
+              .sort(function (a, b) {
                 if (a.score < b.score) { return 1 }
                 if (a.score > b.score) { return -1 }
                 return 0
@@ -473,14 +527,14 @@ const IndividualGroup = (props) => {
                   <div className="level-left">
                     <div className="level-item position">
                       {i + 1}.
-                      
+
                       <figure className="image is-48x48 member-image" key={i}>
                         <img className="is-rounded" src={member.image} alt="member profile image" />
                       </figure>
-                    
+
                       <div className="level-item">
                         <span className="username">{member.username}</span>({member.first_name} {member.last_name})
-                      </div> 
+                      </div>
                     </div>
                   </div>
                   <div className="level-right">
@@ -488,14 +542,14 @@ const IndividualGroup = (props) => {
                       {member.score}
                     </div>
                   </div>
-                    
+
                 </Link>
               })
             }
           </div>
         </div>
       </section>
-    
+
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleContinent}></div>
         <div className="modal-content modal-stats">
@@ -540,14 +594,14 @@ const IndividualGroup = (props) => {
             handleChange={(e) => handleChange(e)}
             handleSubmit={(e) => modalSubmit(e)}
             details={editableData}
-            // errors={errors}
+          // errors={errors}
           />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
     </div>
 
-   
+
   )
 }
 
