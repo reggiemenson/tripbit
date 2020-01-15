@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Switch, Route, Link, withRouter } from 'react-router-dom'
+import { HashRouter, Switch, Route, Link, withRouter, Redirect } from 'react-router-dom'
 import SecureRoute from './lib/SecureRoute'
 
 import 'bulma'
@@ -17,7 +17,7 @@ import Game from './components/Game'
 import WorldMap from './components/Worldmap'
 import SearchBar from './components/SearchBar'
 import MapPage from './components/MapPage'
-import { UserContext } from './components/UserContext'
+import UserContext from './components/UserContext'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -41,6 +41,7 @@ const App = () => {
       value={loginInfo}>
       <Navbar toggleSearch={toggleSearch} />
       <Switch>
+        <Redirect from='/reroute/:id' to='/profile/:id' />
         <Route exact path="/" component={Hero} />
         <SecureRoute exact path="/profile/:id" component={Profile} />
         <SecureRoute exact path="/city_selection" component={CitySelection} />
