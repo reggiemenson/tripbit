@@ -9,21 +9,26 @@ import Auth from '../lib/Auth'
 import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
+import { toast } from 'react-toastify'
+
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  transformations: {
-    crop: true,
-    circle: true,
-    rotate: true
+  transformations: {  
+    circle: true, 
+    crop: false
   }
 }
 
+
 const Profile = (props) => {
 
+  const notifyImage = () => toast('Image Changed!')
+  const notifyProfile = () => toast('Details changed!')
+  
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     id: null,
@@ -113,6 +118,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
       })
@@ -130,7 +136,10 @@ const Profile = (props) => {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
-      .then(resp => console.log(resp, 'success'))
+      .then(resp => {
+        notifyImage()
+        console.log(resp, 'success')
+      })
       .catch(err => console.log(err))
   }
 
@@ -287,9 +296,9 @@ const Profile = (props) => {
           <div className="banner level is-mobile">
             <div className="level-left">
               <div className="name level-item">
-                <div className="username title is-size-3">
+                <div className="username title is-size-3 is-size-4-mobile">
                   {data.username}
-                  <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
+                  <span className="fullname is-size-4 is-size-7-mobile"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
@@ -348,7 +357,7 @@ const Profile = (props) => {
           <div className="level-item has-text-centered">
             <div>
               <p className="heading">Travel XP</p>
-              <p className="title">{profile.score}</p>
+              <p className="title unclickable">{profile.score}</p>
             </div>
           </div>
         </div>

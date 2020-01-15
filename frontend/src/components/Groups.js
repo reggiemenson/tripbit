@@ -5,11 +5,19 @@ import Auth from '../lib/Auth'
 import GroupCard from './GroupCard'
 import GroupForm from './GroupForm'
 
+import { toast } from 'react-toastify'
+
 const Groups = (props) => {
+  const notify = () => toast('Group membership requested!')
 
   const [groups, setGroups] = useState([])
   const [errors, setErrors] = useState('')
   const [newGroupModal, setnewGroupModal] = useState(false)
+  const [details, setDetails] = useState({
+    name: '',
+    description: ''
+  })
+
 
 
   function fetchGroupData() {
@@ -34,22 +42,39 @@ const Groups = (props) => {
     fetchGroupData()
   }, [])
 
+  const handleChange = (e) => {
+    const data = { ...details, [e.target.name]: e.target.value }
+    setDetails({ ...data })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = details
+      console.log(details)
+    axios.post('/api/groups/', data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(resp => {
+        props.history.push(`/groups/${resp.data.id}`)
+      })
+      .catch(err => {
+        setDetails({errors: 'Both name and description are required'})
+        console.log(err)
+      })
+  }
+
   function goToGroupProfile(e) {
     props.history.push(`/groups/${e.target.id}`)
   }
 
   function sendRequest(e) {
-    // send request to join group to API
-    // reload groups
-
-    console.log(e.target.id)
-
-    axios.get(`api/groups/${e.target.id}/membership/`, {
+    axios.get(`/api/groups/${e.target.id}/membership/`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
         console.log(resp)
         fetchGroupData()
+        notify()
       })
       .catch(err => {
         console.log(err)
@@ -159,7 +184,10 @@ const Groups = (props) => {
             <div className="modal-content">
               <GroupForm
                 toggleModal={toggleModal}
-                props={props}
+                details={details}
+                errors={errors}
+                handleChange={(e) => handleChange(e)}
+                handleSubmit={(e) => handleSubmit(e)}
               />
             </div>
             <button className="modal-close is-large" aria-label="close" onClick={toggleModal}></button>

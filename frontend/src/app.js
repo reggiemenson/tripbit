@@ -18,6 +18,14 @@ import WorldMap from './components/Worldmap'
 import SearchBar from './components/SearchBar'
 import MapPage from './components/MapPage'
 
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure({
+  autoClose: 8000,
+  draggable: false
+})
+
 const App = () => {
 
   const [searchModal, setSearchModal] = useState(false)

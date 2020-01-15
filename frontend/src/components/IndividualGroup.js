@@ -8,7 +8,7 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
-import Settings from './SettingsForm'
+import GroupForm from './GroupForm'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -35,13 +35,13 @@ const IndividualGroup = (props) => {
 
   // all the data
   const [members, setMembers] = useState([])
-  const [data, setData] = useState({})
+  const [group, setGroup] = useState({})
   const [towns, setTowns] = useState([])
 
   const [errors, setErrors] = useState('')
 
-  // toggle between profile info, true for left and false for right (links next to profile image)
-  const [panel, setPanel] = useState(true)
+  // user status
+  const [status, setStatus] = useState('')
 
   // states for stats modals
   const [continentModal, setContinentModal] = useState(false)
@@ -50,6 +50,12 @@ const IndividualGroup = (props) => {
 
   // buttons
   const [settingModal, setSettingModal] = useState(false)
+
+  // info editing
+  const [editableData, setEditableData] = useState({
+    name: '',
+    description: ''
+  })
   
   
   // info from api get request will be stored here
@@ -90,9 +96,14 @@ const IndividualGroup = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        setData(resp.data)
+        setGroup(resp.data)
+        determineStatus(resp.data)
         const memberData = [...members]
         fetchMemberData(resp.data.members, memberData)
+        setEditableData({
+          name: resp.data.name,
+          description: resp.data.description
+        })
       })
       .catch(err => {
         console.log(err)
@@ -121,20 +132,16 @@ const IndividualGroup = (props) => {
     const townData = []
 
     memberData.forEach(member => {
-      // console.log(member)
 
       member.towns
         .map(memberTown => {
-          // console.log(memberTown)
           if (townData.find(town => town.id === memberTown.id) !== undefined) {
-            // console.log('GOTCHA', memberTown)
             townData
               .find(town => town.id === memberTown.id)
               .members.push(member)
             return townData
 
           } else {
-            // console.log('there', memberTown)
             memberTown.members = []
             memberTown.members.push(member)
             townData.push(memberTown)
@@ -147,6 +154,22 @@ const IndividualGroup = (props) => {
     setTowns(townData)
   }
 
+  function determineStatus(group) {
+    const userID = Auth.getUserId()
+    const memberIDs = group.members.map(member => member.id)
+    const requestIDs = group.requests.map(request => request.id)
+    
+    if (userID === group.owner.id) {
+      setStatus('owner')
+    } else if (memberIDs.includes(userID)) {
+      setStatus('member')
+    } else if (requestIDs.includes(userID)) {
+      setStatus('requester')
+    } else {
+      setStatus('unaffiliated')
+    }
+  }
+
   useEffect(() => {
     fetchGroupData()
   }, [])
@@ -154,71 +177,103 @@ const IndividualGroup = (props) => {
 
   // IMAGE UPLOAD ****************************************************************************** //
   const handleImageUpload = (res) => {
-    setData({ ...data, image: res.filesUploaded[0].url })
+    setEditableData({ ...editableData, image: res.filesUploaded[0].url })
   }
 
   // Django creates a user input window when an authorised path does is incorrectly authorised.
 
+  const handleSubmit = () => {
+    // console.log(token)
+    console.log('data to be sent', editableData)
+    axios.put(`/api/groups/${group.id}/`, editableData, {
+      headers: {
+        Authorization: `Bearer ${Auth.getToken()}`
+      }
+    })
+      .then(resp => {
+        console.log(resp, 'success')
+        fetchGroupData()
+      })
+      .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    if (editableData.image) {
+      console.log('submitting')
+      handleSubmit()
+    }
+  }, [editableData])
+
   // SETTINGS BUTTON ****************************************************************************** //
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-    // const errors = { ...register.errors, [e.target.name]: '' }
+    e.preventDefault()
+    const editableDataUpdate = { ...editableData, [e.target.name]: e.target.value }
+    if (editableDataUpdate.image) {
+      delete editableData.image
+    }
+    setEditableData({ ...editableDataUpdate })
   }
 
   const modalSubmit = (e) => {
     e.preventDefault()
-
-    // // console.log(token)
-    // axios.put('api/profile', data, {
-    //   headers: {
-    //     Authorization: `Bearer ${Auth.getToken()}`
-    //   }
-    // })
-    //   .then(resp => {
-    //     console.log(resp, 'success')
-    //     toggleSettings()
-    //   })
-    //   .catch(err => {
-    //     console.log(err, 'failed')
-    //     console.log(data, 'failed')
-    //   })
+    const data = editableData
+    console.log(editableData)
+    axios.put(`/api/groups/${group.id}/`, data,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
+    )
+      .then(resp => {
+        fetchGroupData()
+        toggleSettings()
+      })
+      .catch(err => {
+        setErrors({...err})
+        console.log(err)
+      })
   }
-
-  const handleSubmit = () => {
-
-    // // console.log(token)
-    // axios.put('api/profile', data, {
-    //   headers: {
-    //     Authorization: `Bearer ${Auth.getToken()}`
-    //   }
-    // })
-    //   .then(resp => console.log(resp, 'success'))
-    //   .catch(err => console.log(err))
-  }
-
-  useEffect(() => {
-    if (data.image) {
-      handleSubmit()
-    }
-  }, [data])
 
   function toggleSettings() {
     setSettingModal(!settingModal)
   }
 
+  // GROUP MANAGEMENT BUTTON ****************************************************************************** //
 
-  // PANEL CONTROLS ****************************************************************************** //
-  // show 'right' stats
-  const showRight = () => {
-    setPanel(false)
+  function toggleMemberManagement(e) {
+    e.preventDefault()
   }
 
-  // show 'left' stats
-  const showLeft = () => {
-    setPanel(true)
+  function handleDelete(e) {
+    e.preventDefault()
   }
 
+  // GROUP INTERACTION ****************************************************************************** //
+  function sendRequest(e) {
+    e.preventDefault()
+    axios.get(`api/groups/${group.id}/membership/`, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
 
+  function leaveGroup(e) {
+    e.preventDefault()
+    axios.delete(`api/groups/${group.id}/membership/`, 
+      { data: { id: Auth.getUserId() } ,
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
 
   // STATS ****************************************************************************** //
   const toggleContinent = () => {
@@ -251,8 +306,10 @@ const IndividualGroup = (props) => {
   return (
     <div id="group-profile">
       {/* {console.log('MEMBER DATA', members)} */}
-      {/* {console.log('GROUP DATA', data)} */}
-      {console.log('TOWN DATA', towns)}
+      {/* {console.log('GROUP DATA', group)} */}
+      {/* {console.log('TOWN DATA', towns)} */}
+      {console.log('USER STATUS', status)}
+      {console.log('editable data', editableData)}
 
       <MapGL
         {...viewport}
@@ -278,62 +335,85 @@ const IndividualGroup = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {/* {console.log(data.email)} */}
-        {/* <div className="is-link">
-          Settings
-        </div> */}
-        <div className={settingModal === true ? 'modal is-active' : 'modal'}>
-          <div className="modal-background" onClick={toggleSettings}></div>
-          <div className="modal-content">
-            <Settings
-              toggleSettings={toggleSettings}
-              handleChange={(e) => handleChange(e)}
-              modalSubmit={(e) => modalSubmit(e)}
-              data={data}
-            />
-          </div>
-          <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
-        </div>
-
-
+      
         <div className="mobile-header">
           <div className="banner level is-mobile">
             <div className="level-left">
               <div className="name level-item">
                 <div className="username title is-size-3">
-                  {data.name} 
+                  {group.name} 
                 </div>
               </div>
             </div>
             
             <div className="level-right">
               <div className="buttons level-item">
-                <button className="button is-link" id='settings' onClick={toggleSettings}>
-                  <span className="icon is-small">
-                    <i className="fas fa-cog"></i>
-                  </span>
-                </button>
+
+                {status === 'owner' ? 
+                  <><button className="button is-danger" id='settings' onClick={handleDelete}>
+                    <span className="icon is-small">
+                      <i className="fas fa-trash-alt"></i>
+                    </span>
+                  </button>
+                  <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
+                    <span className="icon is-small">
+                      <i className="fas fa-user-cog"></i>
+                    </span>
+                  </button>
+                  <button className="button is-link" id='settings' onClick={toggleSettings}>
+                    <span className="icon is-small">
+                      <i className="fas fa-cog"></i>
+                    </span>
+                  </button></>
+                  : <></>
+                }
+
+                {status === 'member' ? 
+                  <button className="button is-link" id='leave' onClick={leaveGroup}>
+                    <span className="icon is-small">
+                      <i className="fas fa-sign-out-alt"></i>
+                    </span>
+                  </button>
+                  : <></>
+                }
+
+                {status === 'requester' ? 
+                  <button className="button is-primary" id='pending' disabled>
+                    <span className="icon is-small">
+                      <i className="fas fa-clock"></i>
+                    </span>
+                  </button>
+                  : <></>
+                }
+
+                {status === 'unaffiliated' ? 
+                  <button className="button is-link" id='request' onClick={sendRequest}>
+                    <span className="icon is-small">
+                      <i className="fas fa-paper-plane"></i>
+                    </span>
+                  </button>
+                  : <></>
+                }
+                
               </div>
             </div>
           </div>
           
-          <div className="hero-body level is-mobile">
-            <i className={!panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
+          <div className="hero-body group-page">
             <ReactFilestack
               preload={true}
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
                 <div onClick={onPick}>
-                  <figure className="level-item image is-128x128">
+                  <figure className="image is-128x128">
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                    <img className="is-rounded" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
                 </div>
               )}
               onSuccess={handleImageUpload}
             />
-            <i className={panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
         </div>
 
@@ -358,61 +438,64 @@ const IndividualGroup = (props) => {
           </div>
           <div className="level-item has-text-centered">
             <div>
-              <p className="heading">Travel XP</p>
-              <p className="title">{profile.score}</p>
+              <p className="heading">Members</p>
+              <p className="title unclickable">{group.members && group.members.length}</p>
             </div>
           </div>
         </div>
 
       </section>
 
-      <section className={panel ? 'section' : 'section hide'} id="user-profile">
-        {/* <div className="container">
-          <h2 className="title">
-            Badges
+      <section className="section" id="group-description">
+        <div className="container">
+          <h2 className="title is-size-3">
+            Description
           </h2>
-          <div className="display">
-
-            {profile.badges.sort().map((badge, i) => {
-              return <div className="badge" key={i}>
-                <div className="image is-150x150">
-                  <div className="badge" >
-                    <img className="image is-150x150" style={{ backgroundImage: `url(${badge.image})` }} src={Mask} alt="" />
-                    <div className="overlay">
-                      <div className="is-size-6">{badge.name}</div>
-                      <div className="is-size-7">{badge.description}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            })}
+          <div className="text is-size-5">
+            {group.description}
           </div>
-        </div> */}
+        </div>
       </section>
 
-      <section className={panel ? 'section hide' : 'section'} id="user-profile">
-        {/* <div className="container">
-          <h2 className="title">
-            Groups
+      <section className="section" id="group-ranking">
+        <div className="container">
+          <h2 className="title is-size-3">
+            Ranking
           </h2>
-          <div className="display">
-            {profile.groups_joined.map((group, i) => {
-              return <Link to={`/groups/${group.id}`} className="group-link" key={i}>
-                <div className="image is-150x150">
-                  <div className="group">
-                    <div className="label">{group.name}</div>
-                    <img className="image is-150x150 is-rounded" src={group.image} alt="" />
-                    <div className="overlay">
-                      <div className="is-size-7">{group.description}</div>
+          <div className="text is-size-5">
+            {members
+              .sort(function(a, b){
+                if (a.score < b.score) { return 1 }
+                if (a.score > b.score) { return -1 }
+                return 0
+              })
+              .map((member, i) => {
+                return <Link to={`/profile/${member.id}`} className="level is-mobile" key={i}>
+                  <div className="level-left">
+                    <div className="level-item position">
+                      {i + 1}.
+                      
+                      <figure className="image is-48x48 member-image" key={i}>
+                        <img className="is-rounded" src={member.image} alt="member profile image" />
+                      </figure>
+                    
+                      <div className="level-item">
+                        <span className="username">{member.username}</span>({member.first_name} {member.last_name})
+                      </div> 
                     </div>
                   </div>
-                </div>
-              </Link>
-            })}
+                  <div className="level-right">
+                    <div className="level-item is-size-3 score">
+                      {member.score}
+                    </div>
+                  </div>
+                    
+                </Link>
+              })
+            }
           </div>
-        </div> */}
+        </div>
       </section>
-    
     
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleContinent}></div>
@@ -450,7 +533,22 @@ const IndividualGroup = (props) => {
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
       </div>
+
+      <div className={settingModal === true ? 'modal is-active form' : 'modal form'}>
+        <div className="modal-background" onClick={toggleSettings}></div>
+        <div className="modal-content">
+          <GroupForm
+            handleChange={(e) => handleChange(e)}
+            handleSubmit={(e) => modalSubmit(e)}
+            details={editableData}
+            // errors={errors}
+          />
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
     </div>
+
+   
   )
 }
 
