@@ -35,7 +35,6 @@ const Login = ({ props }) => {
     <div className='container'>
       <div className='columns'>
         <div className='column has-text-centered'>
-          <h1 className='title'>Login</h1>
           <form className='form' onSubmit={handleSubmit}>
 
             <div className='field'>

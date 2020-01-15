@@ -38,7 +38,6 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
   return <>
     <div className='container has-text-centered'>
       <div className='columns'>
-        <h1 className='title'>Register</h1>
         <div className='column'>
           <form className='form has-text-centered' onSubmit={handleSubmit}>
 
@@ -62,7 +61,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 {register.errors.username[0]}
               </small>}
               {/* can we implement this somehow? */}
-              <p className='help is-success'>This username is available</p>
+              {/* <p className='help is-success'>This username is available</p> */}
             </div>
 
             <div className='field'>

@@ -17,12 +17,17 @@ const Navbar = ({ toggleSearch }) => {
     setState({ isOpen: false })
   }
 
+  const [nav, setNav] = useState(false)
 
+  const toggleNavbar = () => {
+    console.log('oi')
+    setNav(!nav)
+  }
 
   return (
     <>
       {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
-        <input type="checkbox" id="menu__active" />
+        <input type="checkbox" id="menu__active" checked={nav ? 'true' : 'false'}/>
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
             <div className="icons">
@@ -38,7 +43,7 @@ const Navbar = ({ toggleSearch }) => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i> </Link>
+                    <Link to="/groups" className="navbutton" onClick={toggleNavbar}> <i className="fa fa-users"></i> </Link>
                     {'\n'}
                     <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
                   </div>

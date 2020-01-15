@@ -182,7 +182,7 @@ const Profile = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log('api resp ', resp.data)
+        // console.log('api resp ', resp.data)
         setProfile(resp.data)
         setData({
           username: resp.data.username,
@@ -190,14 +190,16 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        midCoordinate(resp.data.towns)
+        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       .catch(err => setErrors(err))
   }, [])
 
   return (
     <div id="profile">
-
+      {/* {console.log('profile.towns ', profile.towns)}
+      {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
+      {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL
         {...viewport}
         position="absolute"
@@ -207,7 +209,8 @@ const Profile = (props) => {
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
-        {profile.towns.map((country, i) => {
+        {/* boolean check not necessary */}
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((country, i) => {
           return <Marker
             key={i}
             latitude={parseFloat(country.lat.replace(',', '.'))}
@@ -222,7 +225,7 @@ const Profile = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {console.log(data.email)}
+        {/* {console.log(data.email)} */}
         {/* <div className="is-link">
           Settings
         </div> */}
