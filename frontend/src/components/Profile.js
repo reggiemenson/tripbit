@@ -293,6 +293,7 @@ const Profile = (props) => {
             />
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
+          {/* <i className="fas fa-chevron-down"></i> */}
         </div>
 
         <div className="level is-mobile stats">
