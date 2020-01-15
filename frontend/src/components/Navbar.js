@@ -14,7 +14,7 @@ const Navbar = ({ toggleSearch }) => {
   const handleLogout = () => {
     Auth.logout()
     history.push('/')
-    setState({ isOpen: false })
+    // setState({ isOpen: false })
   }
 
   const [nav, setNav] = useState(false)
