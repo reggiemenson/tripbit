@@ -68,7 +68,8 @@ const Settings = ({ data, errors, handleChange, modalSubmit }) => {
                   <div className='select is-link'>
                     <select
                       onChange={handleChange}
-                      value={data.dexterity}>
+                      value={data.dexterity}
+                      name='dexterity'>
                       <option value='RH'>Right-handed operation</option>
                       <option value='LH'>Left-handed operation</option>
                     </select>
