@@ -64,7 +64,9 @@ a.mapboxgl-ctrl-logo {
   max-width: 90%;
   .input {
     background-color: $dark;
-    z-index: 100;
+  }
+  i {
+    color: $gold;
   }
 }
 
