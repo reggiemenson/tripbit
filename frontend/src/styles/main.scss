@@ -826,7 +826,7 @@ transform: rotate(180deg);
   }
 }
 
-#group-card {
+#group-card, #user-card {
 
   .media-content {
     max-width: 100%;
@@ -1015,4 +1015,20 @@ transform: rotate(180deg);
 
 .Toastify__progress-bar.toast-progress {
   background: black !important;
+}
+
+
+
+// SEARCH BAR ***********************************************************************
+
+#searchbar {
+  .modal, .model-content {
+    padding: 40vh 0;
+  }
+
+  #user-card {
+    .subtitle {
+      color: $gold;
+    }
+  }
 }
