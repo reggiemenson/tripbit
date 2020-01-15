@@ -18,10 +18,16 @@ import WorldMap from './components/Worldmap'
 import SearchBar from './components/SearchBar'
 import MapPage from './components/MapPage'
 import { UserContext } from './components/UserContext'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const App = (props) => {
+toast.configure({
+  autoClose: 8000,
+  draggable: false
+})
+
+const App = () => {
   const [userLogin, setUserLogin] = useState(null)
-
   const loginInfo = useMemo(() => ({ userLogin, setUserLogin }), [userLogin, setUserLogin])
   const [searchModal, setSearchModal] = useState(false)
 

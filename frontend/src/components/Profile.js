@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import MapGL, { Marker } from 'react-map-gl'
+import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
@@ -9,6 +9,8 @@ import Auth from '../lib/Auth'
 import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
+import { toast } from 'react-toastify'
+
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
@@ -16,13 +18,16 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA
 const options = {
   accept: 'image/*',
   transformations: {
-    crop: true,
     circle: true,
-    rotate: true
+    crop: false
   }
 }
 
+
 const Profile = (props) => {
+
+  const notifyImage = () => toast('Image Changed!')
+  const notifyProfile = () => toast('Details changed!')
 
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
@@ -43,7 +48,7 @@ const Profile = (props) => {
     groups_podium3: []
   })
   const [errors, setErrors] = useState({})
-  
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -53,16 +58,18 @@ const Profile = (props) => {
     pitch: 0
   })
 
+  const [popupInfo, setPopupInfo] = useState(null)
+
   // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
   const midCoordinate = (towns) => {
     const arrLats = towns.map((town) => {
-      return parseFloat(town.lat.replace(',','.'))
+      return parseFloat(town.lat.replace(',', '.'))
     })
     const maxLat = Math.max(...arrLats)
     const minLat = Math.min(...arrLats)
     const midLat = (maxLat + minLat) / 2
     const arrLngs = towns.map((town) => {
-      return parseFloat(town.lng.replace(',','.'))
+      return parseFloat(town.lng.replace(',', '.'))
     })
     const maxLng = Math.max(...arrLngs)
     const minLng = Math.min(...arrLngs)
@@ -99,6 +106,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
       })
@@ -116,7 +124,10 @@ const Profile = (props) => {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
-      .then(resp => console.log(resp, 'success'))
+      .then(resp => {
+        notifyImage()
+        console.log(resp, 'success')
+      })
       .catch(err => console.log(err))
   }
 
@@ -174,7 +185,12 @@ const Profile = (props) => {
     // console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
-  
+
+  const showMarkerInfo = (e) => {
+    console.log('hello')
+    console.log(e.target.id)
+  }
+
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
@@ -182,7 +198,7 @@ const Profile = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log('api resp ', resp.data)
+        // console.log('api resp ', resp.data)
         setProfile(resp.data)
         setData({
           username: resp.data.username,
@@ -190,14 +206,16 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        midCoordinate(resp.data.towns)
+        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       .catch(err => setErrors(err))
   }, [])
 
   return (
     <div id="profile">
-
+      {/* {console.log('profile.towns ', profile.towns)}
+      {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
+      {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL
         {...viewport}
         position="absolute"
@@ -207,22 +225,26 @@ const Profile = (props) => {
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
-        {profile.towns.map((country, i) => {
+        {/* boolean check not necessary */}
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(country.lat.replace(',', '.'))}
-            longitude={parseFloat(country.lng.replace(',', '.'))}
+            latitude={parseFloat(city.lat.replace(',', '.'))}
+            longitude={parseFloat(city.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker"></div>
-            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
+            <div className="marker" id={city.name_ascii} onClick={showMarkerInfo}></div>
+            {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))}
           </Marker>
         })}
+        <Popup longitude={0} latitude={0} closeButton={true} closeOnClick={true}>
+          Hi there! 👋
+        </Popup>
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {console.log(data.email)}
+        {/* {console.log(data.email)} */}
         {/* <div className="is-link">
           Settings
         </div> */}
@@ -245,12 +267,12 @@ const Profile = (props) => {
             <div className="level-left">
               <div className="name level-item">
                 <div className="username title is-size-3">
-                  {data.username} 
+                  {data.username}
                   <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
-            
+
             <div className="level-right">
               <div className="buttons level-item">
                 <button className="button is-link" id='settings' onClick={toggleSettings}>
@@ -261,7 +283,7 @@ const Profile = (props) => {
               </div>
             </div>
           </div>
-          
+
           <div className="hero-body level is-mobile">
             <i className={panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
             <ReactFilestack
@@ -269,17 +291,20 @@ const Profile = (props) => {
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
-                <div onClick={onPick}>
-                  <figure className="level-item image is-128x128">
-                    {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                  </figure>
+                <div className="level-item" onClick={onPick}>
+                  <div>
+                    <figure className="image-cropper">
+                      {/* Class creates an oval. Look to change this so all propics are circles. */}
+                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                    </figure>
+                  </div>
                 </div>
               )}
               onSuccess={handleImageUpload}
             />
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
+          {/* <i className="fas fa-chevron-down"></i> */}
         </div>
 
         <div className="level is-mobile stats">

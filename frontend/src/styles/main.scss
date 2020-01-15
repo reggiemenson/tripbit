@@ -880,4 +880,17 @@ transform: rotate(180deg);
   transition-duration: 0.25s, 1s;
 }
 
+.image-cropper {
+  width: 128px;
+  height: 128px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
 
+.profilepic {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}

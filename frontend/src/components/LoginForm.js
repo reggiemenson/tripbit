@@ -2,8 +2,13 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
 
-const Login = ({ props }) => {
+import { toast } from 'react-toastify'
 
+const Login = ({ props }) => {
+  // const [message, setMessage] = useState('')
+
+  const notify = (message) => toast(`${message}`)
+  
   const [login, setLogin] = useState({
     data: {
       email: '',
@@ -24,6 +29,7 @@ const Login = ({ props }) => {
     axios.post('/api/login', login.data)
       .then(resp => {
         Auth.setToken(resp.data.token)
+        notify(resp.data.message)
         props.history.push(`/profile/${Auth.getUserId()}`)
         setUserLogin(resp.data.message)
       })
@@ -37,7 +43,6 @@ const Login = ({ props }) => {
     <div className='container'>
       <div className='columns'>
         <div className='column has-text-centered'>
-          <h1 className='title'>Login</h1>
           <form className='form' onSubmit={handleSubmit}>
 
             <div className='field'>

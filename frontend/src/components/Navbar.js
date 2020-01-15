@@ -37,8 +37,12 @@ const Navbar = ({ toggleSearch }) => {
     // setState({ isOpen: false })
   }
 
+  const [nav, setNav] = useState(false)
 
-
+  const toggleNavbar = () => {
+    setNav(!nav)
+  }
+  
   return (
     <> {dexterity === 'LH' ?
 
@@ -59,18 +63,18 @@ const Navbar = ({ toggleSearch }) => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i> </Link>
+                    <Link to="/groups" className="navbutton" onClick={toggleNavbar}> <i className="fa fa-users"></i> </Link>
                     {'\n'}
-                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
+                    <Link to="/groups"> <p className="navbar-links" onClick={toggleNavbar}>GROUPS</p> </Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -140,9 +144,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton" onClick={toggleNavbar}><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
+                    <Link to="/city_selection"><p className="navbar-links" onClick={toggleNavbar}>ADD CITY</p></Link>
                   </div>
                 </div>
               </li>

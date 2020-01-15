@@ -38,7 +38,6 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
   return <>
     <div className='container has-text-centered'>
       <div className='columns'>
-        <h1 className='title'>Register</h1>
         <div className='column'>
           <form className='form has-text-centered' onSubmit={handleSubmit}>
 
@@ -54,15 +53,15 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-user'></i>
                 </span>
-                <span className='icon is-small is-right'>
+                {/* <span className='icon is-small is-right'>
                   <i className='fas fa-check'></i>
-                </span>
+                </span> */}
               </div>
               {register.errors.username && <small className='help is-danger'>
                 {register.errors.username[0]}
               </small>}
               {/* can we implement this somehow? */}
-              <p className='help is-success'>This username is available</p>
+              {/* <p className='help is-success'>This username is available</p> */}
             </div>
 
             <div className='field'>
@@ -113,9 +112,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-envelope'></i>
                 </span>
-                <span className='icon is-small is-right'>
+                {/* <span className='icon is-small is-right'>
                   <i className='fas fa-exclamation-triangle'></i>
-                </span>
+                </span> */}
               </div>
               {register.errors.email && <small className='help is-danger'>
                 {register.errors.email[0]}

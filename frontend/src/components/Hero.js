@@ -4,6 +4,7 @@ import axios from 'axios'
 import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
+import Auth from '../lib/auth'
 
 const infoType = 'user'
 
@@ -43,7 +44,7 @@ const Hero = (props) => {
   useEffect(() => {
     fetchTownData()
   }, [])
-  
+
 
   function toggleRegistration() {
     setRegistrationModal(!registrationModal)
@@ -72,9 +73,10 @@ const Hero = (props) => {
               <h2 className="subtitle is-size-4">
                 and the Chamber of Badges
               </h2>
-
-              <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>
-              <button className="is-size-4 homepage" onClick={toggleRegistration}>Register</button>
+              {!Auth.isAuthorized() && <div>
+                <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>
+                <button className="is-size-4 homepage" onClick={toggleRegistration}>Register</button>
+              </div>}
             </div>
           </div>
         </div>
@@ -95,7 +97,7 @@ const Hero = (props) => {
       <div className={loginModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleLogin}></div>
         <div className="modal-content">
-          <Login props={props}/>
+          <Login props={props} />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
       </div>

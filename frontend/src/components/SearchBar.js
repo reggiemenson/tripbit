@@ -16,8 +16,8 @@ const SearchBar = (props) => {
     })
       .then(response => {
         setData(response.data)
-        console.log(data)
-        console.log(response.data)
+        // console.log(data)
+        // console.log(response.data)
       })
       .catch(error => console.log(error))
   }, [])
@@ -31,7 +31,7 @@ const SearchBar = (props) => {
 
   function handleSearchChange(e) {
     setSearchBar(e.target.value)
-    console.log(searchBar)
+    // console.log(searchBar)
     console.log(data.map((user) => {
       return user.first_name
     }))
