@@ -16,6 +16,7 @@ $dark-gold: rgb(97, 67, 0);
 $dark: #101010;
 $gray: #585858;
 $light-gray: #7d7c7c;
+$dark-gray: #3a3a3a;
 $nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 
 
@@ -56,15 +57,22 @@ $input-placeholder-color: $gold;
   box-sizing: border-box;
 }
 
-a.mapboxgl-ctrl-logo {
-  z-index: -1;
-}
-
 .modal-content {
   max-width: 90%;
-  .input {
+
+  i {
+    color: white;
+  }
+
+  .input, select {
     background-color: $dark;
-    z-index: 100;
+    color: $gold;
+  }
+ 
+  .title, .subtitle {
+    white-space: pre-wrap;
+    text-overflow: wrap;
+    max-width: 100%;
   }
 }
 
@@ -118,6 +126,17 @@ a.mapboxgl-ctrl-logo {
 #homepage, #mappage {
 
   max-height: 100vh;
+
+
+  .title, .subtitle {
+    white-space: pre-wrap;
+    text-overflow: wrap;
+    max-width: 100%;
+  }
+
+  .column .container {
+    max-width: 100%;
+  }
 
   .columns {
     width: 100%;
@@ -219,6 +238,11 @@ a.mapboxgl-ctrl-logo {
 #profile, #group-profile {
 
   // mapbox styling
+  
+  a.mapboxgl-ctrl-logo {
+    z-index: -1;
+    opacity: 0;
+  }
   .marker {
     background-image: url('../images/marker-gold.png');
     background-size: cover;
@@ -991,6 +1015,17 @@ transform: rotate(180deg);
   margin: 0 auto;
   cursor: pointer;
   object-fit: cover;
+}
+
+#profile-banner-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  i.down {
+    margin: 10px 0;
+    color: $dark-gray;
+  }
 }
 
 

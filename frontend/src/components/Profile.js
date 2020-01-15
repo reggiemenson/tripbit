@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
@@ -10,6 +10,7 @@ import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
 import { toast } from 'react-toastify'
+import UserContext from './UserContext'
 import 'react-toastify/dist/ReactToastify.css'
 
 // this is a public key but maybe change to different key and put in .env?
@@ -37,6 +38,8 @@ const Profile = (props) => {
     progressClassName: 'toast-progress'
   })
 
+
+  const [userLogin, setUserLogin] = useState(UserContext)
 
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
@@ -126,6 +129,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        // setUserLogin(resp.data)
         notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
@@ -235,7 +239,8 @@ const Profile = (props) => {
         setData({
           username: resp.data.username,
           first_name: resp.data.first_name,
-          last_name: resp.data.last_name
+          last_name: resp.data.last_name,
+          dexterity: resp.data.dexterity
         })
         // zoom map to center of all points
         Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
@@ -250,8 +255,8 @@ const Profile = (props) => {
 
   return (
     <div id="profile">
-      {/* {console.log('profile.towns ', profile.towns)}
-      {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
+      {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())}
+      {/* {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
       {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL
         {...viewport}
@@ -320,24 +325,31 @@ const Profile = (props) => {
 
             <div className="level-right">
               <div className="buttons level-item">
-                <button className="button is-link" id='settings' onClick={toggleSettings}>
+                {(Auth.getUserId() === parseInt(props.match.params.id)) && <button className="button is-link" id='settings' onClick={toggleSettings}>
                   <span className="icon is-small">
                     <i className="fas fa-cog"></i>
                   </span>
-                </button>
+                </button>}
               </div>
             </div>
           </div>
 
           <div className="hero-body level is-mobile">
             <i className={panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
-            <ReactFilestack
+            {!(Auth.getUserId() === parseInt(props.match.params.id)) ? <div className="level-item">
+              <div>
+                <figure className="image-cropper">
+                  {/* Class creates an oval. Look to change this so all propics are circles. */}
+                  <img className="profilepic" src={profile.image} />
+                </figure>
+              </div>
+            </div> : <ReactFilestack
               preload={true}
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
                 <div className="level-item" onClick={onPick}>
-                  <div>
+                  <div id="profile-banner-center">
                     <figure className="image-cropper">
 
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
@@ -351,12 +363,13 @@ const Profile = (props) => {
                         <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                       }
                     </figure>
+                    <i className="fas fa-chevron-down is-size-3 down"></i>
                   </div>
 
                 </div>
               )}
               onSuccess={handleImageUpload}
-            />
+            />}
             <i className={!panel ? 'level-item fas fa-chevron-right is-size-1' : 'level-item fas fa-chevron-right is-size-1 click-me'} onClick={showRight}></i>
           </div>
           {/* <i className="fas fa-chevron-down"></i> */}

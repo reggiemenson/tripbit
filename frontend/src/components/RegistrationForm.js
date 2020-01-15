@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+import { toast } from 'react-toastify'
+
 const Register = ({ toggleRegistration, toggleLogin }) => {
+
+  const notify = () => toast('Registered!')
 
   const [register, setRegister] = useState({
     data: {
@@ -27,6 +31,7 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
     e.preventDefault()
     axios.post('/api/register', register.data)
       .then(() => {
+        notify()
         toggleRegistration()
         toggleLogin()
       })
@@ -56,9 +61,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-user'></i>
                 </span>
-                <span className='icon is-small is-right'>
+                {/* <span className='icon is-small is-right'>
                   <i className='fas fa-check'></i>
-                </span>
+                </span> */}
               </div>
               {register.errors.username && <small className='help is-danger'>
                 {register.errors.username[0]}
@@ -115,9 +120,9 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
                 <span className='icon is-small is-left'>
                   <i className='fas fa-envelope'></i>
                 </span>
-                <span className='icon is-small is-right'>
+                {/* <span className='icon is-small is-right'>
                   <i className='fas fa-exclamation-triangle'></i>
-                </span>
+                </span> */}
               </div>
               {register.errors.email && <small className='help is-danger'>
                 {register.errors.email[0]}
