@@ -337,11 +337,12 @@ const Profile = (props) => {
               options={options}
               customRender={({ onPick }) => (
                 <div className="level-item" onClick={onPick}>
-                  <div>
+                  <div id="profile-banner-center">
                     <figure className="image-cropper">
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
                       <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                     </figure>
+                    <i class="fas fa-chevron-down is-size-3 down"></i>
                   </div>
                 </div>
               )}

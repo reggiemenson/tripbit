@@ -16,6 +16,7 @@ $dark-gold: rgb(97, 67, 0);
 $dark: #101010;
 $gray: #585858;
 $light-gray: #7d7c7c;
+$dark-gray: #3a3a3a;
 $nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 
 
@@ -992,6 +993,17 @@ transform: rotate(180deg);
   height: 100%;
   width: auto;
   cursor: pointer;
+}
+
+#profile-banner-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  i.down {
+    margin: 10px 0;
+    color: $dark-gray;
+  }
 }
 
 
