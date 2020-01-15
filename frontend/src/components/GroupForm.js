@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Auth from '../lib/auth'
 
+import { toast } from 'react-toastify'
+
 const GroupForm = ({ props }) => {
+  const notify = () => toast('Group Successfully Added!')
 
   const [details, setDetails] = useState({
     data: {
@@ -24,6 +27,7 @@ const GroupForm = ({ props }) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
+        notify()
         props.history.push(`/groups/${resp.data.id}`)
       })
       .catch(err => {

@@ -5,8 +5,9 @@ import Auth from '../lib/auth'
 import { toast } from 'react-toastify'
 
 const Login = ({ props }) => {
+  // const [message, setMessage] = useState('')
 
-  const notify = () => toast('Welcome to TripBit')
+  const notify = (message) => toast(`${message}`)
   
   const [login, setLogin] = useState({
     data: {
@@ -27,7 +28,7 @@ const Login = ({ props }) => {
     axios.post('/api/login', login.data)
       .then(resp => {
         Auth.setToken(resp.data.token)
-        notify()
+        notify(resp.data.message)
         props.history.push(`/profile/${Auth.getUserId()}`)
       })
       .catch(() => {

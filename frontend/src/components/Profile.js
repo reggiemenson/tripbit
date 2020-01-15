@@ -9,6 +9,8 @@ import Auth from '../lib/Auth'
 import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
+import { toast } from 'react-toastify'
+
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
 
@@ -23,6 +25,9 @@ const options = {
 
 
 const Profile = (props) => {
+
+  const notifyImage = () => toast('Image Changed!')
+  const notifyProfile = () => toast('Details changed!')
   
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
@@ -99,6 +104,7 @@ const Profile = (props) => {
       }
     })
       .then(resp => {
+        notifyProfile()
         console.log(resp, 'success')
         toggleSettings()
       })
@@ -116,7 +122,10 @@ const Profile = (props) => {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
-      .then(resp => console.log(resp, 'success'))
+      .then(resp => {
+        notifyImage()
+        console.log(resp, 'success')
+      })
       .catch(err => console.log(err))
   }
 
