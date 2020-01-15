@@ -257,9 +257,9 @@ const Profile = (props) => {
           <div className="banner level is-mobile">
             <div className="level-left">
               <div className="name level-item">
-                <div className="username title is-size-3">
+                <div className="username title is-size-3 is-size-4-mobile">
                   {data.username}
-                  <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
+                  <span className="fullname is-size-4 is-size-7-mobile"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@ const Profile = (props) => {
           <div className="level-item has-text-centered">
             <div>
               <p className="heading">Travel XP</p>
-              <p className="title">{profile.score}</p>
+              <p className="title unclickable">{profile.score}</p>
             </div>
           </div>
         </div>
