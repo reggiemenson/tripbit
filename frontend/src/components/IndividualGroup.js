@@ -32,10 +32,26 @@ ADDITIONAL CONSIDERATIONS:
 */
 
 const IndividualGroup = (props) => {
-  
-  const [group, setGroup] = useState([])
+
+  // all the data
+  const [members, setMembers] = useState([])
+  const [data, setData] = useState({})
+  const [towns, setTowns] = useState([])
+
   const [errors, setErrors] = useState('')
 
+  // toggle between profile info, true for left and false for right (links next to profile image)
+  const [panel, setPanel] = useState(true)
+
+  // states for stats modals
+  const [continentModal, setContinentModal] = useState(false)
+  const [countryModal, setCountryModal] = useState(false)
+  const [cityModal, setCityModal] = useState(false)
+
+  // buttons
+  const [settingModal, setSettingModal] = useState(false)
+  
+  
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     towns: [],
@@ -68,18 +84,15 @@ const IndividualGroup = (props) => {
     setViewport({ latitude: midLat, longitude: midLng, zoom: 1 })
   }
 
-  // store profile image here
-  const [data, setData] = useState({})
-
-
+  /// GET ALL NECESSARY DATA ****************************************************************************** //
   function fetchGroupData() {
     axios.get(`/api/groups/${props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
         setData(resp.data)
-        getGroupLocations(resp.data)
-        
+        const memberData = [...members]
+        fetchMemberData(resp.data.members, memberData)
       })
       .catch(err => {
         console.log(err)
@@ -87,35 +100,66 @@ const IndividualGroup = (props) => {
       })
   }
 
+  function fetchMemberData(members, memberData) {
+    members.forEach(member => {
+      axios.get(`/api/profile/${member.id}`, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+        .then(resp => {
+          memberData.push(resp.data)
+          setMembers(memberData)
+          calculateTowns(memberData)
+        })
+        .catch(err => {
+          console.log(err)
+          setErrors({ ...errors, ...err })
+        })
+    }) 
+  }
+
+  function calculateTowns(memberData) {
+    const townData = []
+
+    memberData.forEach(member => {
+      // console.log(member)
+
+      member.towns
+        .map(memberTown => {
+          // console.log(memberTown)
+          if (townData.find(town => town.id === memberTown.id) !== undefined) {
+            // console.log('GOTCHA', memberTown)
+            townData
+              .find(town => town.id === memberTown.id)
+              .members.push(member)
+            return townData
+
+          } else {
+            // console.log('there', memberTown)
+            memberTown.members = []
+            memberTown.members.push(member)
+            townData.push(memberTown)
+            return townData
+          }
+        })
+     
+    })
+
+    setTowns(townData)
+  }
+
   useEffect(() => {
     fetchGroupData()
   }, [])
 
-  const getGroupLocations = (groupData) => {
-    const towns = []
-    groupData.members.forEach(member => {
-      console.log(member)
-      member.towns.map(memberTown => {
-        if (towns.find[town => town.id === memberTown]) {
-          (towns.find[town => town.id === memberTown]).members.push(member.id)
-        } else {
-          const newTown = {
-            id: memberTown,
-            members: [member.id]
-          }
-          towns.push(newTown)
-        }
-      })
-    })
-    console.log('GROUP TOWNS', towns)
-  }
 
+  // IMAGE UPLOAD ****************************************************************************** //
   const handleImageUpload = (res) => {
     setData({ ...data, image: res.filesUploaded[0].url })
   }
 
   // Django creates a user input window when an authorised path does is incorrectly authorised.
 
+  // SETTINGS BUTTON ****************************************************************************** //
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
     // const errors = { ...register.errors, [e.target.name]: '' }
@@ -158,14 +202,12 @@ const IndividualGroup = (props) => {
     }
   }, [data])
 
-  // toggle between profile info, true for left and false for right (links next to profile image)
-  const [panel, setPanel] = useState(true)
-  // states for stats modals
-  const [continentModal, setContinentModal] = useState(false)
-  const [countryModal, setCountryModal] = useState(false)
-  const [cityModal, setCityModal] = useState(false)
-  const [settingModal, setSettingModal] = useState(false)
+  function toggleSettings() {
+    setSettingModal(!settingModal)
+  }
 
+
+  // PANEL CONTROLS ****************************************************************************** //
   // show 'right' stats
   const showRight = () => {
     setPanel(false)
@@ -176,6 +218,9 @@ const IndividualGroup = (props) => {
     setPanel(true)
   }
 
+
+
+  // STATS ****************************************************************************** //
   const toggleContinent = () => {
     setContinentModal(!continentModal)
   }
@@ -188,13 +233,9 @@ const IndividualGroup = (props) => {
     setCityModal(!cityModal)
   }
 
-  function toggleSettings() {
-    setSettingModal(!settingModal)
-  }
-
   // work out which continents, countries or cities visited to show on modal
   const listContinentsCountries = (profile, size) => {
-    const all = profile.towns.map((elem) => {
+    const all = profile.map((elem) => {
       return elem[size]
     })
     // console.log(Array.from(new Set(all)))
@@ -209,7 +250,10 @@ const IndividualGroup = (props) => {
 
   return (
     <div id="group-profile">
-      {console.log(data)}
+      {/* {console.log('MEMBER DATA', members)} */}
+      {/* {console.log('GROUP DATA', data)} */}
+      {console.log('TOWN DATA', towns)}
+
       <MapGL
         {...viewport}
         position="absolute"
@@ -234,7 +278,7 @@ const IndividualGroup = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-        {console.log(data.email)}
+        {/* {console.log(data.email)} */}
         {/* <div className="is-link">
           Settings
         </div> */}
@@ -258,7 +302,6 @@ const IndividualGroup = (props) => {
               <div className="name level-item">
                 <div className="username title is-size-3">
                   {data.name} 
-                  <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
@@ -298,19 +341,19 @@ const IndividualGroup = (props) => {
           <div className="level-item has-text-centered" onClick={toggleContinent}>
             <div className="stat">
               <p className="heading">Continents</p>
-              <p className="title">{countContinentsCountries(profile, 'continent')}</p>
+              <p className="title">{countContinentsCountries(towns, 'continent')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCountry}>
             <div className="stat">
               <p className="heading">Countries</p>
-              <p className="title">{countContinentsCountries(profile, 'country')}</p>
+              <p className="title">{countContinentsCountries(towns, 'country')}</p>
             </div>
           </div>
           <div className="level-item has-text-centered" onClick={toggleCity}>
             <div className="stat">
               <p className="heading">Cities</p>
-              <p className="title">{profile.towns.length}</p>
+              <p className="title">{towns.length}</p>
             </div>
           </div>
           <div className="level-item has-text-centered">
@@ -370,47 +413,43 @@ const IndividualGroup = (props) => {
         </div> */}
       </section>
     
-    {/* 
-
-    //   <div className={continentModal === true ? 'modal is-active' : 'modal'}>
-    //     <div className="modal-background" onClick={toggleContinent}></div>
-    //     <div className="modal-content modal-stats">
-    //       <h2 className="title">Continents visited</h2>
-    //       {listContinentsCountries(profile, 'continent').sort().map((continent, i) => {
-    //         return <div key={i}>
-    //           <p>{continent}</p>
-    //         </div>
-    //       })}
-    //     </div>
-    //     <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
-    //   </div>
-
-    //   <div className={countryModal === true ? 'modal is-active' : 'modal'}>
-    //     <div className="modal-background" onClick={toggleCountry}></div>
-    //     <div className="modal-content modal-stats">
-    //       <h2 className="title">Countries visited</h2>
-    //       {listContinentsCountries(profile, 'country').sort().map((country, i) => {
-    //         return <div key={i}>
-    //           <p>{country}</p>
-    //         </div>
-    //       })}
-    //     </div>
-    //     <button className="modal-close is-large" aria-label="close" onClick={toggleCountry}></button>
-    //   </div>
-
-    //   <div className={cityModal === true ? 'modal is-active' : 'modal'}>
-    //     <div className="modal-background" onClick={toggleCity}></div>
-    //     <div className="modal-content modal-stats">
-    //       <h2 className="title">Cities visited</h2>
-    //       {profile.towns.sort((a, b) => a.name_ascii.localeCompare(b.name_ascii)).map((town, i) => {
-    //         return <div key={i}>
-    //           <p>{town.name_ascii}</p>
-    //         </div>
-    //       })}
-    //     </div>
-    //     <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
-    //   </div>*/}
-
+    
+      <div className={continentModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleContinent}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Continents visited</h2>
+          {listContinentsCountries(towns, 'continent').sort().map((continent, i) => {
+            return <div key={i}>
+              <p>{continent}</p>
+            </div>
+          })}
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleContinent}></button>
+      </div>
+      <div className={countryModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleCountry}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Countries visited</h2>
+          {listContinentsCountries(towns, 'country').sort().map((country, i) => {
+            return <div key={i}>
+              <p>{country}</p>
+            </div>
+          })}
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCountry}></button>
+      </div>
+      <div className={cityModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleCity}></div>
+        <div className="modal-content modal-stats">
+          <h2 className="title">Cities visited</h2>
+          {towns.sort((a, b) => a.name_ascii.localeCompare(b.name_ascii)).map((town, i) => {
+            return <div key={i}>
+              <p>{town.name_ascii}</p>
+            </div>
+          })}
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleCity}></button>
+      </div>
     </div>
   )
 }
