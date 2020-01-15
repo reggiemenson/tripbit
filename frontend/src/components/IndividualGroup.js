@@ -6,6 +6,7 @@ import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 import Auth from '../lib/Auth'
+import { toast } from 'react-toastify'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
@@ -33,6 +34,8 @@ ADDITIONAL CONSIDERATIONS:
 */
 
 const IndividualGroup = (props) => {
+
+  const notify = (message) => toast(message)
 
   // all the data
   const [members, setMembers] = useState([])
@@ -241,6 +244,7 @@ const IndividualGroup = (props) => {
       .then(resp => {
         console.log(resp, 'success')
         fetchGroupData()
+        notify('Image uploaded')
       })
       .catch(err => console.log(err))
   }
@@ -272,6 +276,7 @@ const IndividualGroup = (props) => {
       .then(resp => {
         fetchGroupData()
         toggleSettings()
+        notify('Details successfully updated')
       })
       .catch(err => {
         setErrors({ ...err })
@@ -293,7 +298,6 @@ const IndividualGroup = (props) => {
 
   function handleMemberApprove(e) {
     e.preventDefault()
-    console.log('approve!')
     const data = { id: e.target.id }
     axios.put(`/api/groups/${group.id}/membership/`, data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
@@ -316,8 +320,7 @@ const IndividualGroup = (props) => {
         headers: { Authorization: `Bearer ${Auth.getToken()}`}
       })
       .then(resp => {
-        fetchGroupData()
-      })
+        fetchGroupData()      })
       .catch(err => {
         console.log(err)
         setErrors({ ...errors, ...err })
@@ -335,6 +338,7 @@ const IndividualGroup = (props) => {
         headers: { Authorization: `Bearer ${Auth.getToken()}`}
       })
       .then(resp => {
+        notify(`${group.name} deleted`)
         props.history.push('/groups')
       })
       .catch(err => {
@@ -351,6 +355,7 @@ const IndividualGroup = (props) => {
     })
       .then(resp => {
         fetchGroupData()
+        notify(`Request sent to ${group.name}!`)
       })
       .catch(err => {
         console.log(err)
@@ -366,6 +371,7 @@ const IndividualGroup = (props) => {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
+        notify(`Left ${group.name}`)
         fetchGroupData()
       })
       .catch(err => {

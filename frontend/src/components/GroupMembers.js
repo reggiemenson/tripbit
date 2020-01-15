@@ -27,7 +27,7 @@ const GroupMembers = ({ group, handleMemberApprove, handleMemberRemove }) => (
                 </div>
               </Link>
               <div className="level-right">
-                <button className="button level-item is-danger" id={member.id} onClick={(e) => handleMemberRemove(e)}>
+                <button className="button level-item is-danger" id={member.id} data-name={member.username} onClick={(e) => handleMemberRemove(e)}>
                   Remove
                 </button>
               </div>
@@ -61,7 +61,7 @@ const GroupMembers = ({ group, handleMemberApprove, handleMemberRemove }) => (
                 </div>
               </Link>
               <div className="level-right">
-                <button className="button level-item is-link" id={member.id} onClick={(e) => handleMemberApprove(e)}>
+                <button className="button level-item is-link" id={member.id} data-name={member.username} onClick={(e) => handleMemberApprove(e)}>
                   Approve
                 </button>
               </div>
