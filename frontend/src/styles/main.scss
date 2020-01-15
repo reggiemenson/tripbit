@@ -582,7 +582,7 @@ a.mapboxgl-ctrl-logo {
   left: 220px;
 }
 .menu__arrow--top .arrow {
-  transform: rotate(-45deg);
+  transform: rotate(-225deg);
 }
 .menu__arrow--left {
   top: 220px;
@@ -766,6 +766,9 @@ a.mapboxgl-ctrl-logo {
 #menu__active:checked ~ label #degree--up-0:checked ~ .menu__listings {
   transform: rotate(116deg);
 }
+#menu__active:checked ~ label #degree--up-0:checked ~ .menu__arrow--top .arrow  {
+  transform: rotate(-45deg);
+}
 #menu__active:checked ~ label #degree--up-0:checked ~ .menu__arrow--top label {
   display: none;
 }
@@ -912,4 +915,80 @@ transform: rotate(180deg);
     display: flex;
     justify-content: center;
   }
+}
+
+// LEFT-HANDED NAV-BAR ***********************************************************************
+.hamburger2 {
+  content: ' ';
+  position: relative;
+  width: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  transform: rotate(90deg);
+  transition: all 0.333333333333333s ease;
+}
+.hamburger2:after,
+.hamburger2:before {
+  content: ' ';
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 5px;
+  transform: translateX(-50%);
+  transition-property: top, bottom, transform;
+  transition-duration: 1s, 1s, 0.25s;
+}
+.hamburger2:after {
+  color: black;
+  top: -8px;
+}
+.hamburger2:before {
+  bottom: -8px;
+}
+
+.menu--circle2 {
+  position: fixed;
+  z-index: 13;
+  left: 0%;
+  bottom: 0%;
+  transform: rotate(-90deg);
+  width: 243.33333333333334px;
+  height: 243.33333333333334px;
+  overflow: hidden;
+}
+
+
+#menu__active:checked ~ label .hamburger2 {
+  border-color: transparent;
+  transition: border-color 0.333333333333333s;
+}
+#menu__active:checked ~ label .hamburger2:after {
+  top: -2px;
+  border-color: $dark-gold;
+  transform: translateX(-50%) rotate(45deg);
+  transition-property: top, transform;
+  transition-duration: 0.25s, 1s;
+}
+#menu__active:checked ~ label .hamburger2:before {
+  bottom: -2px;
+  border-color: black;
+  transform: translateX(-50%) rotate(-45deg);
+  transition-property: bottom, transform;
+  transition-duration: 0.25s, 1s;
+}
+
+.image-cropper {
+  width: 128px;
+  height: 128px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profilepic {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }

@@ -31,13 +31,13 @@ class ValidateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'image', 'email', 'password', 'password_confirmation')
+        fields = ('username', 'first_name', 'last_name', 'dexterity', 'image', 'email', 'password', 'password_confirmation')
 
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'dexterity', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
         extra_kwargs = {
             'score': {'required': False},
             'towns': {'required': False},
@@ -63,4 +63,4 @@ class PopulatedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')
+        fields = ('id', 'username', 'first_name', 'last_name', 'dexterity', 'score', 'image', 'towns', 'badges', 'groups_owned', 'groups_requested', 'groups_joined', 'groups_podium1', 'groups_podium2', 'groups_podium3')

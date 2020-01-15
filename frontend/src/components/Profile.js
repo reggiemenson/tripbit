@@ -17,15 +17,9 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  options: {
-    resize: {
-      width: 50
-    },
-    transformations: {
-      force: true,
-      circle: true,
-      crop: false
-    }
+  transformations: {
+    circle: true,
+    crop: false
   }
 }
 
@@ -65,7 +59,7 @@ const Profile = (props) => {
     pitch: 0
   })
 
-  const [showPopup, setShowPopup] = useState(true)
+  const [showPopup, setShowPopup] = useState(false)
 
   const [popupInfo, setPopupInfo] = useState({
     latitude: 0,
@@ -75,7 +69,7 @@ const Profile = (props) => {
 
   // console.log(popupInfo)
 
-  const fuckingClose = () => {
+  const closePopup = () => {
     setShowPopup(false)
   }
 
@@ -112,6 +106,7 @@ const Profile = (props) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
+    console.log(data)
     setErrors({})
   }
 
@@ -259,7 +254,7 @@ const Profile = (props) => {
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
-      // onClick={fuckingClose}
+      // onClick={closePopup}
       >
         {/* boolean check not necessary */}
         {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
@@ -280,7 +275,7 @@ const Profile = (props) => {
           latitude={popupInfo.latitude}
           closeButton={true}
           // closeOnClick={true} // not needed?
-          onClose={fuckingClose}>
+          onClose={closePopup}>
           <div>{popupInfo.message}</div>
         </Popup>}
       </MapGL>
@@ -334,11 +329,13 @@ const Profile = (props) => {
               apikey={fileloaderKey}
               options={options}
               customRender={({ onPick }) => (
-                <div onClick={onPick}>
-                  <figure className="level-item image is-128x128">
-                    {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
-                  </figure>
+                <div className="level-item" onClick={onPick}>
+                  <div>
+                    <figure className="image-cropper">
+                      {/* Class creates an oval. Look to change this so all propics are circles. */}
+                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                    </figure>
+                  </div>
                 </div>
               )}
               onSuccess={handleImageUpload}
