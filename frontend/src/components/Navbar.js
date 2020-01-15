@@ -20,14 +20,13 @@ const Navbar = ({ toggleSearch }) => {
   const [nav, setNav] = useState(false)
 
   const toggleNavbar = () => {
-    console.log('oi')
     setNav(!nav)
   }
-
+  
   return (
     <>
       {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
-        <input type="checkbox" id="menu__active" checked={nav ? 'true' : 'false'}/>
+        <input type="checkbox" id="menu__active" checked={nav ? true : false} onChange={toggleNavbar}/>
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
             <div className="icons">
@@ -52,7 +51,7 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
                     <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
                   </div>
@@ -106,7 +105,7 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/play" className="navbutton"><i className="fa fa-gamepad"></i></Link>
+                    <Link to="/play" className="navbutton" onClick={toggleNavbar}><i className="fa fa-gamepad"></i></Link>
                     {'\n'}
                     <Link to="/play"><p className="navbar-links">GAME</p></Link>
                   </div>
@@ -124,7 +123,7 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton" onClick={toggleNavbar}><i className="fa fa-building"></i></Link>
                     {'\n'}
                     <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
                   </div>

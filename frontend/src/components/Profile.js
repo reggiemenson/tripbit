@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import MapGL, { Marker } from 'react-map-gl'
+import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
@@ -43,7 +43,7 @@ const Profile = (props) => {
     groups_podium3: []
   })
   const [errors, setErrors] = useState({})
-  
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -53,16 +53,18 @@ const Profile = (props) => {
     pitch: 0
   })
 
+  const [popupInfo, setPopupInfo] = useState(null)
+
   // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
   const midCoordinate = (towns) => {
     const arrLats = towns.map((town) => {
-      return parseFloat(town.lat.replace(',','.'))
+      return parseFloat(town.lat.replace(',', '.'))
     })
     const maxLat = Math.max(...arrLats)
     const minLat = Math.min(...arrLats)
     const midLat = (maxLat + minLat) / 2
     const arrLngs = towns.map((town) => {
-      return parseFloat(town.lng.replace(',','.'))
+      return parseFloat(town.lng.replace(',', '.'))
     })
     const maxLng = Math.max(...arrLngs)
     const minLng = Math.min(...arrLngs)
@@ -174,7 +176,12 @@ const Profile = (props) => {
     // console.log(listContinentsCountries(profile, size).length)
     return listContinentsCountries(profile, size).length
   }
-  
+
+  const showMarkerInfo = (e) => {
+    console.log('hello')
+    console.log(e.target.id)
+  }
+
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
@@ -210,18 +217,21 @@ const Profile = (props) => {
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {/* boolean check not necessary */}
-        {Object.keys(profile.towns).length > 0 && profile.towns.map((country, i) => {
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(country.lat.replace(',', '.'))}
-            longitude={parseFloat(country.lng.replace(',', '.'))}
+            latitude={parseFloat(city.lat.replace(',', '.'))}
+            longitude={parseFloat(city.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker"></div>
-            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
+            <div className="marker" id={city.name_ascii} onClick={showMarkerInfo}></div>
+            {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))}
           </Marker>
         })}
+        <Popup longitude={0} latitude={0} closeButton={true} closeOnClick={true}>
+          Hi there! 👋
+        </Popup>
       </MapGL>
 
       <section className="hero" id="user-profile-header">
@@ -248,12 +258,12 @@ const Profile = (props) => {
             <div className="level-left">
               <div className="name level-item">
                 <div className="username title is-size-3">
-                  {data.username} 
+                  {data.username}
                   <span className="fullname is-size-4"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
-            
+
             <div className="level-right">
               <div className="buttons level-item">
                 <button className="button is-link" id='settings' onClick={toggleSettings}>
@@ -264,7 +274,7 @@ const Profile = (props) => {
               </div>
             </div>
           </div>
-          
+
           <div className="hero-body level is-mobile">
             <i className={panel ? 'level-item fas fa-chevron-left is-size-1' : 'level-item fas fa-chevron-left is-size-1 click-me'} onClick={showLeft}></i>
             <ReactFilestack
