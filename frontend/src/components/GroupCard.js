@@ -74,7 +74,6 @@ const GroupCard = ({ group, goToGroupProfile, sendRequest }) => (
           >
             <i 
               className="fas fa-paper-plane is-size-5"
-              onClick={(e) => sendRequest(e)}
               id={group.id}   
             />
           </a> : <></>

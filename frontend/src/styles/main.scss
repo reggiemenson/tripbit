@@ -991,4 +991,27 @@ transform: rotate(180deg);
   margin: 0 auto;
   height: 100%;
   width: auto;
+  cursor: pointer;
+}
+
+
+
+.Toastify__toast-body {
+  font-family: $text;
+  text-align: center;
+  color: black !important;
+  background-color: $gold !important;
+  border-color: $gold !important;
+}
+.Toastify__toast {
+  font-family: $text;
+  font-size: 120%;
+  text-align: center;
+  color: black !important;
+  background-color: $gold !important;
+  border-color: $gold !important;
+}
+
+.Toastify__progress-bar.toast-progress {
+  background: black !important;
 }

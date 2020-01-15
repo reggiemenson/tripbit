@@ -38,40 +38,30 @@ const SearchBar = (props) => {
   }
 
 
-
-
-
-
   function goToUserProfile(e) {
     props.history.push(`/profile/${e.target.id}`)
   }
 
-
-
+  console.log(searchBar)
   function handleSubmit(e) {
     setSearchBar(e.target.value)
-    const returnedResults = data.filter(data => data.first_name.includes(searchBar) || data.last_name.includes(searchBar) || data.username.includes(searchBar))
+    if (searchBar !== '') setFilteredData([])
+    console.log('test ', filteredData)
+    const returnedResults = data.filter(data => data.first_name.toLowerCase().includes(searchBar.toLowerCase()) || data.last_name.toLowerCase().includes(searchBar.toLowerCase()) || data.username.toLowerCase().includes(searchBar.toLowerCase()))
     setFilteredData(returnedResults)
-    console.log(returnedResults)
+    // console.log(returnedResults)
     
   }
 
 
-
-
-
-
-
-
-
   return <>
     <div>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" id="user-search" onSubmit={handleSubmit}>
         <div className="columns is-mobile">
-          <div className="column is-10-desktop is-8-tablet is-8-mobile">
+          <div className="column is-12-desktop is-8-tablet is-8-mobile">
             <div className="field">
               <div className="control has-icons-left">
-                <input className="input has-text-info" type="search" placeholder="Search for your friends" onChange={handleSearchChange}></input>
+                <input className="input has-text-info is-large" type="search" placeholder="Search for your friends" onChange={handleSearchChange}></input>
                 <span className="icon is-small is-left">
                   <i className="fas fa-compass"></i>
                 </span>
