@@ -521,7 +521,7 @@ const IndividualGroup = (props) => {
                 <div onClick={onPick}>
                   <figure className="image is-128x128">
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
+                    <img className="profilepic" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
                 </div>
               )}
