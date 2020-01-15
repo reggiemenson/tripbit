@@ -9,6 +9,7 @@ import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
+import GroupMembers from './GroupMembers'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -50,6 +51,9 @@ const IndividualGroup = (props) => {
 
   // buttons
   const [settingModal, setSettingModal] = useState(false)
+  const [deleteModal, setDeleteModal] =useState(false)
+  const [membershipModal, setMembershipModal] =useState(false)
+
 
   // info editing
   const [editableData, setEditableData] = useState({
@@ -273,6 +277,7 @@ const IndividualGroup = (props) => {
         setErrors({ ...err })
         console.log(err)
       })
+    
   }
 
   function toggleSettings() {
@@ -283,10 +288,59 @@ const IndividualGroup = (props) => {
 
   function toggleMemberManagement(e) {
     e.preventDefault()
+    setMembershipModal(!membershipModal)
+  }
+
+  function handleMemberApprove(e) {
+    e.preventDefault()
+    console.log('approve!')
+    const data = { id: e.target.id }
+    axios.put(`/api/groups/${group.id}/membership/`, data,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
+    )
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        setErrors({...err})
+        console.log(err)
+      })
+  }
+
+  function handleMemberRemove(e) {
+    e.preventDefault()
+    console.log('remove!')
+    const data = { id: e.target.id }
+    axios.delete(`api/groups/${group.id}/membership/`, 
+      { data ,
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
+
+  function toggleDelete() {
+    setDeleteModal(!deleteModal)
   }
 
   function handleDelete(e) {
     e.preventDefault()
+    axios.delete(`api/groups/${group.id}/`, 
+      { 
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(resp => {
+        props.history.push('/groups')
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
   }
 
   // GROUP INTERACTION ****************************************************************************** //
@@ -402,8 +456,8 @@ const IndividualGroup = (props) => {
             <div className="level-right">
               <div className="buttons level-item">
 
-                {status === 'owner' ?
-                  <><button className="button is-danger" id='settings' onClick={handleDelete}>
+                {status === 'owner' ? 
+                  <><button className="button is-danger" id='settings' onClick={toggleDelete}>
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
                     </span>
@@ -599,9 +653,33 @@ const IndividualGroup = (props) => {
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
+
+      <div className={membershipModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleMemberManagement}></div>
+        <div className="modal-content">
+          <GroupMembers
+            group={group} 
+            handleMemberApprove={(e) => handleMemberApprove(e)}
+            handleMemberRemove={(e) => handleMemberRemove(e)}
+          />
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
+    
+
+      <div className={deleteModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleDelete}></div>
+        <div className="modal-content">
+          <div className="text is-size-3 question">
+            Are you sure you want to delete {group.name}?
+          </div>
+          <button className="button is-danger" onClick={(e)=>handleDelete(e)}>Yes!</button>
+          <button className="button is-link" onClick={toggleDelete}>No...</button>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
+
     </div>
-
-
   )
 }
 

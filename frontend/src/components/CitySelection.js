@@ -15,7 +15,7 @@ import { toast } from 'react-toastify'
 
 const CitySelection = (props) => {
 
-  const notify = () => toast('Successfully Changed Cities!')
+  const notify = () => toast('Successfully Added Cities!')
 
   const [towns, setTowns] = useState([])
   const [errors, setErrors] = useState('')
