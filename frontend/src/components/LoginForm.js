@@ -11,6 +11,7 @@ const Login = ({ props }) => {
     },
     errors: ''
   })
+  const [userLogin, setUserLogin] = useState(null)
 
   const handleChange = (e) => {
     const data = { ...login.data, [e.target.name]: e.target.value }
@@ -24,6 +25,7 @@ const Login = ({ props }) => {
       .then(resp => {
         Auth.setToken(resp.data.token)
         props.history.push(`/profile/${Auth.getUserId()}`)
+        setUserLogin(resp.data.message)
       })
       .catch(() => {
         setLogin({ errors: 'Email or password incorrect' })

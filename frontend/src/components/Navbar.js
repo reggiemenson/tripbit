@@ -1,27 +1,175 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
 import Auth from '../lib/auth'
 import SearchBar from './SearchBar'
+import { UserContext } from './UserContext'
+
+
+
+
 
 const Navbar = ({ toggleSearch }) => {
+  const [dexterity, setDexterity] = useState([])
   const history = useHistory()
+  const [userLogin] = useState(UserContext)
 
 
-  const [state, setState] = useState({
-    isOpen: false
-  })
+  useEffect(() => {
+    if (Auth.isAuthorized()) {
+      axios.get('/api/profile', {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+        .then(response => {
+          setDexterity(response.data.dexterity)
+        })
+        .catch(error => console.log(error))
+    }
+  }, [userLogin])
+
+
+  console.log(dexterity)
+
 
   const handleLogout = () => {
     Auth.logout()
     history.push('/')
-    setState({ isOpen: false })
+    // setState({ isOpen: false })
   }
 
 
 
   return (
-    <>
-      {Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
+    <> {dexterity === 'LH' ?
+
+      Auth.isAuthorized() && <section className="menu menu--circle2" id="navbar">
+        <input type="checkbox" id="menu__active" />
+        <label htmlFor="menu__active" className="menu__active">
+          <div className="menu__toggle">
+            <div className="icons">
+              <div className="hamburger2"></div>
+            </div>
+          </div>
+          <input type="radio" name="arrow--up" id="degree--up-0" />
+          <input type="radio" name="arrow--up" id="degree--up-1" />
+          <input type="radio" name="arrow--up" id="degree--up-2" />
+          <div className="menu__listings">
+            <ul className="circle">
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+
+                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i> </Link>
+                    {'\n'}
+                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
+                    {'\n'}
+                    <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    {'\n'}
+                    <Link to="/city_selection"> <p className="navbar-links">ADD CITIES</p></Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    {'\n'}
+                    <Link><p className="navbar-links">TEST</p></Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <a href="#" className="navbutton"><i className="fa fa-trash"></i></a>
+                    {'\n'}
+                    <p className="navbar-links">TEST</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <a href="#" className="navbutton"><i className="fa fa-battery-4"></i></a>
+                    {'\n'}
+                    <p className="navbar-links">TEST</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to="/" onClick={() => handleLogout()} className="navbutton"><i className="fa fa-sign-out"></i> </Link>
+                    {'\n'}
+                    <Link to="/" onClick={() => handleLogout()}> <p className="navbar-links"> {' '}LOG-OUT</p></Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to="/map" className="navbutton"><i className="fa fa-globe-europe"></i></Link>
+                    {'\n'}
+                    <Link to="/map"><p className="navbar-links">MAP</p></Link>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
+                    {'\n'}
+                    <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="placeholder">
+                  <div className="upside">
+                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    {'\n'}
+                    <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="menu__arrow menu__arrow--top">
+            <ul>
+              <li>
+                <label htmlFor="degree--up-0"><div className="arrow"></div></label>
+                <label htmlFor="degree--up-1"><div className="arrow"></div></label>
+                {/* <label htmlFor="degree--up-2"><div className="arrow"></div></label> */}
+              </li>
+            </ul>
+          </div>
+        </label>
+      </section>
+
+
+
+
+
+
+      :
+
+
+
+      Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
         <input type="checkbox" id="menu__active" />
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
@@ -101,9 +249,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/play" className="navbutton"><i className="fa fa-gamepad"></i></Link>
+                    <Link to="/map" className="navbutton"><i className="fa fa-globe-europe"></i></Link>
                     {'\n'}
-                    <Link to="/play"><p className="navbar-links">GAME</p></Link>
+                    <Link to="/map"><p className="navbar-links">MAP</p></Link>
                   </div>
                 </div>
               </li>
@@ -112,7 +260,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
                     {'\n'}
-                    <p className="navbar-links">SEARCH</p>
+                    <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
                   </div>
                 </div>
               </li>
@@ -137,9 +285,8 @@ const Navbar = ({ toggleSearch }) => {
             </ul>
           </div>
         </label>
-      </section>
+      </section>}
 
-      }
     </>
   )
 }
