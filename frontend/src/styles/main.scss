@@ -59,11 +59,20 @@ $input-placeholder-color: $gold;
 
 .modal-content {
   max-width: 90%;
-  .input {
-    background-color: $dark;
-  }
+
   i {
     color: white;
+  }
+
+  .input, select {
+    background-color: $dark;
+    color: $gold;
+  }
+ 
+  .title, .subtitle {
+    white-space: pre-wrap;
+    text-overflow: wrap;
+    max-width: 100%;
   }
 }
 
@@ -117,6 +126,17 @@ $input-placeholder-color: $gold;
 #homepage, #mappage {
 
   max-height: 100vh;
+
+
+  .title, .subtitle {
+    white-space: pre-wrap;
+    text-overflow: wrap;
+    max-width: 100%;
+  }
+
+  .column .container {
+    max-width: 100%;
+  }
 
   .columns {
     width: 100%;
