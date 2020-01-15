@@ -229,7 +229,8 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
+        // zoom map to center of all points
+        Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       // Profile not found and redirect
       .catch(() => {

@@ -51,8 +51,8 @@ const IndividualGroup = (props) => {
 
   // buttons
   const [settingModal, setSettingModal] = useState(false)
-  const [deleteModal, setDeleteModal] =useState(false)
-  const [membershipModal, setMembershipModal] =useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [membershipModal, setMembershipModal] = useState(false)
 
 
   // info editing
@@ -149,8 +149,6 @@ const IndividualGroup = (props) => {
           name: resp.data.name,
           description: resp.data.description
         })
-        console.log(towns)
-        // midCoordinate(resp.data)
       })
       .catch(err => {
         console.log(err)
@@ -196,10 +194,11 @@ const IndividualGroup = (props) => {
           }
 
         })
-      midCoordinate(townData)
     })
-
     setTowns(townData)
+    // zoom map to center of all points
+    Object.keys(townData).length > 0 && midCoordinate(townData)
+
   }
 
   function determineStatus(group) {
@@ -277,7 +276,7 @@ const IndividualGroup = (props) => {
         setErrors({ ...err })
         console.log(err)
       })
-    
+
   }
 
   function toggleSettings() {
@@ -302,7 +301,7 @@ const IndividualGroup = (props) => {
         fetchGroupData()
       })
       .catch(err => {
-        setErrors({...err})
+        setErrors({ ...err })
         console.log(err)
       })
   }
@@ -311,9 +310,10 @@ const IndividualGroup = (props) => {
     e.preventDefault()
     console.log('remove!')
     const data = { id: e.target.id }
-    axios.delete(`api/groups/${group.id}/membership/`, 
-      { data ,
-        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    axios.delete(`api/groups/${group.id}/membership/`,
+      {
+        data,
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
         fetchGroupData()
@@ -330,9 +330,9 @@ const IndividualGroup = (props) => {
 
   function handleDelete(e) {
     e.preventDefault()
-    axios.delete(`api/groups/${group.id}/`, 
-      { 
-        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    axios.delete(`api/groups/${group.id}/`,
+      {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
         props.history.push('/groups')
@@ -456,7 +456,7 @@ const IndividualGroup = (props) => {
             <div className="level-right">
               <div className="buttons level-item">
 
-                {status === 'owner' ? 
+                {status === 'owner' ?
                   <><button className="button is-danger" id='settings' onClick={toggleDelete}>
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
@@ -658,14 +658,14 @@ const IndividualGroup = (props) => {
         <div className="modal-background" onClick={toggleMemberManagement}></div>
         <div className="modal-content">
           <GroupMembers
-            group={group} 
+            group={group}
             handleMemberApprove={(e) => handleMemberApprove(e)}
             handleMemberRemove={(e) => handleMemberRemove(e)}
           />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
-    
+
 
       <div className={deleteModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleDelete}></div>
@@ -673,7 +673,7 @@ const IndividualGroup = (props) => {
           <div className="text is-size-3 question">
             Are you sure you want to delete {group.name}?
           </div>
-          <button className="button is-danger" onClick={(e)=>handleDelete(e)}>Yes!</button>
+          <button className="button is-danger" onClick={(e) => handleDelete(e)}>Yes!</button>
           <button className="button is-link" onClick={toggleDelete}>No...</button>
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
