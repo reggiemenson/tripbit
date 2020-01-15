@@ -335,7 +335,6 @@ const IndividualGroup = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-<<<<<<< HEAD
         {/* {console.log(data.email)} */}
         {/* <div className="is-link">
           Settings
@@ -354,9 +353,6 @@ const IndividualGroup = (props) => {
         </div>
 
 
-=======
-      
->>>>>>> development
         <div className="mobile-header">
           <div className="banner level is-mobile">
             <div className="level-left">
