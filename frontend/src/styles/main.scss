@@ -56,8 +56,16 @@ $input-placeholder-color: $gold;
   box-sizing: border-box;
 }
 
+a.mapboxgl-ctrl-logo {
+  z-index: -1;
+}
+
 .modal-content {
   max-width: 90%;
+  .input {
+    background-color: $dark;
+    z-index: 100;
+  }
 }
 
 .modal-stats {
@@ -264,19 +272,19 @@ $input-placeholder-color: $gold;
 
 
 
-  .stats {
-      
-    .stat:hover {
-      cursor: pointer;
-      p.title {
-        background-image: linear-gradient(to top right, $gold, $light-gold);
+    .stats {
+        
+      .stat:hover {
+        cursor: pointer;
+        p.title {
+          background-image: linear-gradient(to top right, $gold, $light-gold);
+        }
+      }
+
+      .unclickable {
+        color: $light-gray;
       }
     }
-
-    .unclickable {
-      color: $light-gray;
-    }
-  }
   }
 
   #user-profile {
@@ -352,9 +360,21 @@ $input-placeholder-color: $gold;
 
   .modal.form {
     .modal-content {
-      background-color: rgba($dark, 0)
+      background-color: rgba($dark, 0);
+      }
+  }
+
+  .modal-content {
+    .question {
+      color: $gold;
+    }
+    .button {
+      margin: 10px;
     }
   }
+
+  
+
 
   #group-ranking {
     padding-bottom: 20vh;

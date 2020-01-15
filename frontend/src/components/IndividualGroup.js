@@ -51,6 +51,8 @@ const IndividualGroup = (props) => {
   // buttons
   const [settingModal, setSettingModal] = useState(false)
   const [deleteModal, setDeleteModal] =useState(false)
+  const [membershipModal, setMembershipModal] =useState(false)
+
 
   // info editing
   const [editableData, setEditableData] = useState({
@@ -230,6 +232,7 @@ const IndividualGroup = (props) => {
         setErrors({...err})
         console.log(err)
       })
+    
   }
 
   function toggleSettings() {
@@ -240,10 +243,26 @@ const IndividualGroup = (props) => {
 
   function toggleMemberManagement(e) {
     e.preventDefault()
+    setMembershipModal(!membershipModal)
+  }
+
+  function toggleDelete() {
+    setDeleteModal(!deleteModal)
   }
 
   function handleDelete(e) {
     e.preventDefault()
+    axios.delete(`api/groups/${group.id}/`, 
+      { 
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(resp => {
+        props.history.push('/groups')
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
   }
 
   // GROUP INTERACTION ****************************************************************************** //
@@ -350,7 +369,7 @@ const IndividualGroup = (props) => {
               <div className="buttons level-item">
 
                 {status === 'owner' ? 
-                  <><button className="button is-danger" id='settings' onClick={handleDelete}>
+                  <><button className="button is-danger" id='settings' onClick={toggleDelete}>
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
                     </span>
@@ -548,10 +567,14 @@ const IndividualGroup = (props) => {
       </div>
     
 
-      <div className={deleteModal === true ? 'modal is-active form' : 'modal form'}>
-        <div className="modal-background" onClick={toggleSettings}></div>
+      <div className={deleteModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleDelete}></div>
         <div className="modal-content">
-          
+          <div className="text is-size-3 question">
+            Are you sure you want to delete {group.name}?
+          </div>
+          <button className="button is-danger" onClick={(e)=>handleDelete(e)}>Yes!</button>
+          <button className="button is-link" onClick={toggleDelete}>No...</button>
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
