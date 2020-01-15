@@ -11,6 +11,7 @@ import Settings from './SettingsForm'
 
 import { toast } from 'react-toastify'
 import UserContext from './UserContext'
+import 'react-toastify/dist/ReactToastify.css'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -27,9 +28,16 @@ const options = {
 
 const Profile = (props) => {
 
-  const notifyImage = () => toast('Image Changed!')
-  const notifyProfile = () => toast('Details changed!')
-  const notifyError = () => toast('Profile Not Found..')
+  const notifyImage = () => toast('Image Changed!',{
+    progressClassName: 'toast-progress'
+  })
+  const notifyProfile = () => toast('Details changed!',{
+    progressClassName: 'toast-progress'
+  })
+  const notifyError = () => toast('Profile Not Found..',{
+    progressClassName: 'toast-progress'
+  })
+
 
   const [userLogin, setUserLogin] = useState(UserContext)
 
@@ -69,8 +77,6 @@ const Profile = (props) => {
     longitude: 0,
     message: ''
   })
-
-  // console.log(popupInfo)
 
   const closePopup = () => {
     setShowPopup(false)
@@ -236,7 +242,8 @@ const Profile = (props) => {
           last_name: resp.data.last_name,
           dexterity: resp.data.dexterity
         })
-        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
+        // zoom map to center of all points
+        Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       // Profile not found and redirect
       .catch(() => {
@@ -262,16 +269,16 @@ const Profile = (props) => {
       // onClick={closePopup}
       >
         {/* boolean check not necessary */}
-        {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
+        {Object.keys(profile.towns).length > 0 && profile.towns.map((town, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(city.lat.replace(',', '.'))}
-            longitude={parseFloat(city.lng.replace(',', '.'))}
+            latitude={parseFloat(town.lat.replace(',', '.'))}
+            longitude={parseFloat(town.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker" id2='no' id={city.id} onClick={showMarkerInfo}></div>
-            {/* {console.log(city.name_ascii, ' coordinates: lat ', parseFloat(city.lat.replace(',', '.')), 'lng ', parseFloat(city.lng.replace(',', '.')))} */}
+            <div className="marker" id={town.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(town.name_ascii, ' coordinates: lat ', parseFloat(town.lat.replace(',', '.')), 'lng ', parseFloat(town.lng.replace(',', '.')))} */}
           </Marker>
         })}
         {showPopup && <Popup
@@ -311,7 +318,7 @@ const Profile = (props) => {
               <div className="name level-item">
                 <div className="username title is-size-3 is-size-4-mobile">
                   {data.username}
-                  <span className="fullname is-size-4 is-size-7-mobile"> ({data.first_name} {data.last_name})</span>
+                  <span className="fullname is-size-4 is-size-6-mobile"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>
@@ -482,3 +489,4 @@ const Profile = (props) => {
 }
 
 export default Profile
+

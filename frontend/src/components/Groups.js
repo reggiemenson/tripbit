@@ -8,7 +8,9 @@ import GroupForm from './GroupForm'
 import { toast } from 'react-toastify'
 
 const Groups = (props) => {
-  const notify = () => toast('Group membership requested!')
+  const notify = () => toast('Group membership requested!' ,{
+    progressClassName: 'toast-progress'
+  })
 
   const [groups, setGroups] = useState([])
   const [errors, setErrors] = useState('')

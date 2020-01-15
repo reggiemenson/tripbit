@@ -68517,11 +68517,7 @@
   "fields": {
     "name": "10+ Countries",
     "description": "Visited at least 10 countries",
-<<<<<<< HEAD
-    "image": "https://png.pngitem.com/pimgs/s/120-1208220_chimpzilla-laser-beam-eyes-cartoon-hd-png-download.png",
-=======
     "image": "https://imgur.com/twHFrM2.png",
->>>>>>> development
     "users": []
   }
 },
@@ -68760,11 +68756,7 @@
   "pk": 209,
   "fields": {
     "name": "Columbus",
-<<<<<<< HEAD
-    "description": "Spain, Portugal and one of (South America)",
-=======
     "description": "Visit Spain, Portugal and at least one country in South America",
->>>>>>> development
     "image": "https://i.imgur.com/6gd3kbz.jpg",
     "users": []
   }
@@ -68774,11 +68766,7 @@
   "pk": 210,
   "fields": {
     "name": "Kerouac",
-<<<<<<< HEAD
-    "description": "Visit 6 in the USA",
-=======
     "description": "Visit 6 cities in the USA",
->>>>>>> development
     "image": "https://i.imgur.com/mAD0sEH.jpg",
     "users": []
   }

@@ -12,10 +12,16 @@ import {
 } from 'react-accessible-accordion'
 
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+
+
 
 const CitySelection = (props) => {
 
-  const notify = () => toast('Successfully Added Cities!')
+  const notify = () => toast('Successfully Changed Cities!' ,{
+    progressClassName: 'toast-progress'
+  })
 
   const [towns, setTowns] = useState([])
   const [errors, setErrors] = useState('')
@@ -28,6 +34,8 @@ const CitySelection = (props) => {
     last_name: '',
     towns: []
   })
+
+
 
   function getTownData() {
     axios.get('/api/towns/')

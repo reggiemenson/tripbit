@@ -8,7 +8,9 @@ import UserContext from './UserContext'
 const Login = ({ props }) => {
   // const [message, setMessage] = useState('')
 
-  const notify = (message) => toast(`${message}`)
+  const notify = (message) => toast(`${message}` ,{
+    progressClassName: 'toast-progress'
+  })
   
   const [login, setLogin] = useState({
     data: {

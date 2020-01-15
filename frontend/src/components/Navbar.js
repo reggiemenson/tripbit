@@ -48,7 +48,7 @@ const Navbar = ({ toggleSearch }) => {
     <> {dexterity === 'LH' ?
 
       Auth.isAuthorized() && <section className="menu menu--circle2" id="navbar">
-        <input type="checkbox" id="menu__active" />
+        <input type="checkbox" id="menu__active" checked={nav ? true : false} onChange={toggleNavbar} />
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
             <div className="icons">
@@ -127,16 +127,16 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/map" className="navbutton"><i className="fa fa-globe-europe"></i></Link>
+                    <Link to="/map" className="navbutton" onClick={toggleNavbar}><i className="fa fa-globe-europe"></i></Link>
                     {'\n'}
-                    <Link to="/map"><p className="navbar-links">MAP</p></Link>
+                    <Link to="/map"><p className="navbar-links" onClick={toggleNavbar}>MAP</p></Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
+                    <a className="navbutton" onClick={toggleNavbar}><i className="fa fa-search"></i></a>
                     {'\n'}
                     <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
                   </div>
@@ -175,7 +175,7 @@ const Navbar = ({ toggleSearch }) => {
 
 
       Auth.isAuthorized() && <section className="menu menu--circle" id="navbar">
-        <input type="checkbox" id="menu__active" />
+        <input type="checkbox" id="menu__active" checked={nav ? true : false} onChange={toggleNavbar}/>
         <label htmlFor="menu__active" className="menu__active">
           <div className="menu__toggle">
             <div className="icons">
@@ -191,18 +191,18 @@ const Navbar = ({ toggleSearch }) => {
                 <div className="placeholder">
                   <div className="upside">
 
-                    <Link to="/groups" className="navbutton"> <i className="fa fa-users"></i> </Link>
+                    <Link to="/groups" className="navbutton"> <i className="fa fa-users" onClick={toggleNavbar}></i> </Link>
                     {'\n'}
-                    <Link to="/groups"> <p className="navbar-links">GROUPS</p> </Link>
+                    <Link to="/groups"> <p className="navbar-links" onClick={toggleNavbar}>GROUPS</p> </Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton"><i className="fa fa-user"></i></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -254,16 +254,16 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/map" className="navbutton"><i className="fa fa-globe-europe"></i></Link>
+                    <Link to="/map" className="navbutton" onClick={toggleNavbar}><i className="fa fa-globe-europe"></i></Link>
                     {'\n'}
-                    <Link to="/map"><p className="navbar-links">MAP</p></Link>
+                    <Link to="/map"><p className="navbar-links" onClick={toggleNavbar}>MAP</p></Link>
                   </div>
                 </div>
               </li>
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a className="navbutton" ><i className="fa fa-search" onClick={toggleSearch}></i></a>
+                    <a className="navbutton" onClick={toggleNavbar}><i className="fa fa-search"></i></a>
                     {'\n'}
                     <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
                   </div>
@@ -272,9 +272,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
+                    <Link to="/city_selection" className="navbutton" onClick={toggleNavbar}><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link to="/city_selection"><p className="navbar-links">ADD CITY</p></Link>
+                    <Link to="/city_selection" onClick={toggleNavbar}><p className="navbar-links">ADD CITY</p></Link>
                   </div>
                 </div>
               </li>

@@ -56,8 +56,16 @@ $input-placeholder-color: $gold;
   box-sizing: border-box;
 }
 
+a.mapboxgl-ctrl-logo {
+  z-index: -1;
+}
+
 .modal-content {
   max-width: 90%;
+  .input {
+    background-color: $dark;
+    z-index: 100;
+  }
 }
 
 .modal-stats {
@@ -86,6 +94,14 @@ $input-placeholder-color: $gold;
   background-clip: text;
   color: transparent;
   font-size: 3rem;
+  
+}
+
+.title, .subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .input, .textarea {
@@ -264,19 +280,19 @@ $input-placeholder-color: $gold;
 
 
 
-  .stats {
-      
-    .stat:hover {
-      cursor: pointer;
-      p.title {
-        background-image: linear-gradient(to top right, $gold, $light-gold);
+    .stats {
+        
+      .stat:hover {
+        cursor: pointer;
+        p.title {
+          background-image: linear-gradient(to top right, $gold, $light-gold);
+        }
+      }
+
+      .unclickable {
+        color: $light-gray;
       }
     }
-
-    .unclickable {
-      color: $light-gray;
-    }
-  }
   }
 
   #user-profile {
@@ -352,9 +368,21 @@ $input-placeholder-color: $gold;
 
   .modal.form {
     .modal-content {
-      background-color: rgba($dark, 0)
+      background-color: rgba($dark, 0);
+      }
+  }
+
+  .modal-content {
+    .question {
+      color: $gold;
+    }
+    .button {
+      margin: 10px;
     }
   }
+
+  
+
 
   #group-ranking {
     padding-bottom: 20vh;
@@ -800,6 +828,15 @@ transform: rotate(180deg);
 
 #group-card {
 
+  .media-content {
+    max-width: 100%;
+    p.text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .card, .card-content, .card-footer {
     background: $dark;
     border-radius: 10px;
@@ -849,21 +886,38 @@ transform: rotate(180deg);
       margin: 5px;
     }
   }
-
-
 }
 
+#member-management {
+  .chapter {
+    margin-bottom: 20px;
+  }
+  
+  div.level-item.username {
+    color: $text;
+    .username {
+      color: $gold;
+      font-weight: 700;
+      margin-right: 5px;
+    }
+  }
+  div.level-item.username:hover {
+    color: $light-gold;
+    .username {
+      color: $light-gold;
+    }
+  }
+  .subtitle {
+    color: $gold;
+  }
 
-
-
-
-
-
+  .level-right {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 // LEFT-HANDED NAV-BAR ***********************************************************************
-
-
-
 .hamburger2 {
   content: ' ';
   position: relative;
@@ -937,4 +991,27 @@ transform: rotate(180deg);
   margin: 0 auto;
   height: 100%;
   width: auto;
+  cursor: pointer;
+}
+
+
+
+.Toastify__toast-body {
+  font-family: $text;
+  text-align: center;
+  color: black !important;
+  background-color: $gold !important;
+  border-color: $gold !important;
+}
+.Toastify__toast {
+  font-family: $text;
+  font-size: 120%;
+  text-align: center;
+  color: black !important;
+  background-color: $gold !important;
+  border-color: $gold !important;
+}
+
+.Toastify__progress-bar.toast-progress {
+  background: black !important;
 }

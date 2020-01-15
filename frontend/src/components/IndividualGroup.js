@@ -1,14 +1,16 @@
 
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import MapGL, { Marker } from 'react-map-gl'
+import MapGL, { Marker, Popup } from 'react-map-gl'
 import ReactFilestack from 'filestack-react'
 import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 import Auth from '../lib/Auth'
+import { toast } from 'react-toastify'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
+import GroupMembers from './GroupMembers'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -33,6 +35,8 @@ ADDITIONAL CONSIDERATIONS:
 
 const IndividualGroup = (props) => {
 
+  const notify = (message) => toast(message)
+
   // all the data
   const [members, setMembers] = useState([])
   const [group, setGroup] = useState({})
@@ -50,20 +54,23 @@ const IndividualGroup = (props) => {
 
   // buttons
   const [settingModal, setSettingModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [membershipModal, setMembershipModal] = useState(false)
+
 
   // info editing
   const [editableData, setEditableData] = useState({
     name: '',
     description: ''
   })
-  
-  
+
+
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     towns: [],
     badges: []
   })
-  
+
   // TO DO write code to zoom to bounding box containing all places user has been to
   const [viewport, setViewport] = useState({
     latitude: 51.5,
@@ -73,16 +80,57 @@ const IndividualGroup = (props) => {
     pitch: 0
   })
 
+  // marker popup
+  const [showPopup, setShowPopup] = useState(false)
+
+  // marker popup content
+  const [popupInfo, setPopupInfo] = useState({
+    latitude: 0,
+    longitude: 0,
+    message: ''
+  })
+
+  const closePopup = () => {
+    setShowPopup(false)
+  }
+
+  const showMarkerInfo = (e) => {
+    const cityId = parseInt(e.target.id)
+    // console.log(cityId)
+    const citySelected = towns.filter((elem) => {
+      return elem.id === cityId
+    })[0]
+    const users = citySelected.members.map((member) => {
+      return member.first_name
+    }).join(', ').replace(/,(?=[^,]*$)/, ' and')
+    const multipleUsers = ' have been to '
+    const singleUserStart = 'Only '
+    const singleUserEnd = ' has been to '
+    let addGrammar
+    if (citySelected.members.length <= 1) {
+      addGrammar = singleUserStart.concat(users, singleUserEnd)
+    } else {
+      addGrammar = users.concat(multipleUsers)
+    }
+    const formattedOutput = addGrammar.concat(citySelected.name)
+    setPopupInfo({
+      latitude: parseFloat(citySelected.lat.replace(',', '.')),
+      longitude: parseFloat(citySelected.lng.replace(',', '.')),
+      message: formattedOutput
+    })
+    setShowPopup(true)
+  }
+
   // a lot of pain to get to work but probably not even worth it - would make more sense to center on last added city and 'home' if coming via profile
   const midCoordinate = (towns) => {
     const arrLats = towns.map((town) => {
-      return parseFloat(town.lat.replace(',','.'))
+      return parseFloat(town.lat.replace(',', '.'))
     })
     const maxLat = Math.max(...arrLats)
     const minLat = Math.min(...arrLats)
     const midLat = (maxLat + minLat) / 2
     const arrLngs = towns.map((town) => {
-      return parseFloat(town.lng.replace(',','.'))
+      return parseFloat(town.lng.replace(',', '.'))
     })
     const maxLng = Math.max(...arrLngs)
     const minLng = Math.min(...arrLngs)
@@ -125,7 +173,7 @@ const IndividualGroup = (props) => {
           console.log(err)
           setErrors({ ...errors, ...err })
         })
-    }) 
+    })
   }
 
   function calculateTowns(memberData) {
@@ -147,18 +195,20 @@ const IndividualGroup = (props) => {
             townData.push(memberTown)
             return townData
           }
-        })
-     
-    })
 
+        })
+    })
     setTowns(townData)
+    // zoom map to center of all points
+    Object.keys(townData).length > 0 && midCoordinate(townData)
+
   }
 
   function determineStatus(group) {
     const userID = Auth.getUserId()
     const memberIDs = group.members.map(member => member.id)
     const requestIDs = group.requests.map(request => request.id)
-    
+
     if (userID === group.owner.id) {
       setStatus('owner')
     } else if (memberIDs.includes(userID)) {
@@ -193,6 +243,7 @@ const IndividualGroup = (props) => {
       .then(resp => {
         console.log(resp, 'success')
         fetchGroupData()
+        notify('Image uploaded')
       })
       .catch(err => console.log(err))
   }
@@ -224,11 +275,13 @@ const IndividualGroup = (props) => {
       .then(resp => {
         fetchGroupData()
         toggleSettings()
+        notify('Details successfully updated')
       })
       .catch(err => {
-        setErrors({...err})
+        setErrors({ ...err })
         console.log(err)
       })
+
   }
 
   function toggleSettings() {
@@ -239,10 +292,59 @@ const IndividualGroup = (props) => {
 
   function toggleMemberManagement(e) {
     e.preventDefault()
+    setMembershipModal(!membershipModal)
+  }
+
+  function handleMemberApprove(e) {
+    e.preventDefault()
+    const data = { id: e.target.id }
+    axios.put(`/api/groups/${group.id}/membership/`, data,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
+    )
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        setErrors({ ...err })
+        console.log(err)
+      })
+  }
+
+  function handleMemberRemove(e) {
+    e.preventDefault()
+    console.log('remove!')
+    const data = { id: e.target.id }
+    axios.delete(`api/groups/${group.id}/membership/`,
+      {
+        data,
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+      .then(resp => {
+        fetchGroupData()      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
+
+  function toggleDelete() {
+    setDeleteModal(!deleteModal)
   }
 
   function handleDelete(e) {
     e.preventDefault()
+    axios.delete(`api/groups/${group.id}/`,
+      {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })
+      .then(resp => {
+        notify(`${group.name} deleted`)
+        props.history.push('/groups')
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
   }
 
   // GROUP INTERACTION ****************************************************************************** //
@@ -253,6 +355,7 @@ const IndividualGroup = (props) => {
     })
       .then(resp => {
         fetchGroupData()
+        notify(`Request sent to ${group.name}!`)
       })
       .catch(err => {
         console.log(err)
@@ -262,11 +365,13 @@ const IndividualGroup = (props) => {
 
   function leaveGroup(e) {
     e.preventDefault()
-    axios.delete(`api/groups/${group.id}/membership/`, 
-      { data: { id: Auth.getUserId() } ,
-        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+    axios.delete(`api/groups/${group.id}/membership/`,
+      {
+        data: { id: Auth.getUserId() },
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
+        notify(`Left ${group.name}`)
         fetchGroupData()
       })
       .catch(err => {
@@ -308,8 +413,8 @@ const IndividualGroup = (props) => {
       {/* {console.log('MEMBER DATA', members)} */}
       {/* {console.log('GROUP DATA', group)} */}
       {/* {console.log('TOWN DATA', towns)} */}
-      {console.log('USER STATUS', status)}
-      {console.log('editable data', editableData)}
+      {/* {console.log('USER STATUS', status)} */}
+      {/* {console.log('editable data', editableData)} */}
 
       <MapGL
         {...viewport}
@@ -320,18 +425,27 @@ const IndividualGroup = (props) => {
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
-        {/* {profile.towns.map((country, i) => {
+        {towns.map((town, i) => {
           return <Marker
             key={i}
-            latitude={parseFloat(country.lat.replace(',', '.'))}
-            longitude={parseFloat(country.lng.replace(',', '.'))}
+            latitude={parseFloat(town.lat.replace(',', '.'))}
+            longitude={parseFloat(town.lng.replace(',', '.'))}
             offsetTop={-30}
             offsetLeft={-20}
           >
-            <div className="marker"></div>
-            {console.log(country.name_ascii, ' coordinates: lat ', parseFloat(country.lat.replace(',', '.')), 'lng ', parseFloat(country.lng.replace(',', '.')))}
+            <div className="marker" id={town.id} onClick={showMarkerInfo}></div>
+            {/* {console.log(town.name_ascii, ' coordinates: lat ', parseFloat(town.lat.replace(',', '.')), 'lng ', parseFloat(town.lng.replace(',', '.')))} */}
           </Marker>
-        })} */}
+        })}
+        {showPopup && <Popup
+          anchor="top"
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          closeButton={true}
+          // closeOnClick={true} // not needed?
+          onClose={closePopup}>
+          <div>{popupInfo.message}</div>
+        </Popup>}
       </MapGL>
 
       <section className="hero" id="user-profile-header">
@@ -340,34 +454,34 @@ const IndividualGroup = (props) => {
             <div className="level-left">
               <div className="name level-item">
                 <div className="username title is-size-3">
-                  {group.name} 
+                  {group.name}
                 </div>
               </div>
             </div>
-            
+
             <div className="level-right">
               <div className="buttons level-item">
 
-                {status === 'owner' ? 
-                  <><button className="button is-danger" id='settings' onClick={handleDelete}>
+                {status === 'owner' ?
+                  <><button className="button is-danger" id='settings' onClick={toggleDelete}>
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt"></i>
                     </span>
                   </button>
-                  <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
-                    <span className="icon is-small">
-                      <i className="fas fa-users-cog"></i>
-                    </span>
-                  </button>
-                  <button className="button is-link" id='settings' onClick={toggleSettings}>
-                    <span className="icon is-small">
-                      <i className="fas fa-cog"></i>
-                    </span>
-                  </button></>
+                    <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
+                      <span className="icon is-small">
+                        <i className="fas fa-users-cog"></i>
+                      </span>
+                    </button>
+                    <button className="button is-link" id='settings' onClick={toggleSettings}>
+                      <span className="icon is-small">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                    </button></>
                   : <></>
                 }
 
-                {status === 'member' ? 
+                {status === 'member' ?
                   <button className="button is-link" id='leave' onClick={leaveGroup}>
                     <span className="icon is-small">
                       <i className="fas fa-sign-out-alt"></i>
@@ -376,7 +490,7 @@ const IndividualGroup = (props) => {
                   : <></>
                 }
 
-                {status === 'requester' ? 
+                {status === 'requester' ?
                   <button className="button is-primary" id='pending' disabled>
                     <span className="icon is-small">
                       <i className="fas fa-clock"></i>
@@ -385,7 +499,7 @@ const IndividualGroup = (props) => {
                   : <></>
                 }
 
-                {status === 'unaffiliated' ? 
+                {status === 'unaffiliated' ?
                   <button className="button is-link" id='request' onClick={sendRequest}>
                     <span className="icon is-small">
                       <i className="fas fa-paper-plane"></i>
@@ -393,11 +507,11 @@ const IndividualGroup = (props) => {
                   </button>
                   : <></>
                 }
-                
+
               </div>
             </div>
           </div>
-          
+
           <div className="hero-body group-page">
             <ReactFilestack
               preload={true}
@@ -407,7 +521,7 @@ const IndividualGroup = (props) => {
                 <div onClick={onPick}>
                   <figure className="image is-128x128">
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
-                    <img className="is-rounded" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
+                    <img className="profilepic" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
                 </div>
               )}
@@ -463,7 +577,7 @@ const IndividualGroup = (props) => {
           </h2>
           <div className="text is-size-5">
             {members
-              .sort(function(a, b){
+              .sort(function (a, b) {
                 if (a.score < b.score) { return 1 }
                 if (a.score > b.score) { return -1 }
                 return 0
@@ -473,14 +587,14 @@ const IndividualGroup = (props) => {
                   <div className="level-left">
                     <div className="level-item position">
                       {i + 1}.
-                      
+
                       <figure className="image is-48x48 member-image" key={i}>
                         <img className="is-rounded" src={member.image} alt="member profile image" />
                       </figure>
-                    
+
                       <div className="level-item">
                         <span className="username">{member.username}</span>({member.first_name} {member.last_name})
-                      </div> 
+                      </div>
                     </div>
                   </div>
                   <div className="level-right">
@@ -488,14 +602,14 @@ const IndividualGroup = (props) => {
                       {member.score}
                     </div>
                   </div>
-                    
+
                 </Link>
               })
             }
           </div>
         </div>
       </section>
-    
+
       <div className={continentModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleContinent}></div>
         <div className="modal-content modal-stats">
@@ -540,14 +654,38 @@ const IndividualGroup = (props) => {
             handleChange={(e) => handleChange(e)}
             handleSubmit={(e) => modalSubmit(e)}
             details={editableData}
-            // errors={errors}
+          // errors={errors}
           />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
-    </div>
 
-   
+      <div className={membershipModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleMemberManagement}></div>
+        <div className="modal-content">
+          <GroupMembers
+            group={group}
+            handleMemberApprove={(e) => handleMemberApprove(e)}
+            handleMemberRemove={(e) => handleMemberRemove(e)}
+          />
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
+
+
+      <div className={deleteModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleDelete}></div>
+        <div className="modal-content">
+          <div className="text is-size-3 question">
+            Are you sure you want to delete {group.name}?
+          </div>
+          <button className="button is-danger" onClick={(e) => handleDelete(e)}>Yes!</button>
+          <button className="button is-link" onClick={toggleDelete}>No...</button>
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
+
+    </div>
   )
 }
 
