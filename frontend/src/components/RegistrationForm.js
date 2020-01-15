@@ -18,8 +18,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
 
   const handleChange = (e) => {
     const data = { ...register.data, [e.target.name]: e.target.value }
-    const errors = ''
-    // const errors = { ...register.errors, [e.target.name]: '' }
+    // const errors = ''
+    const errors = { ...register.errors, [e.target.name]: '' }
     setRegister({ data, errors })
   }
 
@@ -31,9 +31,12 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
         toggleLogin()
       })
       .catch(err => {
-        setRegister({ errors: err.response.data })
+        setRegister({ ...register, errors: err.response.data })
+        console.log('form data!', register.data)
+        console.log('error data!', err.response.data)
       })
   }
+
 
   return <>
     <div className='container has-text-centered'>

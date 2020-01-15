@@ -17,9 +17,15 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA
 // options for ReactFilestack
 const options = {
   accept: 'image/*',
-  transformations: {  
-    circle: true, 
-    crop: false
+  options: {
+    resize: {
+      width: 50
+    },
+    transformations: {
+      force: true,
+      circle: true,
+      crop: false
+    }
   }
 }
 
@@ -28,7 +34,8 @@ const Profile = (props) => {
 
   const notifyImage = () => toast('Image Changed!')
   const notifyProfile = () => toast('Details changed!')
-  
+  const notifyError = () => toast('Profile Not Found..')
+
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     id: null,
@@ -105,7 +112,7 @@ const Profile = (props) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
-    // const errors = { ...register.errors, [e.target.name]: '' }
+    setErrors({})
   }
 
   const modalSubmit = (e) => {
@@ -123,8 +130,9 @@ const Profile = (props) => {
         toggleSettings()
       })
       .catch(err => {
-        console.log(err, 'failed')
-        console.log(data, 'failed')
+        console.log(err.response.data, 'failed')
+        // console.log(data, 'failed')
+        setErrors(err.response.data)
       })
   }
 
@@ -225,13 +233,17 @@ const Profile = (props) => {
         setProfile(resp.data)
         setData({
           username: resp.data.username,
-          email: resp.data.email,
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
         Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
       })
-      .catch(err => setErrors(err))
+      // Profile not found and redirect
+      .catch(() => {
+        notifyError()
+        props.history.push(`/profile/${Auth.getUserId()}`) 
+        // setErrors(err)
+      })
   }, [])
 
   return (
@@ -286,6 +298,7 @@ const Profile = (props) => {
               handleChange={(e) => handleChange(e)}
               modalSubmit={(e) => modalSubmit(e)}
               data={data}
+              errors={errors}
             />
           </div>
           <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>

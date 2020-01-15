@@ -335,7 +335,28 @@ const IndividualGroup = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
+<<<<<<< HEAD
+        {/* {console.log(data.email)} */}
+        {/* <div className="is-link">
+          Settings
+        </div> */}
+        <div className={settingModal === true ? 'modal is-active' : 'modal'}>
+          <div className="modal-background" onClick={toggleSettings}></div>
+          <div className="modal-content">
+            {/* <Settings
+              toggleSettings={toggleSettings}
+              handleChange={(e) => handleChange(e)}
+              modalSubmit={(e) => modalSubmit(e)}
+              data={data}
+            /> */}
+          </div>
+          <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+        </div>
+
+
+=======
       
+>>>>>>> development
         <div className="mobile-header">
           <div className="banner level is-mobile">
             <div className="level-left">
