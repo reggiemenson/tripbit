@@ -311,7 +311,7 @@ const Profile = (props) => {
               <div className="name level-item">
                 <div className="username title is-size-3 is-size-4-mobile">
                   {data.username}
-                  <span className="fullname is-size-4 is-size-7-mobile"> ({data.first_name} {data.last_name})</span>
+                  <span className="fullname is-size-4 is-size-6-mobile"> ({data.first_name} {data.last_name})</span>
                 </div>
               </div>
             </div>

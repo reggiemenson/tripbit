@@ -9,6 +9,7 @@ import Auth from '../lib/Auth'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
+import GroupMembers from './GroupMembers'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -246,6 +247,39 @@ const IndividualGroup = (props) => {
     setMembershipModal(!membershipModal)
   }
 
+  function handleMemberApprove(e) {
+    e.preventDefault()
+    console.log('approve!')
+    const data = { id: e.target.id }
+    axios.put(`/api/groups/${group.id}/membership/`, data,
+      { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
+    )
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        setErrors({...err})
+        console.log(err)
+      })
+  }
+
+  function handleMemberRemove(e) {
+    e.preventDefault()
+    console.log('remove!')
+    const data = { id: e.target.id }
+    axios.delete(`api/groups/${group.id}/membership/`, 
+      { data ,
+        headers: { Authorization: `Bearer ${Auth.getToken()}`}
+      })
+      .then(resp => {
+        fetchGroupData()
+      })
+      .catch(err => {
+        console.log(err)
+        setErrors({ ...errors, ...err })
+      })
+  }
+
   function toggleDelete() {
     setDeleteModal(!deleteModal)
   }
@@ -329,7 +363,7 @@ const IndividualGroup = (props) => {
       {/* {console.log('GROUP DATA', group)} */}
       {/* {console.log('TOWN DATA', towns)} */}
       {console.log('USER STATUS', status)}
-      {console.log('editable data', editableData)}
+      {/* {console.log('editable data', editableData)} */}
 
       <MapGL
         {...viewport}
@@ -561,6 +595,18 @@ const IndividualGroup = (props) => {
             handleSubmit={(e) => modalSubmit(e)}
             details={editableData}
             // errors={errors}
+          />
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+      </div>
+
+      <div className={membershipModal === true ? 'modal is-active' : 'modal'}>
+        <div className="modal-background" onClick={toggleMemberManagement}></div>
+        <div className="modal-content">
+          <GroupMembers
+            group={group} 
+            handleMemberApprove={(e) => handleMemberApprove(e)}
+            handleMemberRemove={(e) => handleMemberRemove(e)}
           />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>

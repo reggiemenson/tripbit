@@ -94,6 +94,14 @@ a.mapboxgl-ctrl-logo {
   background-clip: text;
   color: transparent;
   font-size: 3rem;
+  
+}
+
+.title, .subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .input, .textarea {
@@ -817,6 +825,15 @@ transform: rotate(180deg);
 
 #group-card {
 
+  .media-content {
+    max-width: 100%;
+    p.text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .card, .card-content, .card-footer {
     background: $dark;
     border-radius: 10px;
@@ -866,6 +883,33 @@ transform: rotate(180deg);
       margin: 5px;
     }
   }
+}
 
+#member-management {
+  .chapter {
+    margin-bottom: 20px;
+  }
+  
+  div.level-item.username {
+    color: $text;
+    .username {
+      color: $gold;
+      font-weight: 700;
+      margin-right: 5px;
+    }
+  }
+  div.level-item.username:hover {
+    color: $light-gold;
+    .username {
+      color: $light-gold;
+    }
+  }
+  .subtitle {
+    color: $gold;
+  }
 
+  .level-right {
+    display: flex;
+    justify-content: center;
+  }
 }
