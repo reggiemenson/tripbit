@@ -989,9 +989,10 @@ transform: rotate(180deg);
 .profilepic {
   display: inline;
   margin: 0 auto;
-  height: 100%;
-  width: auto;
+  // height: 100%;
+  // width: auto;
   cursor: pointer;
+  object-fit: cover;
 }
 
 
