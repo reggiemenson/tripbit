@@ -290,7 +290,7 @@ const Profile = (props) => {
         {/* <div className="is-link">
           Settings
         </div> */}
-        <div className={settingModal === true ? 'modal is-active' : 'modal'}>
+        <div className={settingModal === true ? 'modal form is-active' : 'modal form'}>
           <div className="modal-background" onClick={toggleSettings}></div>
           <div className="modal-content">
             <Settings

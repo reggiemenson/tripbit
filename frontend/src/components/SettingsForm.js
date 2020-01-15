@@ -5,7 +5,6 @@ const Settings = ({ data, errors, handleChange, modalSubmit }) => {
   return <>
     <div className='container has-text-centered'>
       <div className='columns'>
-        <h1 className='title'>Profile Information</h1>
         <div className='column'>
           <form className='form has-text-centered' onSubmit={modalSubmit}>
 
