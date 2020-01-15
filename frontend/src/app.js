@@ -52,10 +52,10 @@ const App = () => {
         <SecureRoute exact path="/SearchBar" component={SearchBar} />
         <SecureRoute exact path="/map" component={MapPage} />
       </Switch>
-      <div className={searchModal === true ? 'modal is-active' : 'modal'}>
+      <div id="searchbar" className={searchModal === true ? 'modal is-active' : 'modal'}>
         <div className="modal-background" onClick={toggleSearch}></div>
         <div className="modal-content modal-stats">
-          <SearchBar />
+          <SearchBar toggleSearch={toggleSearch} />
         </div>
         <button className="modal-close is-large" aria-label="close" onClick={toggleSearch}></button>
       </div>
