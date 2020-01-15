@@ -23,6 +23,7 @@ $nav-gradient: linear-gradient(to top right, $dark-gold, $gold);
 $family-sans-serif: 'Open Sans Condensed', sans-serif;
 $info: $gold;
 $success: $light-gold;
+$primary: $dark-gold;
 $warning: $gold;
 $link: $gold;
 
@@ -241,6 +242,12 @@ $input-placeholder-color: $gold;
     padding: 0;
   }
 
+  div.hero-body.group-page {
+    display: flex;
+    justify-content: center;
+  }
+  
+
   .banner {
     margin: 0.7rem;
 
@@ -255,6 +262,7 @@ $input-placeholder-color: $gold;
   }
 
 
+
   .stats {
       
     .stat:hover {
@@ -262,6 +270,10 @@ $input-placeholder-color: $gold;
       p.title {
         background-image: linear-gradient(to top right, $gold, $light-gold);
       }
+    }
+
+    .unclickable {
+      color: $light-gray;
     }
   }
   }
@@ -323,8 +335,6 @@ $input-placeholder-color: $gold;
         opacity: 1;
       }
     }
-   
-
 
   }
 
@@ -337,6 +347,39 @@ $input-placeholder-color: $gold;
     background-color: $dark;
     padding: 10px;
     border-radius: 10px;
+  }
+
+  .modal.form {
+    .modal-content {
+      background-color: rgba($dark, 0)
+    }
+  }
+
+  #group-ranking {
+    padding-bottom: 20vh;
+
+    .position, .level-item {
+      color: $text;
+    }
+
+    figure {
+      margin: 0 10px;
+    }
+    .username {
+      color: $gold;
+      margin-right: 10px;
+      font-weight: 700;
+    }
+    .score {
+      font-weight: 700;
+      color: $gold;
+    }
+
+    .level:hover {
+      .position, .level-item, .username, .score {
+        color: $light-gold;
+      }
+    }
   }
 }
 

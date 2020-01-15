@@ -226,11 +226,12 @@ class GroupMembershipView(APIView):
     def delete(self, request, pk):
         requester = User.objects.get(pk=request.user.id)
         group = Group.objects.get(pk=pk)
+        deletee = User.objects.get(pk=request.data['id'])
 
-        if (group.owner.id != request.user.id) and (requester not in group.members.all()):
+        if (group.owner.id != request.user.id) and (requester.id != deletee.id) and (requester not in group.members.all()):
             return Response(status=HTTP_401_UNAUTHORIZED)
 
-        group.members.remove(requester)
+        group.members.remove(deletee)
         group.save()
 
         return Response(status=HTTP_202_ACCEPTED)
