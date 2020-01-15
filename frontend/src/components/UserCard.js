@@ -2,14 +2,15 @@ import React from 'react'
 import Auth from '../lib/Auth'
 
 const UserCard = ({ user, goToUserProfile }) => (
-  <div id="group-card" className="column is-one-fifth-desktop is-one-quarter-tablet is-half-mobile">
+
+  <div id = "group-card" className = "column is-one-quarter-desktop is-one-quarter-tablet is-half-mobile" >
     <div className="card">
 
       <div className="card-content">
         <div className="media">
           <div className="media-content">
             <figure className="image is-48x48">
-              <img className="is-rounded" src={user.image} alt="group profile image" />
+              <img className="is-rounded" src={user.image} alt="profile image" />
             </figure>
           </div>
 
@@ -42,7 +43,7 @@ const UserCard = ({ user, goToUserProfile }) => (
         </footer>
       </div>
     </div>
-  </div>
+  </div >
 )
 
 export default UserCard

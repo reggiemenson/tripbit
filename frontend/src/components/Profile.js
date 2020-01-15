@@ -10,6 +10,7 @@ import Mask from '../images/mask-dark-gradient.png'
 import Settings from './SettingsForm'
 
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // this is a public key but maybe change to different key and put in .env?
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZ2VvcmdwIiwiYSI6ImNrMzM1bnN0azBuY2IzZnBiZ3d2eDA5dGQifQ.Ym1lHqYUfUUu2m897J4hcg' // Set your mapbox token here
@@ -26,9 +27,16 @@ const options = {
 
 const Profile = (props) => {
 
-  const notifyImage = () => toast('Image Changed!')
-  const notifyProfile = () => toast('Details changed!')
-  const notifyError = () => toast('Profile Not Found..')
+  const notifyImage = () => toast('Image Changed!',{
+    progressClassName: 'toast-progress'
+  })
+  const notifyProfile = () => toast('Details changed!',{
+    progressClassName: 'toast-progress'
+  })
+  const notifyError = () => toast('Profile Not Found..',{
+    progressClassName: 'toast-progress'
+  })
+
 
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
@@ -229,12 +237,13 @@ const Profile = (props) => {
           first_name: resp.data.first_name,
           last_name: resp.data.last_name
         })
-        Object.keys(profile.towns).length > 0 && midCoordinate(resp.data.towns)
+        // zoom map to center of all points
+        Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
       })
       // Profile not found and redirect
       .catch(() => {
         notifyError()
-        props.history.push(`/profile/${Auth.getUserId()}`) 
+        props.history.push(`/profile/${Auth.getUserId()}`)
         // setErrors(err)
       })
   }, [])
@@ -468,3 +477,4 @@ const Profile = (props) => {
 }
 
 export default Profile
+
