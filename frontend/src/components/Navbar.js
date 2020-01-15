@@ -28,8 +28,6 @@ const Navbar = ({ toggleSearch }) => {
   }, [userLogin])
 
 
-  console.log(dexterity)
-
 
   const handleLogout = () => {
     Auth.logout()

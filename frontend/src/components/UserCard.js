@@ -1,9 +1,10 @@
 import React from 'react'
 import Auth from '../lib/Auth'
+import { Link } from 'react-router-dom'
 
-const UserCard = ({ user, goToUserProfile }) => (
+const UserCard = ({ user, toggleSearch }) => (
 
-  <div id = "group-card" className = "column is-one-quarter-desktop is-one-quarter-tablet is-half-mobile" >
+  <Link to={`/profile/${user.id}`} id = "user-card" onClick={toggleSearch} className = "column is-one-quarter-desktop is-one-quarter-tablet is-half-mobile" >
     <div className="card">
 
       <div className="card-content">
@@ -22,28 +23,13 @@ const UserCard = ({ user, goToUserProfile }) => (
         </div>
         <div className="media">
           <div className="media-content">
-            <p className="subtitle is-5">{user.first_name} {user.last_name}</p>
-            <p className="text"></p>
+            <p className="subtitle is-5">{user.username}</p>
+            <p className="text">{user.first_name} {user.last_name}</p>
           </div>
         </div>
-
-        <footer className="card-footer">
-          <a
-            className="card-footer-item is-size-5"
-            onClick={(e) => goToUserProfile(e)}
-            id={user.id}
-          />
-          <i
-            className="fas fa-info-circle"
-            onClick={(e) => goToUserProfile(e)}
-            id={user.id}
-          />
-
-
-        </footer>
       </div>
     </div>
-  </div >
+  </Link >
 )
 
 export default UserCard

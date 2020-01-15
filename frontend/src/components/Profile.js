@@ -27,13 +27,13 @@ const options = {
 
 const Profile = (props) => {
 
-  const notifyImage = () => toast('Image Changed!',{
+  const notifyImage = () => toast('Image Changed!', {
     progressClassName: 'toast-progress'
   })
-  const notifyProfile = () => toast('Details changed!',{
+  const notifyProfile = () => toast('Details changed!', {
     progressClassName: 'toast-progress'
   })
-  const notifyError = () => toast('Profile Not Found..',{
+  const notifyError = () => toast('Profile Not Found..', {
     progressClassName: 'toast-progress'
   })
 
@@ -339,10 +339,20 @@ const Profile = (props) => {
                 <div className="level-item" onClick={onPick}>
                   <div>
                     <figure className="image-cropper">
+
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
-                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                      {profile.id === Auth.getUserId() && profile.image === 'https://bit.ly/37UONby' ?
+                        <>
+                          <p className="defaultprofilecaption">Click icon to change profile picture</p>
+                          <img className="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+
+                        </>
+                        :
+                        <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                      }
                     </figure>
                   </div>
+
                 </div>
               )}
               onSuccess={handleImageUpload}

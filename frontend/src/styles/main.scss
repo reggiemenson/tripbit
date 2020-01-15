@@ -826,7 +826,7 @@ transform: rotate(180deg);
   }
 }
 
-#group-card {
+#group-card, #user-card {
 
   .media-content {
     max-width: 100%;
@@ -990,7 +990,18 @@ transform: rotate(180deg);
   display: inline;
   margin: 0 auto;
   cursor: pointer;
+  object-fit: cover;
 }
+
+
+.defaultprofilepic {
+  display: block;
+  opacity: 0.2;
+  position: relative;
+}
+
+
+
 
 
 
@@ -1012,4 +1023,31 @@ transform: rotate(180deg);
 
 .Toastify__progress-bar.toast-progress {
   background: black !important;
+}
+
+
+
+// SEARCH BAR ***********************************************************************
+
+#searchbar {
+  .modal, .model-content {
+    padding: 40vh 0;
+  }
+
+  #user-card {
+    .subtitle {
+      color: $gold;
+    }
+  }
+}
+
+
+.defaultprofilecaption{
+  z-index: 10;
+  color: $gold;
+  text-align: center;
+  position: absolute;
+  font-size: 100%;
+  margin-top: 35px;
+  line-height: -50px;
 }
