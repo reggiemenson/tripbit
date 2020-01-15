@@ -50,6 +50,7 @@ const IndividualGroup = (props) => {
 
   // buttons
   const [settingModal, setSettingModal] = useState(false)
+  const [deleteModal, setDeleteModal] =useState(false)
 
   // info editing
   const [editableData, setEditableData] = useState({
@@ -547,14 +548,13 @@ const IndividualGroup = (props) => {
       </div>
     
 
-    <div className={deleteModal === true ? 'modal is-active form' : 'modal form'}>
-      <div className="modal-background" onClick={toggleSettings}></div>
-      <div className="modal-content">
-        
+      <div className={deleteModal === true ? 'modal is-active form' : 'modal form'}>
+        <div className="modal-background" onClick={toggleSettings}></div>
+        <div className="modal-content">
+          
+        </div>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
       </div>
-      <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
-      </div>
-    </div>
 
     </div>
   )
