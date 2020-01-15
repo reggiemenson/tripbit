@@ -335,7 +335,6 @@ const IndividualGroup = (props) => {
       </MapGL>
 
       <section className="hero" id="user-profile-header">
-      
         <div className="mobile-header">
           <div className="banner level is-mobile">
             <div className="level-left">
@@ -357,7 +356,7 @@ const IndividualGroup = (props) => {
                   </button>
                   <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
                     <span className="icon is-small">
-                      <i className="fas fa-user-cog"></i>
+                      <i className="fas fa-users-cog"></i>
                     </span>
                   </button>
                   <button className="button is-link" id='settings' onClick={toggleSettings}>

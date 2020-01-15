@@ -65,7 +65,7 @@ const Profile = (props) => {
     pitch: 0
   })
 
-  const [showPopup, setShowPopup] = useState(true)
+  const [showPopup, setShowPopup] = useState(false)
 
   const [popupInfo, setPopupInfo] = useState({
     latitude: 0,
@@ -75,7 +75,7 @@ const Profile = (props) => {
 
   // console.log(popupInfo)
 
-  const fuckingClose = () => {
+  const closePopup = () => {
     setShowPopup(false)
   }
 
@@ -259,7 +259,7 @@ const Profile = (props) => {
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
-      // onClick={fuckingClose}
+      // onClick={closePopup}
       >
         {/* boolean check not necessary */}
         {Object.keys(profile.towns).length > 0 && profile.towns.map((city, i) => {
@@ -280,7 +280,7 @@ const Profile = (props) => {
           latitude={popupInfo.latitude}
           closeButton={true}
           // closeOnClick={true} // not needed?
-          onClose={fuckingClose}>
+          onClose={closePopup}>
           <div>{popupInfo.message}</div>
         </Popup>}
       </MapGL>
