@@ -23,7 +23,7 @@ const options = {
 
 
 const Profile = (props) => {
-
+  
   // info from api get request will be stored here
   const [profile, setProfile] = useState({
     id: null,
