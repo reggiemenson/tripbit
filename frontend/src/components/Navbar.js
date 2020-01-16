@@ -41,6 +41,7 @@ const Navbar = ({ toggleSearch }) => {
   const handleLogout = () => {
     Auth.logout()
     history.push('/')
+    toggleNavbar()
     // setState({ isOpen: false })
   }
 
