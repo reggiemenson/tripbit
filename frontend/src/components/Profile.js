@@ -354,7 +354,8 @@ const Profile = (props) => {
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
                       <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                     </figure>
-                    <i className="fas fa-chevron-down is-size-3 down"></i>
+                    {/* <i className="fas fa-chevron-down is-size-3 down"></i> */}
+                    <div className="down-arrow bounce"></div>
                   </div>
                 </div>
               )}
