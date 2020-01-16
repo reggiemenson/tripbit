@@ -106,7 +106,6 @@ const Profile = (props) => {
     last_name: '',
     dexterity: ''
   })
-  const [refresh, setRefresh] = useState(false)
 
   const handleImageUpload = (res) => {
     setData({ ...data, image: res.filesUploaded[0].url })
@@ -134,7 +133,6 @@ const Profile = (props) => {
         notifyProfile()
         // console.log(resp, 'success')
         toggleSettings()
-        setRefresh(!refresh)
       })
       .catch(err => {
         // console.log(err.response.data, 'failed')
@@ -252,7 +250,6 @@ const Profile = (props) => {
           last_name: resp.data.last_name,
           dexterity: resp.data.dexterity
         })
-        console.log('data pull')
         // zoom map to center of all points
         Object.keys(resp.data.towns).length > 0 && midCoordinate(resp.data.towns)
       })
@@ -262,7 +259,7 @@ const Profile = (props) => {
         props.history.push(`/profile/${Auth.getUserId()}`)
         // setErrors(err)
       })
-  }, [refresh])
+  }, [])
 
   useEffect(() => {
     return () => {
