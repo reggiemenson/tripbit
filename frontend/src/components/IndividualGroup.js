@@ -57,6 +57,8 @@ const IndividualGroup = (props) => {
   const [deleteModal, setDeleteModal] = useState(false)
   const [membershipModal, setMembershipModal] = useState(false)
 
+  // scroll position
+  const [scroll, setScroll] = useState(0)
 
   // info editing
   const [editableData, setEditableData] = useState({
@@ -220,10 +222,6 @@ const IndividualGroup = (props) => {
     }
   }
 
-  useEffect(() => {
-    fetchGroupData()
-  }, [])
-
 
   // IMAGE UPLOAD ****************************************************************************** //
   const handleImageUpload = (res) => {
@@ -234,14 +232,14 @@ const IndividualGroup = (props) => {
 
   const handleSubmit = () => {
     // console.log(token)
-    console.log('data to be sent', editableData)
+    // console.log('data to be sent', editableData)
     axios.put(`/api/groups/${group.id}/`, editableData, {
       headers: {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
       .then(resp => {
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
         fetchGroupData()
         notify('Image uploaded')
       })
@@ -250,7 +248,7 @@ const IndividualGroup = (props) => {
 
   useEffect(() => {
     if (editableData.image) {
-      console.log('submitting')
+      // console.log('submitting')
       handleSubmit()
     }
   }, [editableData])
@@ -268,7 +266,7 @@ const IndividualGroup = (props) => {
   const modalSubmit = (e) => {
     e.preventDefault()
     const data = editableData
-    console.log(editableData)
+    // console.log(editableData)
     axios.put(`/api/groups/${group.id}/`, data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
     )
@@ -312,7 +310,7 @@ const IndividualGroup = (props) => {
 
   function handleMemberRemove(e) {
     e.preventDefault()
-    console.log('remove!')
+    // console.log('remove!')
     const data = { id: e.target.id }
     axios.delete(`api/groups/${group.id}/membership/`,
       {
@@ -408,6 +406,25 @@ const IndividualGroup = (props) => {
     return listContinentsCountries(profile, size).length
   }
 
+  /// SCROLL POSITION ****************************************************************************** //
+
+  function handleScroll() {
+    setScroll(window.scrollY)
+  }
+
+  /// LIFE CYCLE ****************************************************************************** //
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    fetchGroupData()
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div id="group-profile">
       {/* {console.log('MEMBER DATA', members)} */}
@@ -415,7 +432,7 @@ const IndividualGroup = (props) => {
       {/* {console.log('TOWN DATA', towns)} */}
       {/* {console.log('USER STATUS', status)} */}
       {/* {console.log('editable data', editableData)} */}
-
+{console.log(scroll)}
       <MapGL
         {...viewport}
         position="absolute"
@@ -523,7 +540,7 @@ const IndividualGroup = (props) => {
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
                     <img className="profilepic" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
-                  <i className="fas fa-chevron-down is-size-3 down"></i>
+                  <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i>
                 </div>
               )}
               onSuccess={handleImageUpload}

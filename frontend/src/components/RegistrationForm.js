@@ -37,8 +37,8 @@ const Register = ({ toggleRegistration, toggleLogin }) => {
       })
       .catch(err => {
         setRegister({ ...register, errors: err.response.data })
-        console.log('form data!', register.data)
-        console.log('error data!', err.response.data)
+        // console.log('form data!', register.data)
+        // console.log('error data!', err.response.data)
       })
   }
 

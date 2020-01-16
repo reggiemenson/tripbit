@@ -28,13 +28,13 @@ const options = {
 
 const Profile = (props) => {
 
-  const notifyImage = () => toast('Image Changed!',{
+  const notifyImage = () => toast('Image Changed!', {
     progressClassName: 'toast-progress'
   })
-  const notifyProfile = () => toast('Details changed!',{
+  const notifyProfile = () => toast('Details changed!', {
     progressClassName: 'toast-progress'
   })
-  const notifyError = () => toast('Profile Not Found..',{
+  const notifyError = () => toast('Profile Not Found..', {
     progressClassName: 'toast-progress'
   })
 
@@ -115,7 +115,7 @@ const Profile = (props) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
-    console.log(data)
+    // console.log(data)
     setErrors({})
   }
 
@@ -131,11 +131,11 @@ const Profile = (props) => {
       .then(resp => {
         // setUserLogin(resp.data)
         notifyProfile()
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
         toggleSettings()
       })
       .catch(err => {
-        console.log(err.response.data, 'failed')
+        // console.log(err.response.data, 'failed')
         // console.log(data, 'failed')
         setErrors(err.response.data)
       })
@@ -151,7 +151,7 @@ const Profile = (props) => {
     })
       .then(resp => {
         notifyImage()
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
       })
       .catch(err => console.log(err))
   }
@@ -224,12 +224,20 @@ const Profile = (props) => {
     setShowPopup(true)
   }
 
+  const [scroll, setScroll] = useState(0)
+
+  function handleScroll() {
+    setScroll(window.scrollY)
+  }
+
+
   // const closePopup = () => {
   //   setMarkerInfo({ showPopup: null })
   // }
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
+    window.addEventListener('scroll', handleScroll)
     axios.get(`api/profile/${props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -253,9 +261,15 @@ const Profile = (props) => {
       })
   }, [])
 
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div id="profile">
-      {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())}
+      {/* {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())} */}
       {/* {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
       {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL
@@ -351,12 +365,23 @@ const Profile = (props) => {
                 <div className="level-item" onClick={onPick}>
                   <div id="profile-banner-center">
                     <figure className="image-cropper">
+
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
-                      <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                      {profile.id === Auth.getUserId() && profile.image === 'https://bit.ly/37UONby' ?
+                        <>
+                          <p className="defaultprofilecaption">Click icon to change profile picture</p>
+                          <img className="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+
+                        </>
+                        :
+                        <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                      }
                     </figure>
                     {/* <i className="fas fa-chevron-down is-size-3 down"></i> */}
-                    <div className="down-arrow bounce"></div>
+                    <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
+                    {/* <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i> Kathrin's */}
                   </div>
+
                 </div>
               )}
               onSuccess={handleImageUpload}

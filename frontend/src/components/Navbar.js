@@ -22,14 +22,12 @@ const Navbar = ({ toggleSearch }) => {
       })
         .then(response => {
           setDexterity(response.data.dexterity)
-          console.log('running')
+          // console.log('running')
         })
         .catch(error => console.log(error))
     }
   }, [userLogin])
 
-
-  console.log(dexterity)
 
 
   const handleLogout = () => {
@@ -136,7 +134,7 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a className="navbutton" onClick={toggleNavbar}><i className="fa fa-search"></i></a>
+                    <a className="navbutton" onClick={toggleSearch}><i className="fa fa-search"></i></a>
                     {'\n'}
                     <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
                   </div>
@@ -263,7 +261,7 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <a className="navbutton" onClick={toggleNavbar}><i className="fa fa-search"></i></a>
+                    <a className="navbutton" onClick={toggleSearch}><i className="fa fa-search"></i></a>
                     {'\n'}
                     <a onClick={toggleSearch}> <p className="navbar-links">SEARCH</p></a>
                   </div>

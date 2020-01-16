@@ -6,7 +6,7 @@ import Login from './LoginForm'
 import WorldMap from './Worldmap'
 import Auth from '../lib/auth'
 
-const infoType = 'user'
+// const infoType = 'user'
 
 const Hero = (props) => {
 
@@ -18,7 +18,7 @@ const Hero = (props) => {
   function fetchTownData() {
     axios.get('/api/towns')
       .then(resp => {
-        console.log('RESPONSE')
+        // console.log('RESPONSE')
         const data = resp.data
           .reduce((countries, town) => {
             if (countries[town.iso2]) {

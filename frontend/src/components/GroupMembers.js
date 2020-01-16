@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const GroupMembers = ({ group, handleMemberApprove, handleMemberRemove }) => (  
   <section className="section" id="member-management">
     <div className="container">
-      {console.log(group)}
+      {/* {console.log(group)} */}
 
       <div className="title is-size-3">Member Management</div>
 

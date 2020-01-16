@@ -8,7 +8,7 @@ import GroupForm from './GroupForm'
 import { toast } from 'react-toastify'
 
 const Groups = (props) => {
-  const notify = () => toast('Group membership requested!' ,{
+  const notify = () => toast('Group membership requested!', {
     progressClassName: 'toast-progress'
   })
 
@@ -27,7 +27,7 @@ const Groups = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        const data = resp.data.sort(function(a, b){
+        const data = resp.data.sort(function (a, b) {
           if (a.id < b.id) { return -1 }
           if (a.id > b.id) { return 1 }
           return 0
@@ -52,7 +52,7 @@ const Groups = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = details
-      console.log(details)
+    // console.log(details)
     axios.post('/api/groups/', data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -60,7 +60,7 @@ const Groups = (props) => {
         props.history.push(`/groups/${resp.data.id}`)
       })
       .catch(err => {
-        setDetails({errors: 'Both name and description are required'})
+        setDetails({ errors: 'Both name and description are required' })
         console.log(err)
       })
   }
@@ -74,7 +74,7 @@ const Groups = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log(resp)
+        // console.log(resp)
         fetchGroupData()
         notify()
       })
@@ -90,7 +90,7 @@ const Groups = (props) => {
 
   return (
     <section className="section" id="groups-page">
-      {console.log(groups)}
+      {/* {console.log(groups)} */}
       <div className="container">
 
         <div className="level is-mobile">
@@ -124,7 +124,7 @@ const Groups = (props) => {
             .length === 0 ? <div className="is-size-5 no-groups">You haven&apos;t joined any groups yet!</div> : <></>}
 
           <div className="columns is-mobile is-multiline">
-           
+
             {groups
               .filter((group) => {
                 return group.members
@@ -135,7 +135,7 @@ const Groups = (props) => {
                   .includes(Auth.getUserId())
               })
               .map((group, i) => {
-                return <GroupCard 
+                return <GroupCard
                   key={i}
                   group={group}
                   goToGroupProfile={(e) => goToGroupProfile(e)}
@@ -172,7 +172,7 @@ const Groups = (props) => {
                   .includes(Auth.getUserId())
               })
               .map((group, i) => {
-                return <GroupCard 
+                return <GroupCard
                   key={i}
                   group={group}
                   goToGroupProfile={(e) => goToGroupProfile(e)}
@@ -180,7 +180,7 @@ const Groups = (props) => {
                 />
               })}
           </div>
-          
+
           <div className={newGroupModal === true ? 'modal is-active' : 'modal'}>
             <div className="modal-background" onClick={toggleModal}></div>
             <div className="modal-content">

@@ -108,10 +108,6 @@ body {
   box-sizing: border-box;
 }
 
-a.mapboxgl-ctrl-logo {
-  z-index: -1;
-}
-
 .modal-content {
   max-width: 90%;
 
@@ -293,6 +289,11 @@ a.mapboxgl-ctrl-logo {
 #profile, #group-profile {
 
   // mapbox styling
+  
+  a.mapboxgl-ctrl-logo {
+    z-index: -1;
+    opacity: 0;
+  }
   .marker {
     background-image: url('../images/marker-gold.png');
     background-size: cover;
@@ -1063,8 +1064,6 @@ transform: rotate(180deg);
 .profilepic {
   display: inline;
   margin: 0 auto;
-  // height: 100%;
-  // width: auto;
   cursor: pointer;
   object-fit: cover;
 }
@@ -1074,11 +1073,27 @@ transform: rotate(180deg);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  i.down {
-    margin: 10px 0;
+  div.down {
+    // margin: 10px 0;
     color: $dark-gray;
+    transition: opacity ease-in-out 2s;
+   
   }
+  div.down.gone {
+    opacity: 0;
+  }
+
 }
+
+
+.defaultprofilepic {
+  display: block;
+  opacity: 0.2;
+  position: relative;
+}
+
+
+
 
 
 
@@ -1118,6 +1133,13 @@ transform: rotate(180deg);
   }
 }
 
-a.mapboxgl-ctrl-logo {
-  opacity: 0;
+
+.defaultprofilecaption{
+  z-index: 10;
+  color: $gold;
+  text-align: center;
+  position: absolute;
+  font-size: 100%;
+  margin-top: 35px;
+  line-height: -50px;
 }
