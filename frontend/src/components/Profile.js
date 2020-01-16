@@ -199,7 +199,6 @@ const Profile = (props) => {
   useEffect(() => {
     const listener = e => {
       if (e.key === 'Escape') {
-        console.log('esc key pressed')
         setContinentModal(false)
         setCountryModal(false)
         setCityModal(false)

@@ -29,10 +29,19 @@ const Navbar = ({ toggleSearch }) => {
   }, [userLogin])
 
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setNav(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
 
   const handleLogout = () => {
     Auth.logout()
     history.push('/')
+    toggleNavbar()
     // setState({ isOpen: false })
   }
 
