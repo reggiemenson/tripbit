@@ -234,14 +234,14 @@ const IndividualGroup = (props) => {
 
   const handleSubmit = () => {
     // console.log(token)
-    console.log('data to be sent', editableData)
+    // console.log('data to be sent', editableData)
     axios.put(`/api/groups/${group.id}/`, editableData, {
       headers: {
         Authorization: `Bearer ${Auth.getToken()}`
       }
     })
       .then(resp => {
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
         fetchGroupData()
         notify('Image uploaded')
       })
@@ -250,7 +250,7 @@ const IndividualGroup = (props) => {
 
   useEffect(() => {
     if (editableData.image) {
-      console.log('submitting')
+      // console.log('submitting')
       handleSubmit()
     }
   }, [editableData])
@@ -268,7 +268,7 @@ const IndividualGroup = (props) => {
   const modalSubmit = (e) => {
     e.preventDefault()
     const data = editableData
-    console.log(editableData)
+    // console.log(editableData)
     axios.put(`/api/groups/${group.id}/`, data,
       { headers: { Authorization: `Bearer ${Auth.getToken()}` } }
     )
@@ -312,7 +312,7 @@ const IndividualGroup = (props) => {
 
   function handleMemberRemove(e) {
     e.preventDefault()
-    console.log('remove!')
+    // console.log('remove!')
     const data = { id: e.target.id }
     axios.delete(`api/groups/${group.id}/membership/`,
       {

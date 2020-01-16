@@ -14,7 +14,7 @@ const MapPage = () => {
   function fetchTownData() {
     axios.get('/api/towns')
       .then(resp => {
-        console.log('RESPONSE')
+        // console.log('RESPONSE')
         computePlatformData(resp.data)
         computeUserData(resp.data)
       })
@@ -25,7 +25,7 @@ const MapPage = () => {
   }
 
   function computePlatformData(towns) {
-    console.log('computing platform country data...')
+    // console.log('computing platform country data...')
     const data = towns
       .reduce((countries, town) => {
         if (countries[town.iso2]) {
@@ -43,7 +43,7 @@ const MapPage = () => {
   }
 
   function computeUserData(towns) {
-    console.log('computing user country data...')
+    // console.log('computing user country data...')
     const data = towns
       .filter((town) => {
         return town.visitors.includes(Auth.getUserId())
@@ -103,7 +103,7 @@ const MapPage = () => {
   
   return (
     <section id="mappage" className="hero is-fullheight">
-      {console.log(infoLevel)}
+      {/* {console.log(infoLevel)} */}
       <div className="hero-body">
 
         <div className="columns is-desktop">

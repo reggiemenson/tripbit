@@ -105,7 +105,7 @@ const CitySelection = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        console.log(resp.data)
+        // console.log(resp.data)
         notify()
         props.history.push(`/profile/${resp.data.id}`)
       })

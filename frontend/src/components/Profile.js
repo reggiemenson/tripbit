@@ -115,7 +115,7 @@ const Profile = (props) => {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
-    console.log(data)
+    // console.log(data)
     setErrors({})
   }
 
@@ -131,11 +131,11 @@ const Profile = (props) => {
       .then(resp => {
         // setUserLogin(resp.data)
         notifyProfile()
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
         toggleSettings()
       })
       .catch(err => {
-        console.log(err.response.data, 'failed')
+        // console.log(err.response.data, 'failed')
         // console.log(data, 'failed')
         setErrors(err.response.data)
       })
@@ -151,7 +151,7 @@ const Profile = (props) => {
     })
       .then(resp => {
         notifyImage()
-        console.log(resp, 'success')
+        // console.log(resp, 'success')
       })
       .catch(err => console.log(err))
   }
@@ -255,7 +255,7 @@ const Profile = (props) => {
 
   return (
     <div id="profile">
-      {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())}
+      {/* {console.log('user id? =', parseInt(props.match.params.id), 'function call=', Auth.getUserId())} */}
       {/* {console.log('length of profile.towns ', Object.keys(profile.towns).length)}
       {console.log('boolean check ', Object.keys(profile.towns).length > 0)} */}
       <MapGL

@@ -4,14 +4,7 @@ import Auth from '../lib/Auth'
 const GroupCard = ({ group, goToGroupProfile, sendRequest }) => (
   <div id="group-card" className="column is-one-fifth-desktop is-one-quarter-tablet is-half-mobile">
     <div className="card">
-      {/* <div className="card-image">
-        <figure className="image is-9by10">
-          <img 
-            src={group.image} 
-            alt="Placeholder image"
-          />
-        </figure>
-      </div> */}
+
       
       <div className="card-content">
         <div className="media">
