@@ -71,9 +71,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -198,9 +198,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>

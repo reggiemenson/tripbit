@@ -82,11 +82,11 @@ const MapPage = () => {
 
     if (infoLevel === 'platform') {
       if (num > 1) {
-        return `${num} users have been`
+        return `${num} visitors`
       } else if (num === 1){
-        return `${num} user has been`
+        return `${num} visitor`
       } else {
-        return 'no user has been'
+        return 'unexplored'
       }
     } else if (infoLevel === 'user') {
       if (num > 1) {

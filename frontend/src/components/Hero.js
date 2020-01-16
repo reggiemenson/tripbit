@@ -4,7 +4,7 @@ import axios from 'axios'
 import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 
 // const infoType = 'user'
 
@@ -54,14 +54,24 @@ const Hero = (props) => {
     setLoginModal(!loginModal)
   }
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setRegistrationModal(false)
+        setLoginModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
+
   function displayText(country) {
     const num = countriesData[country]
     if (num > 1) {
-      return `${num} users have been`
+      return `${num} visitors`
     } else if (num === 1){
-      return `${num} user has been`
+      return `${num} visitor`
     } else {
-      return 'no user has been'
+      return 'unexplored'
     }
   }
 
@@ -81,7 +91,7 @@ const Hero = (props) => {
                 TripBit
               </h1>
               <h2 className="subtitle is-size-4">
-                Your personal travel tracker
+                Your Personal Travel Tracker
               </h2>
               {!Auth.isAuthorized() && <div>
                 <button className="is-size-4 homepage" onClick={toggleLogin}>Login</button>

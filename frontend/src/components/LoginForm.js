@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 
 import { toast } from 'react-toastify'
 import UserContext from './UserContext'
@@ -34,7 +34,7 @@ const Login = ({ props }) => {
         Auth.setToken(resp.data.token)
         notify(resp.data.message)
         props.history.push(`/profile/${Auth.getUserId()}`)
-        setUserLogin(resp.data.message)
+        setUserLogin(resp.data)
       })
       .catch(() => {
         setLogin({ errors: 'Email or password incorrect' })

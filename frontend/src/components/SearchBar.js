@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 import UserCard from './UserCard'
 
 const SearchBar = ({toggleSearch}) => {

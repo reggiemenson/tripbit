@@ -196,6 +196,19 @@ const Profile = (props) => {
     setSettingModal(!settingModal)
   }
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        console.log('esc key pressed')
+        setContinentModal(false)
+        setCountryModal(false)
+        setCityModal(false)
+        setSettingModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
+
   // work out which continents, countries or cities visited to show on modal
   const listContinentsCountries = (profile, size) => {
     const all = profile.towns.map((elem) => {
@@ -229,6 +242,15 @@ const Profile = (props) => {
   function handleScroll() {
     setScroll(window.scrollY)
   }
+
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setShowPopup(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
 
 
   // const closePopup = () => {
@@ -356,6 +378,7 @@ const Profile = (props) => {
                   {/* Class creates an oval. Look to change this so all propics are circles. */}
                   <img className="profilepic" src={profile.image} />
                 </figure>
+                <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
               </div>
             </div> : <ReactFilestack
               preload={true}
@@ -377,7 +400,9 @@ const Profile = (props) => {
                         <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                       }
                     </figure>
-                    <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i>
+                    {/* <i className="fas fa-chevron-down is-size-3 down"></i> */}
+                    <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
+                    {/* <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i> Kathrin's */}
                   </div>
 
                 </div>
