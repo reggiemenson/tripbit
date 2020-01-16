@@ -82,10 +82,6 @@ $input-placeholder-color: $gold;
 }
 
 
-body {
-  background: black;
-}
-
 .down-arrow {
   position: fixed;
   bottom: 0;
@@ -385,7 +381,6 @@ body {
   #user-profile {
 
     text-align: center;
-    background-color: $dark;
 
     div.display {
       display: flex;
