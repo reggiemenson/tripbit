@@ -3,22 +3,24 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 import UserCard from './UserCard'
 
-const SearchBar = ({toggleSearch}) => {
+const SearchBar = ({ toggleSearch, test }) => {
   const [data, setData] = useState([])
   const [searchBar, setSearchBar] = useState('')
 
 
   useEffect(() => {
-    axios.get('/api/users', {
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(response => {
-        setData(response.data)
-        // console.log(data)
-        // console.log(response.data)
+    if (Auth.isAuthorized()) {
+      axios.get('/api/users', {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .catch(error => console.log(error))
-  }, [])
+        .then(response => {
+          setData(response.data)
+          console.log('is running', test)
+          // console.log(response.data)
+        })
+        .catch(error => console.log(error))
+    }
+  }, [test])
 
 
   function handleSearchChange(e) {
@@ -40,7 +42,7 @@ const SearchBar = ({toggleSearch}) => {
   return <>
     <div>
       <form className="form" id="user-search">
-     
+
         <div className="field">
           <div className="control has-icons-left">
             <input className="input has-text-info is-large" type="search" placeholder="Search for your friends" onChange={handleSearchChange}></input>
@@ -48,7 +50,7 @@ const SearchBar = ({toggleSearch}) => {
               <i className="fas fa-compass"></i>
             </span>
           </div>
-        
+
 
         </div>
       </form>
@@ -64,7 +66,7 @@ const SearchBar = ({toggleSearch}) => {
         </div>
       </div>
     </div>
-   
+
   </>
 }
 export default SearchBar

@@ -42,7 +42,7 @@ class LoginView(APIView):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
-            raise Response({'message': 'Invalid credentials'}, status=HTTP_422_UNPROCESSABLE_ENTITY)
+            raise Response({'message': 'Invalid credentials'})
 
     def post(self, request):
 
