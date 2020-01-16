@@ -1076,6 +1076,12 @@ transform: rotate(180deg);
   object-fit: cover;
 }
 
+#defaultprofilepic {
+  opacity: 0.2;
+  position: relative;
+
+}
+
 #profile-banner-center {
   display: flex;
   flex-direction: column;
@@ -1092,11 +1098,11 @@ transform: rotate(180deg);
 }
 
 
-.defaultprofilepic {
-  display: block;
-  opacity: 0.2;
-  position: relative;
-}
+// .defaultprofilepic {
+//   display: block;
+//   opacity: 0.2;
+  
+// }
 
 
 

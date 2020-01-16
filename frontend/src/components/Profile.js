@@ -376,7 +376,7 @@ const Profile = (props) => {
               <div>
                 <figure className="image-cropper">
                   {/* Class creates an oval. Look to change this so all propics are circles. */}
-                  <img className="profilepic" src={profile.image} />
+                  <img className="defaultprofilepic" src={profile.image} />
                 </figure>
                 <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
               </div>
@@ -393,7 +393,7 @@ const Profile = (props) => {
                       {profile.id === Auth.getUserId() && profile.image === 'https://bit.ly/37UONby' ?
                         <>
                           <p className="defaultprofilecaption">Click icon to change profile picture</p>
-                          <img className="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                          <img className="is-rounded" id="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
 
                         </>
                         :
