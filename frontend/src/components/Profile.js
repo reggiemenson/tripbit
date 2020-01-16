@@ -376,8 +376,9 @@ const Profile = (props) => {
               <div>
                 <figure className="image-cropper">
                   {/* Class creates an oval. Look to change this so all propics are circles. */}
-                  <img className="profilepic" src={profile.image} />
+                  <img className="defaultprofilepic" src={profile.image} />
                 </figure>
+                <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
               </div>
             </div> : <ReactFilestack
               preload={true}
@@ -386,17 +387,17 @@ const Profile = (props) => {
               customRender={({ onPick }) => (
                 <div className="level-item" onClick={onPick}>
                   <div id="profile-banner-center">
-                    <figure className="image-cropper">
+                    <figure className="image is-128x128">
 
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
                       {profile.id === Auth.getUserId() && profile.image === 'https://bit.ly/37UONby' ?
                         <>
                           <p className="defaultprofilecaption">Click icon to change profile picture</p>
-                          <img className="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                          <img className="is-rounded" id="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
 
                         </>
                         :
-                        <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                        <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                       }
                     </figure>
                     {/* <i className="fas fa-chevron-down is-size-3 down"></i> */}

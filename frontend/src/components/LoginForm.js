@@ -34,7 +34,7 @@ const Login = ({ props }) => {
         Auth.setToken(resp.data.token)
         notify(resp.data.message)
         props.history.push(`/profile/${Auth.getUserId()}`)
-        setUserLogin(resp.data.message)
+        setUserLogin(resp.data)
       })
       .catch(() => {
         setLogin({ errors: 'Email or password incorrect' })

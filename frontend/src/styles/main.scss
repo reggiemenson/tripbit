@@ -82,13 +82,9 @@ $input-placeholder-color: $gold;
 }
 
 
-body {
-  background: black;
-}
-
 .down-arrow {
   position: fixed;
-  bottom: 0;
+  bottom: 5px;
   left: 50%;
   margin-left:-20px;
   width: 40px;
@@ -98,7 +94,7 @@ body {
 }
 
 .bounce {
-  @include animation(bounce 2s infinite);
+  @include animation(bounce 2s 3);
 }
 
 
@@ -328,7 +324,14 @@ body {
     z-index: 1;
     background-color: $dark;
     background: linear-gradient(to bottom, $dark, $dark 75%, rgba($dark,0.8) 90%);
-
+    
+    div.down {
+      opacity: 0.7;
+    }
+    div.down.gone {
+      opacity: 0;
+    }
+    
     .mobile-header {
       min-height: 36vh; 
     }
@@ -391,7 +394,6 @@ body {
   #user-profile {
 
     text-align: center;
-    background-color: $dark;
 
     div.display {
       display: flex;
@@ -418,6 +420,10 @@ body {
         font-weight: normal;
         color: $gold;
         margin-bottom: 10px;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
@@ -1087,29 +1093,28 @@ transform: rotate(180deg);
   object-fit: cover;
 }
 
+#defaultprofilepic {
+  opacity: 0.2;
+  position: relative;
+
+}
+
 #profile-banner-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  div.down {
-    // margin: 10px 0;
-    color: $dark-gray;
-    transition: opacity ease-in-out 2s;
-   
-  }
-  div.down.gone {
-    opacity: 0;
-  }
+
+
 
 }
 
 
-.defaultprofilepic {
-  display: block;
-  opacity: 0.2;
-  position: relative;
-}
+// .defaultprofilepic {
+//   display: block;
+//   opacity: 0.2;
+  
+// }
 
 
 
