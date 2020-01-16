@@ -30,7 +30,6 @@ const App = () => {
   const [searchModal, setSearchModal] = useState(false)
 
   const toggleSearch = () => {
-    console.log('success')
     setSearchModal(!searchModal)
   }
 

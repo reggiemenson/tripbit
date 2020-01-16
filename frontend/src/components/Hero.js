@@ -4,7 +4,7 @@ import axios from 'axios'
 import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 
 // const infoType = 'user'
 

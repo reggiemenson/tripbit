@@ -318,7 +318,8 @@ const IndividualGroup = (props) => {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
       .then(resp => {
-        fetchGroupData()      })
+        fetchGroupData()
+      })
       .catch(err => {
         console.log(err)
         setErrors({ ...errors, ...err })
@@ -441,7 +442,7 @@ const IndividualGroup = (props) => {
       {/* {console.log('TOWN DATA', towns)} */}
       {/* {console.log('USER STATUS', status)} */}
       {/* {console.log('editable data', editableData)} */}
-{console.log(scroll)}
+      {/* {console.log(scroll)} */}
       <MapGL
         {...viewport}
         position="absolute"
@@ -494,16 +495,16 @@ const IndividualGroup = (props) => {
                       <i className="fas fa-trash-alt"></i>
                     </span>
                   </button>
-                  <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
-                    <span className="icon is-small">
-                      <i className="fas fa-users-cog"></i>
-                    </span>
-                  </button>
-                  <button className="button is-link" id='settings' onClick={toggleSettings}>
-                    <span className="icon is-small">
-                      <i className="fas fa-cog"></i>
-                    </span>
-                  </button></>
+                    <button className="button is-link" id='settings' onClick={toggleMemberManagement}>
+                      <span className="icon is-small">
+                        <i className="fas fa-users-cog"></i>
+                      </span>
+                    </button>
+                    <button className="button is-link" id='settings' onClick={toggleSettings}>
+                      <span className="icon is-small">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                    </button></>
                   : <></>
                 }
 
