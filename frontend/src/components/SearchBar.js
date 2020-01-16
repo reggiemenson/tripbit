@@ -14,10 +14,10 @@ const SearchBar = ({toggleSearch}) => {
     })
       .then(response => {
         setData(response.data)
-        // console.log(data)
+        // console.log('search running')
         // console.log(response.data)
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log('search running'))
   }, [])
 
 

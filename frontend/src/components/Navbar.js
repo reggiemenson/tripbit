@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 import SearchBar from './SearchBar'
 import UserContext from './UserContext'
 
@@ -22,7 +22,7 @@ const Navbar = ({ toggleSearch }) => {
       })
         .then(response => {
           setDexterity(response.data.dexterity)
-          // console.log('running')
+          // console.log('nav running')
         })
         .catch(error => console.log(error))
     }
