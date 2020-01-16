@@ -426,15 +426,6 @@ const IndividualGroup = (props) => {
     }
   }, [])
 
-  useEffect(() => {
-    const listener = e => {
-      if (e.key === 'Escape') {
-        setShowPopup(false)
-      }
-    }
-    window.addEventListener('keydown', listener)
-  }, [])
-
   return (
     <div id="group-profile">
       {/* {console.log('MEMBER DATA', members)} */}

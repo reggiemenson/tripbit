@@ -288,24 +288,30 @@ body {
 
 #profile, #group-profile {
 
-  // mapbox styling
+  // mapbox (profile and group page) styling
   
   a.mapboxgl-ctrl-logo {
     z-index: -1;
-    opacity: 0;
+    display: none;
+  }
+
+  .mapboxgl-ctrl-bottom-right {
+    opacity: 0.1;
+
+  }
+
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    background-color: hsla(0,0%,100%,.2);
+  }
+
+  .mapboxgl-ctrl-attrib a {
+    color: white;
   }
 
   .mapboxgl-ctrl-bottom-right>.mapboxgl-ctrl-attrib.mapboxgl-compact:after {
-    opacity: 0.1;
+    background-color: hsla(0,0%,100%,.2);
   }
   
-  .mapboxgl-ctrl-bottom-right>.mapboxgl-ctrl-attrib.mapboxgl-compact:before {
-    padding: 0 5px;
-    background-color: hsla(0,0%,100%,.1);
-    margin: 0;
-    border-radius: 5px;
-  }
-
   .marker {
     background-image: url('../images/marker-gold.png');
     background-size: cover;
