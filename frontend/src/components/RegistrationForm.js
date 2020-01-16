@@ -5,7 +5,9 @@ import { toast } from 'react-toastify'
 
 const Register = ({ toggleRegistration, toggleLogin }) => {
 
-  const notify = () => toast('Registered!')
+  const notify = () => toast('Registered!' , {
+    progressClassName: 'toast-progress'
+  })
 
   const [register, setRegister] = useState({
     data: {
