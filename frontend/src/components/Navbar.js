@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 import SearchBar from './SearchBar'
 import UserContext from './UserContext'
 
@@ -41,6 +41,15 @@ const Navbar = ({ toggleSearch }) => {
   const toggleNavbar = () => {
     setNav(!nav)
   }
+
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setNav(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
   
   return (
     <> {dexterity === 'LH' ?
@@ -91,7 +100,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">TEST</p></Link>
+                    <Link to='#'><p className="navbar-links">TEST</p></Link>
                   </div>
                 </div>
               </li>
@@ -218,7 +227,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">TEST</p></Link>
+                    <Link to='#'><p className="navbar-links">TEST</p></Link>
                   </div>
                 </div>
               </li>

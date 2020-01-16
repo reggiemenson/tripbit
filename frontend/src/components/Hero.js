@@ -4,7 +4,7 @@ import axios from 'axios'
 import Register from './RegistrationForm'
 import Login from './LoginForm'
 import WorldMap from './Worldmap'
-import Auth from '../lib/auth'
+import Auth from '../lib/Auth'
 
 // const infoType = 'user'
 
@@ -53,6 +53,16 @@ const Hero = (props) => {
   function toggleLogin() {
     setLoginModal(!loginModal)
   }
+
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setRegistrationModal(false)
+        setLoginModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
 
   function displayText(country) {
     const num = countriesData[country]
