@@ -378,6 +378,7 @@ const Profile = (props) => {
                   {/* Class creates an oval. Look to change this so all propics are circles. */}
                   <img className="profilepic" src={profile.image} />
                 </figure>
+                <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
               </div>
             </div> : <ReactFilestack
               preload={true}

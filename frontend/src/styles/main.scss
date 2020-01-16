@@ -94,7 +94,7 @@ $input-placeholder-color: $gold;
 }
 
 .bounce {
-  @include animation(bounce 2s infinite);
+  @include animation(bounce 2s 3);
 }
 
 

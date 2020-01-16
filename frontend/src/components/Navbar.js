@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
-import Auth from '../lib/Auth'
+import Auth from '../lib/auth'
 import SearchBar from './SearchBar'
 import UserContext from './UserContext'
 
@@ -41,15 +41,6 @@ const Navbar = ({ toggleSearch }) => {
   const toggleNavbar = () => {
     setNav(!nav)
   }
-
-  useEffect(() => {
-    const listener = e => {
-      if (e.key === 'Escape') {
-        setNav(false)
-      }
-    }
-    window.addEventListener('keydown', listener)
-  }, [])
   
   return (
     <> {dexterity === 'LH' ?
@@ -80,9 +71,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -100,7 +91,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link to='#'><p className="navbar-links">TEST</p></Link>
+                    <Link><p className="navbar-links">TEST</p></Link>
                   </div>
                 </div>
               </li>
@@ -207,9 +198,9 @@ const Navbar = ({ toggleSearch }) => {
               <li>
                 <div className="placeholder">
                   <div className="upside">
-                    <Link to={`/profile/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} className="navbutton" onClick={toggleNavbar}><i className="fa fa-user"></i></Link>
                     {'\n'}
-                    <Link to={`/profile/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
+                    <Link to={`/reroute/${Auth.getUserId()}`} onClick={toggleNavbar}> <p className="navbar-links">USER</p></Link>
                   </div>
                 </div>
               </li>
@@ -227,7 +218,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link to='#'><p className="navbar-links">TEST</p></Link>
+                    <Link><p className="navbar-links">TEST</p></Link>
                   </div>
                 </div>
               </li>
