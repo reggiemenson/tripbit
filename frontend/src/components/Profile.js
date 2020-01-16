@@ -224,12 +224,20 @@ const Profile = (props) => {
     setShowPopup(true)
   }
 
+  const [scroll, setScroll] = useState(0)
+
+  function handleScroll() {
+    setScroll(window.scrollY)
+  }
+
+
   // const closePopup = () => {
   //   setMarkerInfo({ showPopup: null })
   // }
   useEffect(() => {
     // use Auth to get your profile!
     // axios.get(`api/profile/${Auth.getUserId()}`)
+    window.addEventListener('scroll', handleScroll)
     axios.get(`api/profile/${props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -251,6 +259,12 @@ const Profile = (props) => {
         props.history.push(`/profile/${Auth.getUserId()}`)
         // setErrors(err)
       })
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
@@ -354,7 +368,7 @@ const Profile = (props) => {
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
                       <img className="profilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
                     </figure>
-                    <i className="fas fa-chevron-down is-size-3 down"></i>
+                    <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i>
                   </div>
                 </div>
               )}
