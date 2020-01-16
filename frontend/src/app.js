@@ -34,6 +34,15 @@ const App = () => {
     setSearchModal(!searchModal)
   }
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setSearchModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
+
   return <HashRouter>
     <UserContext.Provider
       value={loginInfo}>

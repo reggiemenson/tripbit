@@ -196,6 +196,19 @@ const Profile = (props) => {
     setSettingModal(!settingModal)
   }
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        console.log('esc key pressed')
+        setContinentModal(false)
+        setCountryModal(false)
+        setCityModal(false)
+        setSettingModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
+
   // work out which continents, countries or cities visited to show on modal
   const listContinentsCountries = (profile, size) => {
     const all = profile.towns.map((elem) => {
@@ -229,6 +242,15 @@ const Profile = (props) => {
   function handleScroll() {
     setScroll(window.scrollY)
   }
+
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setShowPopup(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
 
 
   // const closePopup = () => {

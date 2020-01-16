@@ -41,6 +41,15 @@ const Navbar = ({ toggleSearch }) => {
   const toggleNavbar = () => {
     setNav(!nav)
   }
+
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setNav(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
   
   return (
     <> {dexterity === 'LH' ?

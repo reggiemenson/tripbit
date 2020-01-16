@@ -54,6 +54,16 @@ const Hero = (props) => {
     setLoginModal(!loginModal)
   }
 
+  useEffect(() => {
+    const listener = e => {
+      if (e.key === 'Escape') {
+        setRegistrationModal(false)
+        setLoginModal(false)
+      }
+    }
+    window.addEventListener('keydown', listener)
+  }, [])
+
   function displayText(country) {
     const num = countriesData[country]
     if (num > 1) {
