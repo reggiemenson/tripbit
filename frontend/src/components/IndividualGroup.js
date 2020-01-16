@@ -558,13 +558,12 @@ const IndividualGroup = (props) => {
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
                     <img className="is-rounded" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
-                  <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i>
+                  <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
                 </div>
               )}
               onSuccess={handleImageUpload}
             />
           </div>
-          <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
         </div>
 
         <div className="level is-mobile stats">
