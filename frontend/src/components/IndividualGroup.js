@@ -564,6 +564,7 @@ const IndividualGroup = (props) => {
               onSuccess={handleImageUpload}
             />
           </div>
+          <div className={scroll < 100 ? 'down-arrow down bounce' : 'down-arrow down gone'}></div>
         </div>
 
         <div className="level is-mobile stats">
