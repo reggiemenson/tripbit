@@ -148,7 +148,7 @@ const IndividualGroup = (props) => {
       .then(resp => {
         setGroup(resp.data)
         determineStatus(resp.data)
-        const memberData = [...members]
+        const memberData = []
         fetchMemberData(resp.data.members, memberData)
         setEditableData({
           name: resp.data.name,
@@ -705,7 +705,7 @@ const IndividualGroup = (props) => {
             handleMemberRemove={(e) => handleMemberRemove(e)}
           />
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleMemberManagement}></button>
       </div>
 
 

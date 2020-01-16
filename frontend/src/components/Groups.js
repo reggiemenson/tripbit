@@ -57,7 +57,7 @@ const Groups = (props) => {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
-        props.history.push(`/groups/${resp.data.id}`)
+        props.history.push(`/group_route/${resp.data.id}`)
       })
       .catch(err => {
         setDetails({ errors: 'Both name and description are required' })

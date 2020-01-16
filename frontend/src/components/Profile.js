@@ -390,12 +390,12 @@ const Profile = (props) => {
                       {/* Class creates an oval. Look to change this so all propics are circles. */}
                       {profile.id === Auth.getUserId() && profile.image === 'https://bit.ly/37UONby' ?
                         <>
-                          <p className="defaultprofilecaption">Click icon to change profile picture</p>
-                          <img className="is-rounded" id="defaultprofilepic" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                          {!data.image && <p className="defaultprofilecaption">Click icon to change profile picture</p>}
+                          <img className="is-rounded" id={!data.image ? 'defaultprofilepic' : ''} src={!data.image ? profile.image : data.image} />
 
                         </>
                         :
-                        <img className="is-rounded" src={!data.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : data.image} />
+                        <img className="is-rounded" src={!data.image ? profile.image : data.image} />
                       }
                     </figure>
                     {/* <i className="fas fa-chevron-down is-size-3 down"></i> */}
