@@ -57,6 +57,8 @@ const IndividualGroup = (props) => {
   const [deleteModal, setDeleteModal] = useState(false)
   const [membershipModal, setMembershipModal] = useState(false)
 
+  // scroll position
+  const [scroll, setScroll] = useState(0)
 
   // info editing
   const [editableData, setEditableData] = useState({
@@ -219,10 +221,6 @@ const IndividualGroup = (props) => {
       setStatus('unaffiliated')
     }
   }
-
-  useEffect(() => {
-    fetchGroupData()
-  }, [])
 
 
   // IMAGE UPLOAD ****************************************************************************** //
@@ -408,6 +406,25 @@ const IndividualGroup = (props) => {
     return listContinentsCountries(profile, size).length
   }
 
+  /// SCROLL POSITION ****************************************************************************** //
+
+  function handleScroll() {
+    setScroll(window.scrollY)
+  }
+
+  /// LIFE CYCLE ****************************************************************************** //
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    fetchGroupData()
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div id="group-profile">
       {/* {console.log('MEMBER DATA', members)} */}
@@ -415,7 +432,7 @@ const IndividualGroup = (props) => {
       {/* {console.log('TOWN DATA', towns)} */}
       {/* {console.log('USER STATUS', status)} */}
       {/* {console.log('editable data', editableData)} */}
-
+{console.log(scroll)}
       <MapGL
         {...viewport}
         position="absolute"
@@ -523,7 +540,7 @@ const IndividualGroup = (props) => {
                     {/* Class creates an oval. Look to change this so all propics are circles. */}
                     <img className="profilepic" src={!group.image ? 'https://bulma.io/images/placeholders/128x128.png' && profile.image : group.image} />
                   </figure>
-                  <i className="fas fa-chevron-down is-size-3 down"></i>
+                  <i className={scroll < 250 ? 'fas fa-chevron-down is-size-3 down' : 'fas fa-chevron-down is-size-3 down gone'}></i>
                 </div>
               )}
               onSuccess={handleImageUpload}

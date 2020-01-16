@@ -1025,7 +1025,13 @@ transform: rotate(180deg);
   i.down {
     margin: 10px 0;
     color: $dark-gray;
+    transition: opacity ease-in-out 2s;
+   
   }
+  i.down.gone {
+    opacity: 0;
+  }
+
 }
 
 
