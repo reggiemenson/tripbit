@@ -42,7 +42,7 @@ class LoginView(APIView):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
-            raise PermissionDenied({'message': 'Invalid credentials'})
+            raise Response({'message': 'Invalid credentials'}, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
     def post(self, request):
 
@@ -51,7 +51,7 @@ class LoginView(APIView):
 
         user = self.get_user(email)
         if not user.check_password(password):
-            raise PermissionDenied({'message': 'Invalid credentials'})
+            raise Response({'message': 'Invalid credentials'}, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
         token = jwt.encode(
             {'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
