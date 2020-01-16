@@ -278,7 +278,6 @@ const Profile = (props) => {
       // Profile not found and redirect
       .catch(() => {
         notifyError()
-        props.history.push(`/profile/${Auth.getUserId()}`)
         // setErrors(err)
       })
   }, [])
