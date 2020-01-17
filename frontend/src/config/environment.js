@@ -1,3 +1,3 @@
-const fileloaderKey = 'AXpsm5ZneR764yBNOP9CHz'
+const fileloaderKey = process.env.FILELOADERKEY
 
 module.exports = { fileloaderKey }

@@ -555,7 +555,7 @@ const IndividualGroup = (props) => {
           <div className="hero-body group-page">
             <ReactFilestack
               preload={true}
-              apikey={fileloaderKey}
+              apikey={process.env.FILELOADERKEY}
               options={options}
               customRender={({ onPick }) => (
                 <div id="profile-banner-center" onClick={onPick}>
