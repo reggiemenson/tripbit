@@ -7,6 +7,7 @@ import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
@@ -35,7 +36,9 @@ ADDITIONAL CONSIDERATIONS:
 
 const IndividualGroup = (props) => {
 
-  const notify = (message) => toast(message)
+  const notify = (message) => toast( message, {
+    progressClassName: 'toast-progress'
+  })
 
   // all the data
   const [members, setMembers] = useState([])
@@ -301,6 +304,7 @@ const IndividualGroup = (props) => {
     )
       .then(resp => {
         fetchGroupData()
+        notify('Member Approved!')
       })
       .catch(err => {
         setErrors({ ...err })
@@ -319,6 +323,7 @@ const IndividualGroup = (props) => {
       })
       .then(resp => {
         fetchGroupData()
+        notify('Member Removed')
       })
       .catch(err => {
         console.log(err)

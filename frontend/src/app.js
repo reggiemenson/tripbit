@@ -20,8 +20,9 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure({
-  autoClose: 8000,
-  draggable: false
+  autoClose: 5000,
+  draggable: false,
+  draggablePercent: 60
 })
 
 const App = () => {
