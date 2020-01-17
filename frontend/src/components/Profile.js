@@ -380,7 +380,7 @@ const Profile = (props) => {
               </div>
             </div> : <ReactFilestack
               preload={true}
-              apikey={fileloaderKey}
+              apikey={process.env.FILELOADERKEY}
               options={options}
               customRender={({ onPick }) => (
                 <div className="level-item" onClick={onPick}>
