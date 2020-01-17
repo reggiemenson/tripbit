@@ -227,7 +227,7 @@ const Navbar = ({ toggleSearch }) => {
                   <div className="upside">
                     <Link to="/city_selection" className="navbutton"><i className="fa fa-building"></i></Link>
                     {'\n'}
-                    <Link><p className="navbar-links">TEST</p></Link>
+                    <Link to='#'><p className="navbar-links">TEST</p></Link>
                   </div>
                 </div>
               </li>

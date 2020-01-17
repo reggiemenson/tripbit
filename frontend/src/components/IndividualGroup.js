@@ -7,6 +7,7 @@ import { fileloaderKey } from '../config/environment'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Mask from '../images/mask-dark-gradient.png'
 import GroupForm from './GroupForm'
@@ -35,7 +36,9 @@ ADDITIONAL CONSIDERATIONS:
 
 const IndividualGroup = (props) => {
 
-  const notify = (message) => toast(message)
+  const notify = (message) => toast( message, {
+    progressClassName: 'toast-progress'
+  })
 
   // all the data
   const [members, setMembers] = useState([])
@@ -148,7 +151,7 @@ const IndividualGroup = (props) => {
       .then(resp => {
         setGroup(resp.data)
         determineStatus(resp.data)
-        const memberData = [...members]
+        const memberData = []
         fetchMemberData(resp.data.members, memberData)
         setEditableData({
           name: resp.data.name,
@@ -301,6 +304,7 @@ const IndividualGroup = (props) => {
     )
       .then(resp => {
         fetchGroupData()
+        notify('Member Approved!')
       })
       .catch(err => {
         setErrors({ ...err })
@@ -319,6 +323,7 @@ const IndividualGroup = (props) => {
       })
       .then(resp => {
         fetchGroupData()
+        notify('Member Removed')
       })
       .catch(err => {
         console.log(err)
@@ -550,7 +555,7 @@ const IndividualGroup = (props) => {
           <div className="hero-body group-page">
             <ReactFilestack
               preload={true}
-              apikey={fileloaderKey}
+              apikey={process.env.FILELOADERKEY}
               options={options}
               customRender={({ onPick }) => (
                 <div id="profile-banner-center" onClick={onPick}>
@@ -705,7 +710,7 @@ const IndividualGroup = (props) => {
             handleMemberRemove={(e) => handleMemberRemove(e)}
           />
         </div>
-        <button className="modal-close is-large" aria-label="close" onClick={toggleSettings}></button>
+        <button className="modal-close is-large" aria-label="close" onClick={toggleMemberManagement}></button>
       </div>
 
 

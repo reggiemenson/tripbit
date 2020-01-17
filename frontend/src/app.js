@@ -20,8 +20,9 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 toast.configure({
-  autoClose: 8000,
-  draggable: false
+  autoClose: 5000,
+  draggable: false,
+  draggablePercent: 60
 })
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
       value={loginInfo}>
       <Navbar toggleSearch={toggleSearch} />
       <Switch>
+        <Redirect from='/group_route/:id' to='/groups/:id' />
         <Redirect from='/reroute/:id' to='/profile/:id' />
         <Route exact path="/" component={Hero} />
         <SecureRoute exact path="/profile/:id" component={Profile} />
