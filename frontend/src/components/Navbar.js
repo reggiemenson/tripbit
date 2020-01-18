@@ -22,7 +22,7 @@ const Navbar = ({ toggleSearch }) => {
       })
         .then(response => {
           setDexterity(response.data.dexterity)
-          // console.log('running')
+          // console.log('nav running')
         })
         .catch(error => console.log(error))
     }

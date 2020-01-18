@@ -1,3 +1,5 @@
+import django_heroku
+
 """
 Django settings for project project.
 
@@ -133,8 +135,11 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'jwt_auth.authentication.JWTAuthentication',
-        'rest_framework.authentication.BasicAuthentication'
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
 }
 
 AUTH_USER_MODEL = 'jwt_auth.User'
+
+django_heroku.settings(locals())
