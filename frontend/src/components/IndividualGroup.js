@@ -341,7 +341,7 @@ const IndividualGroup = (props) => {
       {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      .then(resp => {
+      .then(() => {
         notify(`${group.name} deleted`)
         props.history.push('/groups')
       })

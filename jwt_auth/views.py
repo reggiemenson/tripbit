@@ -2,7 +2,7 @@ from jwt_auth.serializers import UserSerializer, PopulatedUserSerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 
@@ -19,13 +19,13 @@ from .serializers import ValidateSerializer, UserSerializer, PopulatedUserSerial
 
 class RegisterView(APIView):
 
-    def get_user(self, request):
-        serializer = ValidateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'message': 'Registration successful'})
+    # def get_user(self, request):
+    #     serializer = ValidateSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response({'message': 'Registration successful'})
 
-        return Response(serializer.errors, status=422)
+    #     return Response(serializer.errors, status=422)
 
     def post(self, request):
         serializer = ValidateSerializer(data=request.data)
@@ -42,7 +42,7 @@ class LoginView(APIView):
         try:
             return User.objects.get(email=email)
         except User.DoesNotExist:
-            raise Response({'message': 'Invalid credentials'})
+            raise ValidationError({'message': 'Invalid credentials'})
 
     def post(self, request):
 
@@ -51,7 +51,7 @@ class LoginView(APIView):
 
         user = self.get_user(email)
         if not user.check_password(password):
-            raise Response({'message': 'Invalid credentials'}, status=HTTP_422_UNPROCESSABLE_ENTITY)
+            raise ValidationError({'message': 'Invalid credentials'})
 
         token = jwt.encode(
             {'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')

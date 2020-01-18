@@ -1,13 +1,6 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import Auth from '../lib/Auth'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React from 'react'
 
 const GroupForm = ({ details, errors, handleChange, handleSubmit }) => {
-  const notify = () => toast('Group Successfully Added!' ,{
-    progressClassName: 'toast-progress'
-  })
 
   return <div className=''>
     <div className='container'>

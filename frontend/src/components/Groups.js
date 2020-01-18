@@ -8,7 +8,7 @@ import GroupForm from './GroupForm'
 import { toast } from 'react-toastify'
 
 const Groups = (props) => {
-  const notify = () => toast('Group membership requested!', {
+  const notify = (message) => toast(message, {
     progressClassName: 'toast-progress'
   })
 
@@ -23,7 +23,7 @@ const Groups = (props) => {
 
 
   function fetchGroupData() {
-    axios.get('/api/groups', {
+    axios.get('/api/groups/', {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
@@ -53,11 +53,12 @@ const Groups = (props) => {
     e.preventDefault()
     const data = details
     // console.log(details)
-    axios.post('/api/groups', data, {
+    axios.post('/api/groups/', data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(resp => {
         props.history.push(`/group_route/${resp.data.id}/`)
+        notify('Group Created!')
       })
       .catch(err => {
         setDetails({ errors: 'Both name and description are required' })
@@ -76,7 +77,7 @@ const Groups = (props) => {
       .then(resp => {
         // console.log(resp)
         fetchGroupData()
-        notify()
+        notify('Membership requested!')
       })
       .catch(err => {
         console.log(err)
