@@ -44,7 +44,6 @@ const Login = ({ props }) => {
 
   return <>
     <div className='container'>
-      {console.log(login.data.email)}
       <div className='columns'>
         <div className='column has-text-centered'>
           <form className='form' onSubmit={handleSubmit}>
