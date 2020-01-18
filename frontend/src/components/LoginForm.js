@@ -33,17 +33,18 @@ const Login = ({ props }) => {
       .then(resp => {
         Auth.setToken(resp.data.token)
         notify(resp.data.message)
-        props.history.push('/profile/city_selection')
+        props.history.push('/city_selection')
         setUserLogin(resp.data)
       })
       .catch(() => {
-        setLogin({ errors: 'Email or password incorrect' })
+        setLogin({ ...login, errors: 'Email or password incorrect' })
         // console.log(err.response.data)
       })
   }
 
   return <>
     <div className='container'>
+      {console.log(login.data.email)}
       <div className='columns'>
         <div className='column has-text-centered'>
           <form className='form' onSubmit={handleSubmit}>
@@ -56,6 +57,7 @@ const Login = ({ props }) => {
                   name='email'
                   type='email'
                   placeholder='Email'
+                  value={login.data.email}
                 />
                 <span className='icon is-small is-left'>
                   <i className='fas fa-envelope'></i>
@@ -70,6 +72,7 @@ const Login = ({ props }) => {
                   className='input has-text-info'
                   type='password'
                   placeholder='Password'
+                  value={login.data.password}
                 />
                 <span className='icon is-small is-left'>
                   <i className='fas fa-lock'></i>
