@@ -1,5 +1,6 @@
 
 # TripBit
+by [Michael Adair](https://github.com/mjadair), [Kathrin Eichinger](https://github.com/katheich), [Georg Preuss](https://github.com/georgpreuss) and [Reggie Tachie-Menson](https://github.com/mr-anansi)
 
 ## Overview
 
@@ -61,7 +62,7 @@ You can launch the app on Heroku [here](https://tripbit4.herokuapp.com/), or fin
 ### Planning
 
 - On the first day we came up with the idea of the app and the wireframes for the main pages.
-Wireframe Screenshot: ![Wireframe]()
+![Wireframe](addFiles/tripbit-wireframe.png)
 
 - We also planned out the models and end points that we would need on the back-end and divided the tasks among us using Trello.
 
@@ -349,6 +350,8 @@ Wireframe Screenshot: ![Wireframe]()
 
 **Homepage/Map page**
 
+![Landing Page](addFiles/landing(desk).png)
+
 - The hompage and map page use the same svg world map. The base file was obtained from amCharts, who provided the paths of the SVG with country name labels. Based on these, the colouring could be done conditionally on these names checking against the data from the back-end, for example the path for Great Britain is the following:
 
   ```js
@@ -380,6 +383,8 @@ Wireframe Screenshot: ![Wireframe]()
 **User/Group Profiles**
 
 - The user and group profile pages largely have the same features and therefore follow the same structure.
+
+<img src="addFiles/myProfile(mobile).png" height=300px/> <img src="addFiles/groupProfile(mobile).png" height=300px/>
 
 - Both user and group profiles are largely made up of a map using React Map GL, showing all the towns that the user / group members have visited. The component calculates the midpoint of all these locations and centers the map accordingly:
 
@@ -423,11 +428,17 @@ Wireframe Screenshot: ![Wireframe]()
 
 - The 'done' button on this page is the only place where editing of towns occurs, i.e. the only place to go the `/profile/edit/all` route outlined in the back-end section above
 
+![Add Cities](addFiles/selectCities(desk).png)
+
 **Navbar**
 
 - Took the original from Zed Dash and adapted it for our purposes using pure CSS.
 
+<img src="addFiles/closedNav.png" height=150px/> <img src="addFiles/openNav.png" height=150px/>
+
 - Allow different positioning based on the dexterity the user indicated in their registration, moving the navbar to the bottom right or left corner accordingly.
+
+<img src="addFiles/erlichEdit(mobile).png" height=300px/>
 
 **Search bar**
 
@@ -538,7 +549,22 @@ Wireframe Screenshot: ![Wireframe]()
 
 ## Screenshots
 
-Additional screenshots:
+#### Additional screenshots:
+
+![Register Form](addFiles/register(desk).png)
+
+![Map Page](addFiles/travelsMap(desktop).png)
+
+![Profile badges page](addFiles/profileBadges(desk).png)
+
+![Desktop Profile](addFiles/erlich(desktop).png)
+
+![User pointers](addFiles/Bouncy-arrow-copy.gif)
+
+#### Mobile Screenshots
+
+<img src="addFiles/search(mobile).png" height=300px/> <img src="addFiles/groups(mobile).png" height=300px/>
+
 
 
 
