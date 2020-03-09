@@ -1,6 +1,6 @@
 
 # TripBit
-by [Michael Adair](https://github.com/mjadair), [Kathrin Eichinger](https://github.com/katheich), [Georg Preuss](https://github.com/georgpreuss) and [Reggie Tachie-Menson](https://github.com/mr-anansi)
+by [Michael Adair](https://github.com/mjadair), [Kathrin Eichinger](https://github.com/katheich), [Georg Preuss](https://github.com/georgpreuss) and [Reggie Tachie-Menson](https://github.com/reggiemenson)
 
 ## Overview
 
